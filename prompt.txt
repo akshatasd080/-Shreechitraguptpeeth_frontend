@@ -1,0 +1,196 @@
+🧠 Prompt for Trae AI — Home Page Redesign & Content Plan
+
+Project: Immortal Technovation — Public Home Page
+Platform: Existing web project (no new app init)
+Path: / (Root / Home page)
+UI Library: shadcn/ui components
+Animations: Framer Motion
+Theme: Dark mode primary with Blue accent palette
+Typography: Modern, clean, tech-centric (e.g., Inter / Space Grotesk)
+
+🎨 Overall Look & Feel
+
+Dark background (#0A0F1F or similar graphite)
+
+Primary accent color: electric/royal blue (#2978FF, #1E90FF)
+
+Neon glows/subtle gradients on headers or buttons
+
+Smooth Framer Motion transitions on scroll, hover, and load
+
+Glassmorphism cards for feature sections (soft blur with blue highlights)
+
+🧱 Home Page Section Outline
+1️⃣ Header Hero / Above the Fold
+
+Layout: Full screen split with text left, subtle animated AI/tech graphic right (3D orbit, data flow lines).
+Primary Heading:
+
+“Innovate • Transform • Immortalize the Digital Future.”
+Next line: AI-Powered Web & Software Development Solutions
+(Use strong keywords like “AI-driven”, “Future-ready”, “Intelligent Automation”)
+
+Subtext:
+
+We build powerful digital experiences — from scalable web apps to AI-enhanced SaaS platforms — with modern UX, secure architecture, and high performance.
+
+CTA Buttons:
+
+Primary: Get a Free AI-Ready Project Quote
+
+Secondary: Explore Services
+
+Animation Notes:
+
+Text fade-in, buttons slide from bottom
+
+Graphic has gentle floating animation
+
+2️⃣ Core Value Proposition (3 Columns)
+
+Title: Your Partner in Intelligent Digital Transformation
+Columns:
+
+AI-Infused Web Development — Smart, performant websites and apps with intuitive UX.
+
+Custom Software & Scalable Solutions — Tailor-made, secure, efficient systems.
+
+Accelerated Innovation with AI & Automation — Smart workflows, data insights, AI boosts.
+
+Each column icon + headline + short description + hover expand animation.
+
+3️⃣ Services / What We Do
+
+Grid of Services (with shadcn cards):
+
+Web App Development
+
+Custom Software Solutions
+
+AI Integration & Intelligent Automation
+
+Mobile & Cross-Platform Apps
+
+E-Commerce Platforms
+
+Cloud & DevOps Support
+
+UI/UX & Brand Experience
+
+Maintenance & Support
+
+Design:
+
+Dark cards with glowing blue borders
+
+On hover: subtle glow + Framer Motion scale
+
+Text examples (AI-powered):
+
+We build secure web applications using modern frameworks. AI insights help shape smarter UX flows.
+Custom solutions built for scale, performance, and future adaptability.
+
+💡 Emphasize use of AI in delivery: smart testing, predictive UX metrics, automated deployment, scalable backend logic.
+
+4️⃣ Why Choose Us (Stats + Proof)
+
+Headline: Built for Growth, Trusted by Innovators
+
+Interactive statistic counters:
+
+100+ Projects Delivered
+
+50% Faster Time to Market
+
+AI-Enhanced Solutions Guaranteed
+
+99.9% Uptime & Secure Systems
+
+Visual: Soft animated counters that trigger on scroll.
+
+5️⃣ Featured Works / Case Studies (Optional)
+
+Title: Projects That Inspire
+Carousel of screenshot cards with brief summary:
+
+Project name
+
+Tech used
+
+Result + measurable outcome
+(Simple text + light overlay)
+
+Animations: horizontal scroll with mouse drag + inertia.
+
+6️⃣ Testimonials
+
+Title: What Clients Say
+Design: Rotating cards with quotes, client name, role, optional avatar.
+Animation: card flip on scroll.
+
+7️⃣ Tech Stack & Partners
+
+Icons grid:
+React, Next.js, Node, Tailwind CSS, Shadcn, Framer Motion, AI APIs, Cloud Platforms (AWS/GCP), etc.
+
+Short line: We harness the latest technologies — from AI inference to scalable cloud infrastructure.
+
+8️⃣ Contact / Lead Capture
+
+Call to Action:
+
+Big form: Name, Email, Project Type, Budget (optional)
+
+Secondary CTA: Book a Discovery Call
+
+Design: Transparent glass card with glowing blue submit button.
+
+9️⃣ Footer
+
+Contents:
+
+Quick links (Services, About, Contact)
+
+Social icons with subtle hover glow
+
+Small copyright text
+
+Privacy / Terms
+
+🧠 Content Tone & Style Guidelines
+
+Warm but authoritative — like a trusted tech partner
+
+AI-first emphasis — “Empowering your business with intelligent automation, predictive analytics, and human-centric AI UX.”
+
+Use verbs like optimize, scale, automate, innovate, future-proof, intelligent
+
+Keep paragraphs short; headlines bold.
+
+📌 Specific UI/UX Instructions
+
+✅ Navigation: Sticky with dark translucent backdrop
+✅ Scroll animations: Section fade + slide
+✅ Buttons: Rounded large with blue glow on hover
+✅ Mobile: Responsive, collapsible nav with animated menu icons
+
+✨ Example Content Copy Snippets
+
+Hero Subheadline Variation:
+
+“We craft intelligent digital experiences that scale with your business — integrating AI insights, performant UX, and secure software architecture.”
+
+Service Block Copy Example:
+AI-Infused Web Development
+
+Built with intelligent workflows and data-driven features that adapt and learn with your user base.
+
+🛠 Developer Notes
+
+Ensure root / is a public route, keeping login/dashboard separate
+
+Use shadcn/ui  for ui components if needed
+
+All Framer animations should be subtle and performant
+
+Respect dark theme — with blue accents for Brand
