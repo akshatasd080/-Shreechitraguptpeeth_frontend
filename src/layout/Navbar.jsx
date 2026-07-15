@@ -9,9 +9,10 @@ import {
   Phone,
   Mail,
   MessageSquare,
+  Heart,
 } from "lucide-react";
-
-import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
 
 import {
   DropdownMenu,
@@ -23,12 +24,22 @@ import {
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     email: "",
     message: "",
   });
+
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navLinks = [
     { title: "Home", path: "/" },
@@ -119,21 +130,34 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-[999] bg-white border-b shadow-sm">
+    <header 
+      className={`sticky top-0 z-[999] transition-all duration-300 ${
+        scrolled 
+          ? "bg-white/95 backdrop-blur-xl shadow-lg border-b border-gray-100" 
+          : "bg-gradient-to-r from-orange-50 via-white to-red-50 border-b border-orange-100/50"
+      }`}
+    >
 
-      <div className="max-w-[1400px] mx-auto px-4 lg:px-6">
+      <div className="max-w-[1600px] mx-auto px-4 md:px-6 lg:px-8">
 
-        <div className="h-[72px] flex items-center justify-between">
+        <div className="h-[88px] flex items-center justify-between">
 
           {/* LOGO */}
-          <Link to="/" className="flex items-center gap-2">
-
-            <img
-              src="/logo.png"
-              alt="logo"
-              className="w-12 h-12 object-contain"
-            />
-
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-orange-500 rounded-full blur-lg opacity-30 group-hover:opacity-50 transition-opacity"></div>
+              <img
+                src="/logo.png"
+                alt="logo"
+                className="relative w-14 h-14 object-contain drop-shadow-lg"
+              />
+            </div>
+            <div className="hidden sm:block">
+              <h1 className="text-xl font-black bg-gradient-to-r from-red-600 via-orange-600 to-pink-600 bg-clip-text text-transparent leading-tight">
+                Shree Chitragupt
+              </h1>
+              <p className="text-xs font-semibold text-gray-500 tracking-wider">PEETH</p>
+            </div>
           </Link>
 
           {/* DESKTOP MENU */}
@@ -145,24 +169,28 @@ export default function Navbar() {
 
                 {item.action === "contact" ? (
 
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={() => {
                       setContactOpen(true);
                       setOpen(false);
                     }}
                     className="
-                      px-3 py-2
-                      rounded-lg
-                      text-[14px]
-                      font-medium
+                      px-4 py-2.5
+                      rounded-xl
+                      text-[15px]
+                      font-semibold
                       text-gray-700
-                      hover:text-red-500
-                      hover:bg-red-50
+                      hover:text-red-600
+                      hover:bg-gradient-to-r from-red-50 to-orange-50
                       transition-all
+                      relative
+                      overflow-hidden
                     "
                   >
-                    {item.title}
-                  </button>
+                    <span className="relative z-10">{item.title}</span>
+                  </motion.button>
 
                 ) : !item.dropdown ? (
 
@@ -170,20 +198,30 @@ export default function Navbar() {
                     to={item.path}
                     className={({ isActive }) =>
                       `
-                      px-3 py-2
-                      rounded-lg
-                      text-[14px]
-                      font-medium
+                      px-4 py-2.5
+                      rounded-xl
+                      text-[15px]
+                      font-semibold
                       transition-all
+                      relative
+                      overflow-hidden
                       ${
                         isActive
-                          ? "bg-red-500 text-white"
-                          : "text-gray-700 hover:text-red-500 hover:bg-red-50"
+                          ? "bg-gradient-to-r from-red-600 to-orange-600 text-white shadow-lg shadow-red-200"
+                          : "text-gray-700 hover:text-red-600 hover:bg-gradient-to-r from-red-50 to-orange-50"
                       }
                     `
                     }
                   >
-                    {item.title}
+                    {({ isActive }) => (
+                      <motion.span
+                        initial={false}
+                        animate={{ y: isActive ? 0 : 0 }}
+                        className="relative z-10"
+                      >
+                        {item.title}
+                      </motion.span>
+                    )}
                   </NavLink>
 
                 ) : (
@@ -192,44 +230,46 @@ export default function Navbar() {
 
                     <DropdownMenuTrigger asChild>
 
-                      <button
+                      <motion.button
+                        whileHover={{ scale: 1.02 }}
                         className="
-                          flex items-center gap-1
-                          px-3 py-2
-                          rounded-lg
-                          text-[14px]
-                          font-medium
+                          flex items-center gap-2
+                          px-4 py-2.5
+                          rounded-xl
+                          text-[15px]
+                          font-semibold
                           text-gray-700
-                          hover:text-red-500
-                          hover:bg-red-50
+                          hover:text-red-600
+                          hover:bg-gradient-to-r from-red-50 to-orange-50
                           transition-all
                           outline-none
                           border-none
                         "
                       >
-                        {item.title}
-
-                        <ChevronDown size={15} />
-                      </button>
+                        <span>{item.title}</span>
+                        <ChevronDown size={16} className="transition-transform duration-200 group-data-[state=open]:rotate-180" />
+                      </motion.button>
 
                     </DropdownMenuTrigger>
 
                     <DropdownMenuContent
                       align="start"
-                      sideOffset={10}
+                      sideOffset={12}
                       className="
                         z-[999]
-                        w-[270px]
-                        rounded-xl
+                        w-[300px]
+                        rounded-2xl
                         border
-                        border-gray-200
-                        bg-white
-                        p-2
+                        border-orange-100
+                        bg-white/98
+                        backdrop-blur-xl
+                        p-3
                         shadow-2xl
-                        backdrop-blur-none
+                        shadow-orange-100/50
                         animate-in
                         fade-in-0
                         zoom-in-95
+                        data-[side=bottom]:slide-in-from-top-2
                       "
                     >
 
@@ -240,9 +280,11 @@ export default function Navbar() {
                           asChild
                           className="
                             cursor-pointer
-                            rounded-lg
+                            rounded-xl
                             p-0
-                            focus:bg-red-50
+                            focus:bg-gradient-to-r from-red-50 to-orange-50
+                            mb-1
+                            last:mb-0
                           "
                         >
 
@@ -250,17 +292,21 @@ export default function Navbar() {
                             to={subItem.path}
                             className="
                               w-full
-                              px-3
-                              py-2.5
-                              text-[13px]
-                              font-medium
+                              px-4
+                              py-3
+                              text-[14px]
+                              font-semibold
                               text-gray-700
-                              hover:text-red-500
-                              rounded-lg
+                              hover:text-red-600
+                              rounded-xl
                               transition-all
+                              group
                             "
                           >
-                            {subItem.title}
+                            <div className="flex items-center gap-3">
+                              <div className="w-2 h-2 rounded-full bg-gradient-to-r from-red-500 to-orange-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                              {subItem.title}
+                            </div>
                           </Link>
 
                         </DropdownMenuItem>
@@ -275,168 +321,246 @@ export default function Navbar() {
           </nav>
 
           {/* RIGHT SIDE */}
-          <div className="hidden lg:flex items-center gap-2">
+          <div className="hidden lg:flex items-center gap-3">
 
-            <button
+            <motion.button
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              whileTap={{ scale: 0.9 }}
               className="
-                w-10 h-10
-                rounded-full
-                bg-red-500
+                w-12 h-12
+                rounded-2xl
+                bg-gradient-to-br from-red-500 to-orange-500
                 text-white
                 flex items-center justify-center
-                hover:scale-105
+                shadow-lg
+                shadow-red-200
+                hover:shadow-red-300
                 transition-all
               "
             >
-              <PhoneCall size={17} />
-            </button>
+              <PhoneCall size={19} />
+            </motion.button>
 
-            <button
+            <motion.button
+              whileHover={{ scale: 1.1, rotate: -5 }}
+              whileTap={{ scale: 0.9 }}
               className="
-                w-10 h-10
-                rounded-full
-                border
-                border-red-500
-                text-red-500
+                w-12 h-12
+                rounded-2xl
+                bg-gradient-to-br from-orange-500 to-pink-500
+                text-white
                 flex items-center justify-center
-                hover:bg-red-50
+                shadow-lg
+                shadow-orange-200
+                hover:shadow-orange-300
                 transition-all
               "
             >
-              <MessageCircleMore size={17} />
-            </button>
+              <MessageCircleMore size={19} />
+            </motion.button>
 
             <Link
               to="/donate"
-              className="
-                h-10
-                px-5
-                rounded-full
-                bg-red-500
-                text-white
-                text-[13px]
-                font-semibold
-                flex items-center justify-center
-                hover:bg-red-600
-                transition-all
-              "
             >
-              DONATE NOW
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="
+                  h-12
+                  px-7
+                  rounded-2xl
+                  bg-gradient-to-r from-red-600 via-orange-500 to-pink-500
+                  text-white
+                  text-[14px]
+                  font-black
+                  flex items-center justify-center
+                  gap-2
+                  shadow-2xl
+                  shadow-red-300
+                  hover:shadow-red-400
+                  hover:brightness-110
+                  transition-all
+                  relative
+                  overflow-hidden
+                  group
+                "
+              >
+                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                <span className="relative z-10 flex items-center gap-2">
+                  <Heart size={18} className="fill-current" />
+                  DONATE NOW
+                </span>
+              </motion.button>
             </Link>
           </div>
 
           {/* MOBILE BUTTON */}
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => setOpen(!open)}
             className="
               xl:hidden
-              w-10 h-10
-              rounded-lg
-              border
-              border-gray-300
+              w-12 h-12
+              rounded-2xl
+              bg-gradient-to-r from-red-500 to-orange-500
+              text-white
               flex items-center justify-center
-              bg-white
+              shadow-lg
+              shadow-red-200
             "
           >
-            {open ? <X size={22} /> : <Menu size={22} />}
-          </button>
+            {open ? <X size={24} /> : <Menu size={24} />}
+          </motion.button>
         </div>
       </div>
 
       {/* MOBILE MENU */}
-      {open && (
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="xl:hidden border-t border-orange-100 bg-white/98 backdrop-blur-xl shadow-2xl"
+          >
+            <div className="p-5 space-y-3">
 
-        <div className="xl:hidden border-t bg-white shadow-lg">
+              {navLinks.map((item, index) => (
 
-          <div className="p-4 space-y-2">
+                <motion.div
+                  key={index}
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: index * 0.05 }}
+                >
 
-            {navLinks.map((item, index) => (
+                  {item.action === "contact" ? (
 
-              <div key={index}>
-
-                {item.action === "contact" ? (
-
-                  <button
-                    onClick={() => {
-                      setContactOpen(true);
-                      setOpen(false);
-                    }}
-                    className="
-                      w-full
-                      text-left
-                      px-4
-                      py-3
-                      rounded-lg
-                      text-[14px]
-                      bg-gray-50
-                      text-gray-700
-                      hover:bg-red-50
-                      hover:text-red-500
-                    "
-                  >
-                    {item.title}
-                  </button>
-
-                ) : !item.dropdown ? (
-
-                  <NavLink
-                    to={item.path}
-                    onClick={() => setOpen(false)}
-                    className="
-                      block
-                      px-4
-                      py-3
-                      rounded-lg
-                      text-[14px]
-                      bg-gray-50
-                      text-gray-700
-                      hover:bg-red-50
-                    "
-                  >
-                    {item.title}
-                  </NavLink>
-
-                ) : (
-
-                  <div className="rounded-xl bg-gray-50 p-3">
-
-                    <div className="text-[14px] font-semibold mb-2">
+                    <motion.button
+                      whileHover={{ x: 5 }}
+                      onClick={() => {
+                        setContactOpen(true);
+                        setOpen(false);
+                      }}
+                      className="
+                        w-full
+                        text-left
+                        px-5
+                        py-4
+                        rounded-2xl
+                        text-[15px]
+                        font-bold
+                        bg-gradient-to-r from-gray-50 to-orange-50/30
+                        text-gray-800
+                        hover:from-red-50
+                        hover:to-orange-100
+                        hover:text-red-600
+                        transition-all
+                      "
+                    >
                       {item.title}
+                    </motion.button>
+
+                  ) : !item.dropdown ? (
+
+                    <NavLink
+                      to={item.path}
+                      onClick={() => setOpen(false)}
+                      className="
+                        block
+                        px-5
+                        py-4
+                        rounded-2xl
+                        text-[15px]
+                        font-bold
+                        bg-gradient-to-r from-gray-50 to-orange-50/30
+                        text-gray-800
+                        hover:from-red-50
+                        hover:to-orange-100
+                        hover:text-red-600
+                        transition-all
+                      "
+                    >
+                      {item.title}
+                    </NavLink>
+
+                  ) : (
+
+                    <div className="rounded-2xl bg-gradient-to-r from-gray-50 to-orange-50/30 p-4">
+
+                      <div className="text-[15px] font-black text-gray-800 mb-3 flex items-center gap-2">
+                        <div className="w-2 h-2 rounded-full bg-gradient-to-r from-red-500 to-orange-500"></div>
+                        {item.title}
+                      </div>
+
+                      <div className="space-y-2">
+
+                        {item.dropdown.map((subItem, subIndex) => (
+
+                          <motion.div
+                            key={subIndex}
+                            initial={{ x: -10, opacity: 0 }}
+                            animate={{ x: 0, opacity: 1 }}
+                            transition={{ delay: subIndex * 0.05 }}
+                          >
+                            <Link
+                              to={subItem.path}
+                              onClick={() => setOpen(false)}
+                              className="
+                                block
+                                px-4
+                                py-3
+                                rounded-xl
+                                bg-white
+                                text-[14px]
+                                font-semibold
+                                text-gray-700
+                                hover:bg-gradient-to-r from-red-50 to-orange-50
+                                hover:text-red-600
+                                transition-all
+                                shadow-sm
+                              "
+                            >
+                              {subItem.title}
+                            </Link>
+                          </motion.div>
+                        ))}
+
+                      </div>
                     </div>
+                  )}
+                </motion.div>
+              ))}
 
-                    <div className="space-y-1">
-
-                      {item.dropdown.map((subItem, subIndex) => (
-
-                        <Link
-                          key={subIndex}
-                          to={subItem.path}
-                          onClick={() => setOpen(false)}
-                          className="
-                            block
-                            px-3
-                            py-2.5
-                            rounded-lg
-                            bg-white
-                            text-[13px]
-                            text-gray-700
-                            hover:bg-red-50
-                            hover:text-red-500
-                            transition-all
-                          "
-                        >
-                          {subItem.title}
-                        </Link>
-                      ))}
-
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+              {/* Donate Button in Mobile Menu */}
+              <Link to="/donate" onClick={() => setOpen(false)}>
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="
+                    w-full
+                    h-14
+                    rounded-2xl
+                    bg-gradient-to-r from-red-600 via-orange-500 to-pink-500
+                    text-white
+                    text-[16px]
+                    font-black
+                    flex items-center justify-center
+                    gap-2
+                    shadow-xl
+                    shadow-red-300
+                    mt-4
+                  "
+                >
+                  <Heart size={20} className="fill-current" />
+                  DONATE NOW
+                </motion.button>
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* CONTACT DIALOG */}
       {contactOpen && (

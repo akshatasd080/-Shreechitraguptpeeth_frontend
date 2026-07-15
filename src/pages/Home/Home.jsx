@@ -412,772 +412,697 @@ export default function Home() {
       </section>
 
       {/* ================= ABOUT SECTION ================= */}
-      <section className="relative min-h-screen bg-[#f8f8f8] overflow-hidden flex items-center">
-        <div className="max-w-[1450px] mx-auto px-6 lg:px-10 w-full">
-          <div className="grid lg:grid-cols-2 gap-20 items-center">
-            {/* LEFT IMAGES */}
-            <div className="relative flex justify-center lg:justify-start">
-              {/* SMALL IMAGE */}
-              <div
-                className="
-                  absolute
-                  top-0 left-0
-                  w-[170px]
-                  h-[210px]
-                  rounded-2xl
-                  overflow-hidden
-                  border-[6px] border-white
-                  shadow-2xl
-                  z-10
-                "
-              >
-                <img
-                  src="/About/about1.jpg"
-                  alt=""
-                  className="w-full h-full object-cover"
-                />
+      <section className="relative h-screen bg-[#fafafa] overflow-hidden flex items-center">
+
+  {/* Background Pattern */}
+  <div className="absolute inset-0 bg-[url('/pattern.png')] bg-cover bg-center opacity-[0.03]" />
+
+  <div className="relative z-10 max-w-[1500px] mx-auto w-full px-6 lg:px-10">
+
+    <div className="grid lg:grid-cols-2 gap-12 xl:gap-16 items-center">
+
+      {/* LEFT IMAGE SECTION */}
+
+      <div className="relative flex justify-center">
+
+        {/* Small Top Image */}
+
+        <div className="absolute top-2 left-0 lg:left-4 w-36 h-44 rounded-2xl overflow-hidden border-4 border-white shadow-xl z-20">
+
+          <img
+            src="/About/about1.jpg"
+            alt=""
+            className="w-full h-full object-cover"
+          />
+
+        </div>
+
+        {/* Main Image */}
+
+        <div className="relative mt-10 w-full max-w-[470px] h-[540px] rounded-[28px] overflow-hidden shadow-2xl border-[6px] border-white">
+
+          <img
+            src="/posts/post4.jpg"
+            alt=""
+            className="w-full h-full object-cover"
+          />
+
+          {/* Floating Image */}
+
+          <div className="absolute bottom-5 right-5 w-32 h-40 rounded-2xl overflow-hidden border-4 border-white shadow-xl">
+
+            <img
+              src="/About/about3.jpg"
+              alt=""
+              className="w-full h-full object-cover"
+            />
+
+          </div>
+
+        </div>
+
+      </div>
+
+      {/* RIGHT CONTENT */}
+
+      <div>
+
+        {/* Heading */}
+
+        <div className="flex items-center gap-3 mb-4">
+
+          <div className="w-10 h-[2px] bg-red-500" />
+
+          <span className="uppercase tracking-[4px] text-red-500 font-bold text-sm">
+            About Us
+          </span>
+
+        </div>
+
+        <h2 className="text-4xl xl:text-5xl font-black text-red-600 leading-tight">
+
+          श्री चित्रगुप्त पीठ की स्थापना
+
+        </h2>
+
+        <p className="mt-5 text-gray-600 text-[17px] leading-8">
+
+          समस्त प्राणियों को उनके कर्मों के आधार पर फल देने वाले देवता
+          ब्रह्मा लेखनी दाता भगवान श्री चित्रगुप्त की महिमा धार्मिक
+          ग्रंथों में वर्णित है। यह पवित्र पीठ आध्यात्मिक चेतना,
+          सेवा एवं संस्कृति के संरक्षण के लिए समर्पित है।
+
+        </p>
+
+        {/* Features */}
+
+        <div className="grid grid-cols-2 gap-x-8 gap-y-4 mt-8">
+
+          {features.map((item, index) => (
+
+            <div
+              key={index}
+              className="flex items-center gap-3"
+            >
+
+              <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center">
+
+                <Check size={18} className="text-red-500" />
+
               </div>
 
-              {/* MAIN IMAGE */}
-              <div
-                className="
-                  relative
-                  mt-16
-                  w-full
-                  max-w-[520px]
-                  h-[620px]
-                  rounded-[30px]
-                  overflow-hidden
-                  border-[8px] border-white
-                  shadow-2xl
-                "
-              >
-                <img
-                  src="/posts/post4.jpg"
-                  alt=""
-                  className="
-                    w-full h-full object-cover
-                  "
-                />
+              <p className="text-gray-800 font-semibold text-[15px]">
 
-                {/* FLOATING */}
-                <div
-                  className="
-                    absolute
-                    bottom-6 right-6
-                    w-[130px]
-                    h-[170px]
-                    rounded-2xl
-                    overflow-hidden
-                    border-4 border-white
-                    shadow-2xl
-                  "
-                >
-                  <img
-                    src="/About/about3.jpg"
-                    alt=""
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
-            </div>
+                {item}
 
-            {/* RIGHT CONTENT */}
-            <div>
-              {/* TOP */}
-              <div className="flex items-center gap-4 mb-5">
-                <div className="w-12 h-[2px] bg-red-500" />
-
-                <p
-                  className="
-                    uppercase
-                    text-red-500
-                    font-bold
-                    tracking-[3px]
-                  "
-                >
-                  About Us
-                </p>
-              </div>
-
-              {/* TITLE */}
-              <h2
-                className="
-                  text-4xl
-                  md:text-5xl
-                  font-black
-                  text-red-500
-                  leading-tight
-                "
-              >
-                श्री चित्रगुप्त पीठ की स्थापना
-              </h2>
-
-              {/* TEXT */}
-              <p
-                className="
-                  mt-8
-                  text-lg
-                  leading-[2]
-                  text-gray-700
-                "
-              >
-                समस्त प्राणियों को उनके कर्मों के आधार पर फल देने वाले देवता
-                ब्रह्मा लेखनी दाता भगवान श्री चित्रगुप्त की महिमा धार्मिक
-                ग्रंथों में वर्णित है।
               </p>
 
-              {/* FEATURES */}
-              <div className="grid md:grid-cols-2 gap-5 mt-12">
-                {features.map((item, index) => (
-                  <div
-                    key={index}
-                    className="
-                      flex items-center gap-4
-                    "
-                  >
-                    <div
-                      className="
-                        w-12 h-12
-                        rounded-full
-                        bg-white
-                        shadow-md
-                        flex items-center justify-center
-                      "
-                    >
-                      <Check size={22} className="text-red-500" />
-                    </div>
-
-                    <p
-                      className="
-                        text-lg
-                        font-semibold
-                        text-gray-800
-                      "
-                    >
-                      {item}
-                    </p>
-                  </div>
-                ))}
-              </div>
-
-              {/* BUTTON */}
-              <button
-                className="
-                  mt-12
-                  bg-red-500
-                  hover:bg-red-600
-                  text-white
-                  px-8 py-4
-                  rounded-full
-                  flex items-center gap-3
-                  font-bold
-                  text-lg
-                  transition-all
-                "
-              >
-                KNOW MORE
-                <ArrowRight size={22} />
-              </button>
             </div>
-          </div>
-        </div>
-      </section>
 
-      <section className="min-h-screen bg-[#f8f8f8] overflow-hidden relative flex items-center">
-        {/* BACKGROUND */}
+          ))}
+
+        </div>
+
+        {/* Button */}
+
+        <button
+          className="
+            mt-8
+            px-8
+            h-14
+            rounded-full
+            bg-gradient-to-r
+            from-red-500
+            to-red-600
+            hover:from-red-600
+            hover:to-red-700
+            text-white
+            font-semibold
+            flex
+            items-center
+            gap-3
+            transition-all
+            duration-300
+            shadow-lg
+            hover:shadow-xl
+            hover:scale-[1.02]
+          "
+        >
+
+          KNOW MORE
+
+          <ArrowRight size={20} />
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section className="relative min-h-screen bg-[#fafafa] py-16 lg:py-20 overflow-hidden">
+
+  {/* Background */}
+  <div
+    className="
+      absolute inset-0
+      opacity-[0.03]
+      bg-[url('/pattern.png')]
+      bg-cover
+      bg-center
+    "
+  />
+
+  <div className="relative z-10 max-w-[1650px] mx-auto px-5 lg:px-10">
+
+    {/* Heading */}
+
+    <div className="text-center mb-12">
+
+      <div className="flex items-center justify-center gap-3 mb-4">
+        <span className="text-red-500 text-2xl">ॐ</span>
+
+        <p className="uppercase tracking-[5px] text-red-500 font-bold text-sm">
+          Online Pooja Booking
+        </p>
+
+        <span className="text-red-500 text-2xl">ॐ</span>
+      </div>
+
+      <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-gray-900">
+        Book Your Sacred Pooja
+      </h2>
+
+      <p className="mt-5 max-w-3xl mx-auto text-gray-600 text-lg leading-8">
+        Participate in divine poojas and spiritual rituals online with
+        blessings from our temple priests.
+      </p>
+
+    </div>
+
+    {/* Cards */}
+
+    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
+
+      {poojas.map((item, index) => (
 
         <div
+          key={index}
           className="
-          absolute
-          inset-0
-          opacity-[0.03]
-          bg-[url('/pattern.png')]
-          bg-cover
-          bg-center
+            bg-white
+            rounded-3xl
+            overflow-hidden
+            border
+            border-gray-100
+            shadow-lg
+            hover:shadow-2xl
+            hover:-translate-y-2
+            transition-all
+            duration-500
+            flex
+            flex-col
+            h-full
+            group
+          "
+        >
+
+          {/* Image */}
+
+          <div className="relative overflow-hidden">
+
+            <img
+              src={item.image}
+              alt={item.title}
+              className="
+                w-full
+                h-56
+                object-cover
+                group-hover:scale-110
+                duration-700
+              "
+            />
+
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
+
+          </div>
+
+          {/* Content */}
+
+          {/* CONTENT */}
+
+<div className="p-5 flex flex-col h-full">
+
+  {/* Title */}
+
+  <h3 className="text-2xl font-bold text-red-600 mb-2">
+    {item.title}
+  </h3>
+
+  {/* Description */}
+
+  <p className="text-gray-600 text-[15px] leading-7 mb-5">
+    {item.desc}
+  </p>
+
+  {/* Info */}
+
+  <div className="space-y-3 mb-5">
+
+    <div className="flex items-center gap-3">
+
+      <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center">
+        <Calendar size={18} className="text-red-500" />
+      </div>
+
+      <span className="font-semibold text-gray-700">
+        {item.time}
+      </span>
+
+    </div>
+
+    <div className="flex items-center gap-3">
+
+      <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center">
+        <Clock3 size={18} className="text-red-500" />
+      </div>
+
+      <span className="font-semibold text-gray-700">
+        {item.duration}
+      </span>
+
+    </div>
+
+  </div>
+
+  {/* Button */}
+
+  <Dialog>
+
+    <DialogTrigger asChild>
+
+      <button
+        className="
+          w-full
+          h-14
+          rounded-full
+          bg-red-500
+          hover:bg-red-600
+          text-white
+          font-semibold
+          flex
+          items-center
+          justify-center
+          gap-2
+          transition-all
+          group/btn
         "
+      >
+        Book Pooja
+
+        <ArrowRight
+          size={18}
+          className="group-hover/btn:translate-x-1 duration-300"
         />
 
-        <div className="max-w-[1500px] mx-auto px-6 lg:px-10 relative z-10 w-full">
-          {/* TOP HEADING */}
+      </button>
 
-          <div className="text-center mb-16">
-            <div className="flex items-center justify-center gap-3 mb-5">
-              <span className="text-red-500 text-2xl">ॐ</span>
+    </DialogTrigger>
 
-              <p
-                className="
-                uppercase
-                text-red-500
-                font-bold
-                tracking-[4px]
-              "
-              >
-                Online Pooja Booking
-              </p>
-
-              <span className="text-red-500 text-2xl">ॐ</span>
-            </div>
-
-            <h2
-              className="
-              text-4xl
-              md:text-6xl
-              font-black
-              text-gray-900
-            "
-            >
-              Book Your Sacred Pooja
-            </h2>
-
-            <p
-              className="
-              mt-6
-              text-gray-600
-              text-lg
-              max-w-3xl
-              mx-auto
-              leading-[2]
-            "
-            >
-              Participate in divine poojas and spiritual rituals online with
-              blessings from our temple priests.
-            </p>
-          </div>
-
-          {/* POOJA GRID */}
-
-          <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-8">
-            {poojas.map((item, index) => (
-              <div
-                key={index}
-                className="
-                bg-white
-                rounded-[30px]
-                overflow-hidden
-                shadow-xl
-                hover:-translate-y-3
-                hover:shadow-2xl
-                transition-all duration-500
-                group
-              "
-              >
-                {/* IMAGE */}
-
-                <div className="overflow-hidden relative">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="
-                    w-full
-                    h-[280px]
-                    object-cover
-                    group-hover:scale-110
-                    transition-all duration-700
-                  "
-                  />
-
-                  {/* OVERLAY */}
-
-                  <div
-                    className="
-                    absolute
-                    inset-0
-                    bg-gradient-to-t
-                    from-black/50
-                    to-transparent
-                  "
-                  />
-                </div>
-
-                {/* CONTENT */}
-
-                <div className="p-7">
-                  {/* TITLE */}
-
-                  <h3
-                    className="
-                    text-3xl
-                    font-black
-                    text-red-500
-                    leading-snug
-                  "
-                  >
-                    {item.title}
-                  </h3>
-
-                  {/* DESCRIPTION */}
-
-                  <p
-                    className="
-                    mt-5
-                    text-gray-700
-                    leading-[2]
-                    min-h-[120px]
-                  "
-                  >
-                    {item.desc}
-                  </p>
-
-                  {/* INFO */}
-
-                  <div className="space-y-4 mt-6">
-                    <div className="flex items-center gap-3">
-                      <Calendar size={20} className="text-red-500" />
-
-                      <span className="font-semibold text-gray-700">
-                        {item.time}
-                      </span>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                      <Clock3 size={20} className="text-red-500" />
-
-                      <span className="font-semibold text-gray-700">
-                        {item.duration}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* BUTTON */}
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <button
-                        className="
-        mt-8
-        w-full
-        bg-red-500
-        hover:bg-red-600
-        text-white
-        py-4
-        rounded-full
-        font-bold
-        text-lg
-        flex
-        items-center
-        justify-center
-        gap-3
-        transition-all
-        group/btn
+    <DialogContent
+      className="
+        w-[95vw]
+        max-w-6xl
+        rounded-3xl
+        p-0
+        border-0
+        max-h-[90vh]
+        overflow-y-auto
       "
-                      >
-                        Book Pooja
-                        <ArrowRight
-                          size={20}
-                          className="
-          group-hover/btn:translate-x-1
-          transition-all
-        "
-                        />
-                      </button>
-                    </DialogTrigger>
+    >
+      <PoojaBookingDialog poojaName={item.title} />
+    </DialogContent>
 
-                    <DialogContent
-                      className="
-      w-[95vw]
-      max-w-6xl
-      sm:max-w-6xl
-      p-0
-      overflow-hidden
-      rounded-[35px]
-      border-0
-      max-h-[90vh]
-      overflow-y-auto
-    "
-                      showCloseButton={true}
-                    >
-                      <PoojaBookingDialog poojaName={item.title} />
-                    </DialogContent>
-                  </Dialog>
-                </div>
-              </div>
-            ))}
-          </div>
+  </Dialog>
+
+</div>
+
         </div>
-      </section>
+
+      ))}
+
+    </div>
+
+  </div>
+
+</section>
 
     
 
-      <section className="min-h-screen bg-[#f8f8f8] relative overflow-hidden flex items-center">
-        <div className="max-w-[1500px] mx-auto px-6 lg:px-10 w-full">
-          {/* TOP HEADING */}
+     <section className="relative min-h-screen bg-[#fafafa] py-16 lg:py-20 overflow-hidden">
 
-          <div className="text-center mb-16">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="w-10 h-[2px] bg-red-500" />
+  {/* Background */}
 
-              <p
-                className="
-                uppercase
-                text-red-500
-                font-bold
-                tracking-[3px]
-              "
-              >
-                Donate Us To Help
-              </p>
+  <div className="absolute inset-0 bg-[url('/pattern.png')] bg-cover bg-center opacity-[0.03]" />
 
-              <div className="w-10 h-[2px] bg-red-500" />
-            </div>
+  <div className="relative z-10 max-w-[1600px] mx-auto px-5 lg:px-10">
 
-            <h2
-              className="
-              text-4xl
-              md:text-5xl
-              font-black
-              text-gray-900
-            "
-            >
-              Support Temple Projects
-            </h2>
+    {/* Heading */}
+
+    <div className="text-center mb-12">
+
+      <div className="flex items-center justify-center gap-3 mb-3">
+
+        <div className="w-12 h-[2px] bg-red-500" />
+
+        <span className="uppercase tracking-[5px] text-red-500 font-bold text-sm">
+          Donate Us To Help
+        </span>
+
+        <div className="w-12 h-[2px] bg-red-500" />
+
+      </div>
+
+      <h2 className="text-4xl lg:text-5xl font-black text-gray-900">
+        Support Temple Projects
+      </h2>
+
+      <p className="mt-4 max-w-3xl mx-auto text-gray-600 leading-7">
+        Every contribution helps preserve our sacred traditions,
+        maintain the temple, and support charitable activities.
+      </p>
+
+    </div>
+
+    {/* Cards */}
+
+    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+  {donations.map((item, index) => (
+    <div
+      key={index}
+      className="
+        bg-white
+        rounded-2xl
+        overflow-hidden
+        shadow-md
+        hover:shadow-xl
+        transition-all
+        duration-300
+        hover:-translate-y-1
+        border
+        border-gray-100
+        flex
+        flex-col
+        group
+      "
+    >
+      {/* Image */}
+      <div className="relative overflow-hidden">
+        <img
+          src={item.image}
+          alt={item.title}
+          className="
+            w-full
+            h-36
+            object-cover
+            group-hover:scale-105
+            duration-500
+          "
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+      </div>
+
+      {/* Content */}
+      <div className="flex flex-col flex-1 p-4">
+        <h3 className="text-lg font-bold text-red-600 mb-2 leading-snug">
+          {item.title}
+        </h3>
+
+        <p className="text-gray-600 text-sm leading-6 line-clamp-3">
+          {item.desc}
+        </p>
+
+        {/* Progress */}
+        <div className="mt-4">
+          <div className="flex justify-between text-xs font-medium mb-2">
+            <span>Raised</span>
+            <span>90%</span>
           </div>
 
-          {/* CARDS */}
+          <div className="w-full h-1.5 rounded-full bg-gray-200 overflow-hidden">
+            <div className="h-full w-[90%] bg-red-500 rounded-full" />
+          </div>
+        </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {donations.map((item, index) => (
-              <div
-                key={index}
-                className="
+        {/* Button */}
+        <button
+          className="
+            mt-4
+            w-full
+            h-10
+            rounded-full
+            bg-gradient-to-r
+            from-red-500
+            to-red-600
+            hover:from-red-600
+            hover:to-red-700
+            text-white
+            text-sm
+            font-semibold
+            flex
+            items-center
+            justify-center
+            gap-2
+            transition-all
+            duration-300
+            shadow
+          "
+        >
+          DONATE NOW
+          <ArrowRight size={16} />
+        </button>
+      </div>
+    </div>
+  ))}
+</div>
+
+    {/* Scroll Top */}
+
+    <div className="flex justify-center mt-12">
+
+      <button
+        onClick={() =>
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          })
+        }
+        className="
+          w-14
+          h-14
+          rounded-full
+          bg-white
+          border
+          border-red-200
+          text-red-500
+          shadow-lg
+          hover:bg-red-500
+          hover:text-white
+          transition-all
+          duration-300
+          hover:scale-110
+        "
+      >
+
+        ↑
+
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+     <section className="relative bg-[#fafafa] py-16 lg:py-20 overflow-hidden">
+
+  <div className="absolute inset-0 bg-[url('/pattern.png')] bg-cover bg-center opacity-[0.03]" />
+
+  <div className="relative z-10 max-w-[1600px] mx-auto px-5 lg:px-10">
+
+    <div className="grid lg:grid-cols-12 gap-10 items-center">
+
+      {/* LEFT */}
+
+      <div className="lg:col-span-4">
+
+        <div className="flex items-center gap-3 mb-4">
+
+          <div className="w-10 h-[2px] bg-red-500"></div>
+
+          <span className="uppercase tracking-[4px] text-red-500 font-bold text-sm">
+            Volunteers
+          </span>
+
+        </div>
+
+        <h2 className="text-4xl xl:text-5xl font-black text-gray-900 leading-tight">
+
+          Our Volunteers Achievements
+
+        </h2>
+
+        <p className="mt-5 text-gray-600 leading-8 text-[16px] border-l-4 border-red-500 pl-5">
+
+          We are a Hindu organization dedicated to preserving traditions,
+          serving society, and spreading the teachings of Lord Rama and
+          Lord Vishnu through devotion and community service.
+
+        </p>
+
+        <div className="mt-8">
+
+          <h3 className="text-2xl font-bold text-red-600">
+
+            श्री चित्रगुप्त पीठ आश्रयशाला
+
+          </h3>
+
+          <p className="mt-3 text-gray-600 leading-8">
+
+            श्री चित्रगुप्त पीठ आश्रयशाला का कार्यक्रम दिनांक 22 अप्रैल
+            2023 अक्षय तृतीया के शुभ अवसर पर सम्पन्न हुआ।
+
+          </p>
+
+        </div>
+
+        <button className="mt-8 h-12 px-8 rounded-full bg-red-500 hover:bg-red-600 text-white font-semibold transition-all">
+
+          View All Volunteers
+
+        </button>
+
+      </div>
+
+      {/* RIGHT */}
+
+      <div className="lg:col-span-8">
+
+        <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-5">
+
+          {volunteers.map((item, index) => (
+
+            <div
+              key={index}
+              className="
                 bg-white
-                rounded-[24px]
+                rounded-3xl
                 overflow-hidden
                 shadow-lg
-                hover:shadow-2xl
-                transition-all duration-500
+                border
+                border-gray-100
                 hover:-translate-y-2
+                hover:shadow-2xl
+                duration-500
                 group
               "
-              >
-                {/* IMAGE */}
+            >
 
-                <div className="overflow-hidden h-[240px]">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="
+              {/* Image */}
+
+              <div className="relative overflow-hidden">
+
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="
                     w-full
-                    h-full
+                    h-64
                     object-cover
                     group-hover:scale-110
-                    transition-all duration-700
+                    duration-700
                   "
-                  />
-                </div>
+                />
 
-                {/* CONTENT */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
 
-                <div className="p-6">
-                  {/* TITLE */}
-
-                  <h3
-                    className="
-                    text-2xl
-                    font-black
-                    text-red-500
-                    leading-snug
-                  "
-                  >
-                    {item.title}
-                  </h3>
-
-                  {/* DESCRIPTION */}
-
-                  <p
-                    className="
-                    mt-5
-                    text-gray-700
-                    leading-[2]
-                    text-[16px]
-                    min-h-[110px]
-                  "
-                  >
-                    {item.desc}
-                  </p>
-
-                  {/* LINE */}
-
-                  <div className="w-full h-[4px] bg-gray-100 mt-6 rounded-full overflow-hidden">
-                    <div className="w-[90%] h-full bg-red-500" />
-                  </div>
-
-                  {/* BUTTON */}
-
-                  <button
-                    className="
-                    mt-8
-                    bg-red-500
-                    hover:bg-red-600
-                    text-white
-                    px-7
-                    py-4
+                <button
+                  className="
+                    absolute
+                    top-4
+                    right-4
+                    w-11
+                    h-11
                     rounded-full
-                    font-bold
-                    flex items-center
-                    gap-3
-                    transition-all
-                    group/btn
-                  "
-                  >
-                    DONATE NOW
-                    <ArrowRight
-                      size={20}
-                      className="
-                      group-hover/btn:translate-x-1
-                      transition-all
-                    "
-                    />
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* SCROLL TOP */}
-
-          <div className="flex justify-center mt-16">
-            <button
-              onClick={() =>
-                window.scrollTo({
-                  top: 0,
-                  behavior: "smooth",
-                })
-              }
-              className="
-              w-16
-              h-16
-              rounded-full
-              border-2
-              border-red-300
-              text-red-500
-              hover:bg-red-500
-              hover:text-white
-              transition-all
-              flex items-center
-              justify-center
-              shadow-lg
-            "
-            >
-              ↑
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <section className="min-h-screen bg-[#f8f8f8] overflow-hidden relative flex items-center">
-        <div className="max-w-[1500px] mx-auto px-6 lg:px-10 w-full">
-          <div className="grid lg:grid-cols-12 gap-10 items-start">
-            {/* LEFT CONTENT */}
-
-            <div className="lg:col-span-4">
-              {/* TOP TAG */}
-
-              <div className="flex items-center gap-3 mb-5">
-                <span className="text-red-500 text-2xl">ॐ</span>
-
-                <p
-                  className="
-                  uppercase
-                  text-red-500
-                  font-bold
-                  tracking-[3px]
-                "
-                >
-                  Volunteers
-                </p>
-              </div>
-
-              {/* HEADING */}
-
-              <h2
-                className="
-                text-4xl
-                md:text-5xl
-                font-black
-                text-red-500
-                leading-tight
-              "
-              >
-                Our Volunteers Achievements
-              </h2>
-
-              {/* DESCRIPTION */}
-
-              <div className="flex gap-5 mt-10">
-                {/* RED LINE */}
-
-                <div className="w-[4px] bg-red-500 rounded-full" />
-
-                <p
-                  className="
-                  text-gray-700
-                  text-lg
-                  leading-[2]
-                "
-                >
-                  We are a Hindu that believes in Lord Rama and Vishnu Devu the
-                  followers and We are a Hindu that believes in Lord Rama and
-                  Vishnu Deva.
-                </p>
-              </div>
-
-              {/* SUB CONTENT */}
-
-              <div className="mt-10">
-                <h3
-                  className="
-                  text-2xl
-                  font-black
-                  text-red-500
-                "
-                >
-                  श्री चित्रगुप्त पीठ आश्रयशाला
-                </h3>
-
-                <p
-                  className="
-                  mt-5
-                  text-gray-700
-                  leading-[2]
-                  text-lg
-                "
-                >
-                  श्री चित्रगुप्त पीठ आश्रयशाला का कार्यक्रम दिनांक 22 अप्रैल
-                  2023 अक्षय तृतीया के शुभ अवसर पर समस्त संत जगत एवं चित्रांश
-                  बंधुओं की उपस्थिति में सम्पन्न हुआ।
-                </p>
-              </div>
-
-              {/* BOTTOM LINE */}
-
-              <div className="flex items-center gap-4 mt-14">
-                <div className="w-16 h-[5px] bg-gray-200 rounded-full overflow-hidden">
-                  <div className="w-10 h-full bg-red-500" />
-                </div>
-
-                <div className="w-10 h-[5px] bg-gray-200 rounded-full" />
-              </div>
-            </div>
-
-            {/* RIGHT CARDS */}
-
-            <div className="lg:col-span-8">
-              <div className="grid md:grid-cols-3 gap-8">
-                {volunteers.map((item, index) => (
-                  <div
-                    key={index}
-                    className="
                     bg-white
                     shadow-lg
-                    overflow-hidden
-                    group
-                    hover:-translate-y-2
-                    transition-all duration-500
+                    flex
+                    items-center
+                    justify-center
+                    text-red-500
+                    hover:bg-red-500
+                    hover:text-white
+                    duration-300
                   "
-                  >
-                    {/* IMAGE */}
+                >
+                  <Plus size={18} />
+                </button>
 
-                    <div className="relative overflow-hidden">
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="
-                        w-full
-                        h-[330px]
-                        object-cover
-                        group-hover:scale-110
-                        transition-all duration-700
-                      "
-                      />
-
-                      {/* PLUS ICON */}
-
-                      <button
-                        className="
-                        absolute
-                        top-4
-                        right-4
-                        w-12
-                        h-12
-                        bg-white
-                        text-red-500
-                        hover:bg-red-500
-                        hover:text-white
-                        transition-all
-                        flex items-center
-                        justify-center
-                        shadow-lg
-                      "
-                      >
-                        <Plus size={22} />
-                      </button>
-                    </div>
-
-                    {/* CONTENT */}
-
-                    <div className="p-6 text-center">
-                      {/* NAME */}
-
-                      <h3
-                        className="
-                        text-xl
-                        font-black
-                        text-red-500
-                        leading-snug
-                      "
-                      >
-                        {item.name}
-                      </h3>
-
-                      {/* ROLE */}
-
-                      <p
-                        className="
-                        mt-4
-                        text-gray-700
-                        leading-[1.8]
-                        text-[15px]
-                        font-medium
-                      "
-                      >
-                        {item.role}
-                      </p>
-
-                      {/* DESCRIPTION */}
-
-                      <p
-                        className="
-                        mt-3
-                        text-red-500
-                        leading-[1.8]
-                        text-[15px]
-                        font-semibold
-                      "
-                      >
-                        {item.desc}
-                      </p>
-
-                      {/* MOBILE */}
-
-                      {item.mobile && (
-                        <p
-                          className="
-                          mt-5
-                          text-red-500
-                          font-black
-                        "
-                        >
-                          {item.mobile}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                ))}
               </div>
+
+              {/* Content */}
+
+              <div className="p-5 text-center">
+
+                <h3 className="text-xl font-bold text-gray-900">
+
+                  {item.name}
+
+                </h3>
+
+                <p className="mt-2 text-red-500 font-semibold text-sm">
+
+                  {item.role}
+
+                </p>
+
+                <p className="mt-3 text-gray-600 leading-7 text-[14px]">
+
+                  {item.desc}
+
+                </p>
+
+                {item.mobile && (
+
+                  <div className="mt-5 inline-flex items-center px-4 py-2 rounded-full bg-red-50 text-red-600 font-semibold text-sm">
+
+                    📞 {item.mobile}
+
+                  </div>
+
+                )}
+
+              </div>
+
             </div>
-          </div>
+
+          ))}
+
         </div>
-      </section>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
 
       <section className="min-h-screen bg-[#f8f8f8] overflow-hidden flex items-center">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10 w-full">
@@ -1305,170 +1230,178 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="min-h-screen bg-[#f8f8f8] overflow-hidden relative flex items-center">
-        {/* BACKGROUND SHAPE */}
+     <section className="relative min-h-screen bg-[#fafafa] flex items-center py-10 overflow-hidden">
+
+  {/* Background */}
+  <div className="absolute inset-0 bg-[url('/pattern.png')] bg-cover bg-center opacity-[0.03]" />
+
+  <div className="relative z-10 max-w-[1600px] mx-auto px-5 lg:px-8 w-full">
+
+    {/* Heading */}
+
+    <div className="text-center mb-10">
+
+      <div className="flex items-center justify-center gap-3 mb-3">
+
+        <div className="w-10 h-[2px] bg-red-500" />
+
+        <span className="uppercase tracking-[5px] text-red-500 font-bold text-sm">
+          Photo Gallery
+        </span>
+
+        <div className="w-10 h-[2px] bg-red-500" />
+
+      </div>
+
+      <h2 className="text-3xl md:text-4xl xl:text-5xl font-black text-gray-900">
+        Temple Memories
+      </h2>
+
+      <p className="mt-3 text-gray-600 max-w-2xl mx-auto leading-7">
+        Explore the memorable moments of Shri Chitragupt Peeth events,
+        celebrations and spiritual activities.
+      </p>
+
+    </div>
+
+    {/* Gallery */}
+
+    <div className="grid lg:grid-cols-2 gap-6">
+
+      {gallery.map((item, index) => (
 
         <div
+          key={index}
           className="
-          absolute
-          inset-0
-          opacity-[0.04]
-          bg-[url('/pattern.png')]
-          bg-center
-          bg-cover
-        "
-        />
+            bg-white
+            rounded-3xl
+            overflow-hidden
+            shadow-lg
+            border
+            border-gray-100
+            hover:-translate-y-2
+            hover:shadow-2xl
+            transition-all
+            duration-500
+            group
+          "
+        >
 
-        <div className="max-w-[1500px] mx-auto px-6 lg:px-10 relative z-10 w-full">
-          {/* TOP HEADING */}
+          {/* Image */}
 
-          <div className="text-center mb-16">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <span className="text-red-500 text-xl">ॐ</span>
+          <div className="relative overflow-hidden">
 
-              <p
-                className="
-                uppercase
-                text-red-500
-                font-bold
-                tracking-[3px]
+            <img
+              src={item.image}
+              alt={item.title}
+              className="
+                w-full
+                h-[320px]
+                object-cover
+                group-hover:scale-105
+                transition-transform
+                duration-700
               "
-              >
-                Photo Gallery
+            />
+
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+
+          </div>
+
+          {/* Content */}
+
+          <div className="flex items-center justify-between p-5">
+
+            <div>
+
+              <h3 className="text-xl font-bold text-gray-900">
+                {item.title}
+              </h3>
+
+              <p className="text-sm text-gray-500 mt-1">
+                View Gallery
               </p>
 
-              <span className="text-red-500 text-xl">ॐ</span>
             </div>
 
-            <h2
+            <button
               className="
-              text-4xl
-              md:text-5xl
-              font-black
-              text-red-500
-            "
-            >
-              Memories [View All]
-            </h2>
-          </div>
-
-          {/* GALLERY GRID */}
-
-          <div className="grid lg:grid-cols-2 gap-10">
-            {gallery.map((item, index) => (
-              <div
-                key={index}
-                className="
-                bg-white
-                shadow-xl
-                overflow-hidden
-                group
-                hover:-translate-y-2
-                transition-all duration-500
+                w-11
+                h-11
+                rounded-full
+                bg-red-50
+                text-red-500
+                hover:bg-red-500
+                hover:text-white
+                transition-all
+                flex
+                items-center
+                justify-center
+                shadow-md
               "
-              >
-                {/* IMAGE */}
-
-                <div className="overflow-hidden">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="
-                    w-full
-                    h-[520px]
-                    object-cover
-                    group-hover:scale-105
-                    transition-all duration-700
-                  "
-                  />
-                </div>
-
-                {/* CONTENT */}
-
-                <div
-                  className="
-                  flex
-                  items-center
-                  justify-between
-                  px-8
-                  py-7
-                "
-                >
-                  <h3
-                    className="
-                    text-2xl
-                    font-black
-                    text-red-500
-                  "
-                  >
-                    {item.title}
-                  </h3>
-
-                  <button
-                    className="
-                    w-12
-                    h-12
-                    rounded-full
-                    bg-red-50
-                    hover:bg-red-500
-                    text-red-500
-                    hover:text-white
-                    flex
-                    items-center
-                    justify-center
-                    transition-all
-                  "
-                  >
-                    <ArrowRight size={22} />
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* BOTTOM BUTTONS */}
-
-          <div className="flex items-center justify-center gap-5 mt-16">
-            <button
-              className="
-              w-16
-              h-16
-              rounded-full
-              bg-white
-              hover:bg-red-500
-              hover:text-white
-              text-red-500
-              shadow-xl
-              flex
-              items-center
-              justify-center
-              transition-all
-            "
             >
-              <ChevronLeft size={28} />
+
+              <ArrowRight size={18} />
+
             </button>
 
-            <button
-              className="
-              w-16
-              h-16
-              rounded-full
-              bg-white
-              hover:bg-red-500
-              hover:text-white
-              text-red-500
-              shadow-xl
-              flex
-              items-center
-              justify-center
-              transition-all
-            "
-            >
-              <ChevronRight size={28} />
-            </button>
           </div>
+
         </div>
-      </section>
+
+      ))}
+
+    </div>
+
+    {/* Bottom Navigation */}
+
+    <div className="flex justify-center gap-4 mt-10">
+
+      <button
+        className="
+          w-12
+          h-12
+          rounded-full
+          bg-white
+          border
+          border-red-200
+          text-red-500
+          shadow-md
+          hover:bg-red-500
+          hover:text-white
+          transition-all
+        "
+      >
+
+        <ChevronLeft size={22} />
+
+      </button>
+
+      <button
+        className="
+          w-12
+          h-12
+          rounded-full
+          bg-white
+          border
+          border-red-200
+          text-red-500
+          shadow-md
+          hover:bg-red-500
+          hover:text-white
+          transition-all
+        "
+      >
+
+        <ChevronRight size={22} />
+
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
 
       <section
         className="
