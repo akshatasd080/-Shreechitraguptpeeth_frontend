@@ -27,18 +27,32 @@ export default function Home() {
         "श्री वृंदावन धाम की पावन भूमि पर स्थापित हो रही श्री चित्रगुप्त पीठ, भगवान श्री चित्रगुप्त जी को समर्पित विश्व की प्रथम आध्यात्मिक, सांस्कृतिक एवं वैदिक पीठ है। यह केवल एक मंदिर नहीं, बल्कि धर्म, न्याय, शिक्षा, संस्कार, सेवा, योग, तप एवं मानव कल्याण का एक समग्र आध्यात्मिक केंद्र है, जहाँ सनातन संस्कृति की अमूल्य विरासत को आनेवाली पीढ़ियों तक पहुँचाने का संकल्प चलाया गया है।",
     },
 
-    {
-      image: "/posts/post5.jpg",
-      title: "भव्य धार्मिक परिसर",
-      subtitle: "आध्यात्मिक वातावरण एवं आधुनिक सुविधाओं से युक्त भव्य परिसर।",
-    },
+   {
+  image: "/posts/post8.png",
+  title: "नक्षत्र वाटिका",
+  subtitle:
+    "वैदिक ज्योतिष एवं भारतीय ऋषि परंपरा पर आधारित नक्षत्र वाटिका का उद्देश्य प्रकृति, ग्रह-नक्षत्रों और मानव जीवन के आध्यात्मिक संबंध को समझाना है। यहाँ प्रत्येक नक्षत्र के अनुरूप पवित्र वृक्षों का संरक्षण एवं रोपण किया जाएगा।",
+},
 
-    {
-      image: "/posts/post2.jpg",
-      title: "सुविधाजनक अतिथि सेवा",
-      subtitle:
-        "परिवार एवं अतिथियों के लिए आरामदायक एवं उत्कृष्ट सेवाएँ उपलब्ध।",
-    },
+   {
+  image: "/posts/post8.png",
+  title: "जल परिक्रमा",
+  subtitle:
+    "जल परिक्रमा क्षेत्र भारतीय संस्कृति में जल के आध्यात्मिक एवं पर्यावरणीय महत्व को समर्पित होगा। यह श्रद्धालुओं को ध्यान, शांति और प्रकृति से जुड़ने का दिव्य अनुभव प्रदान करेगा।",
+},
+
+{
+  image: "/posts/post6.png",
+  title: "आयुर्वेदिक औषधालय",
+  subtitle:
+    "आयुर्वेद, योग एवं प्राकृतिक चिकित्सा के माध्यम से समाज को स्वस्थ एवं संतुलित जीवन प्रदान करना इस संस्थान का प्रमुख उद्देश्य होगा। यहाँ पारंपरिक भारतीय चिकित्सा पद्धतियों को आधुनिक स्वास्थ्य सेवाओं के साथ जोड़ा जाएगा।",
+},
+{
+  image: "/posts/post6.png",
+  title: "शोध संस्थान",
+  subtitle:
+    "श्री चित्रगुप्त चिंतन एवं शोध संस्थान भारतीय दर्शन, धर्मशास्त्र, वेद, पुराण, चित्रगुप्त साहित्य, भारतीय न्याय परंपरा एवं सनातन संस्कृति पर गहन शोध एवं प्रकाशन का राष्ट्रीय केंद्र होगा।",
+},
   ];
 
   const features = [
@@ -52,24 +66,28 @@ export default function Home() {
 
   const videos = [
     {
-      title: "Shree Chitragupt Peeth Video",
-      url: "https://www.youtube.com/embed/bpy6LDwDhCc",
+      title: "Shree Chitragupt Peeth Video 1",
+      url: "https://www.youtube.com/embed/RpcjBwvzRSU",
     },
     {
-      title: "Shree Chitragupt Peeth Video",
-      url: "https://www.youtube.com/embed/bpy6LDwDhCc",
+      title: "Shree Chitragupt Peeth Video 2",
+      url: "https://www.youtube.com/embed/RpcjBwvzRSU",
     },
     {
-      title: "Shree Chitragupt Peeth Video",
-      url: "https://www.youtube.com/embed/bpy6LDwDhCc",
+      title: "Shree Chitragupt Peeth Video 3",
+      url: "https://www.youtube.com/embed/X3PT3Ve0Wus",
     },
     {
-      title: "Shree Chitragupt Peeth Video",
-      url: "https://www.youtube.com/embed/bpy6LDwDhCc",
+      title: "Shree Chitragupt Peeth Video 4",
+      url: "https://www.youtube.com/embed/6kyWPlx8LdI",
     },
     {
-      title: "Shree Chitragupt Peeth Video",
-      url: "https://www.youtube.com/embed/bpy6LDwDhCc",
+      title: "Shree Chitragupt Peeth Video 5",
+      url: "https://www.youtube.com/embed/QYWZy_1F-WQ",
+    },
+    {
+      title: "Shree Chitragupt Peeth Video 6",
+      url: "https://www.youtube.com/embed/01LAsYqmGEw",
     },
   ];
 
@@ -326,7 +344,7 @@ export default function Home() {
     <>
       {/* ================= HERO SECTION ================= */}
       <section className="relative overflow-hidden">
-        <div className="relative h-screen w-full">
+        <div className="relative min-h-[90vh] md:min-h-[100vh] w-full">
           {/* SLIDES */}
           {slides.map((slide, index) => (
             <div
@@ -350,7 +368,7 @@ export default function Home() {
               />
 
               {/* OVERLAY */}
-              <div className="absolute inset-0 bg-black/45" />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
 
               {/* CONTENT */}
               <div
@@ -359,22 +377,22 @@ export default function Home() {
                   h-full
                   max-w-[1500px]
                   mx-auto
-                  px-6 lg:px-12
+                  px-4 sm:px-6 lg:px-12
                   flex items-center
                 "
               >
-                <div className="max-w-3xl">
+                <div className="max-w-4xl w-full">
                   {/* TOP TEXT */}
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-12 h-[2px] bg-red-500" />
+                  <div className="flex items-center gap-2 mb-3 sm:mb-4">
+                    <div className="w-6 h-[1.5px] bg-red-500" />
 
                     <p
                       className="
                         uppercase
-                        tracking-[5px]
-                        text-sm
+                        tracking-[2px]
+                        text-[9px] sm:text-[10px]
                         font-semibold
-                        text-white/80
+                        text-white/90
                       "
                     >
                       Welcome To
@@ -384,9 +402,7 @@ export default function Home() {
                   {/* TITLE */}
                   <h1
                     className="
-                      text-5xl
-                      sm:text-6xl
-                      lg:text-7xl
+                      text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl
                       font-black
                       leading-tight
                       text-white
@@ -398,36 +414,39 @@ export default function Home() {
                   {/* DESCRIPTION */}
                   <p
                     className="
-                      mt-6
-                      text-lg
-                      lg:text-2xl
+                      mt-3 sm:mt-4
+                      text-xs sm:text-sm md:text-base lg:text-lg
                       text-white/90
                       leading-relaxed
-                      max-w-2xl
+                      max-w-3xl
                     "
                   >
                     {slide.subtitle}
                   </p>
 
                   {/* BUTTONS */}
-                  <div className="flex flex-wrap gap-5 mt-10">
+                  <div className="flex flex-wrap gap-2.5 sm:gap-3 mt-5 sm:mt-6">
                     <button
                       className="
                         group
                         bg-red-500
                         hover:bg-red-600
                         text-white
-                        px-8 py-4
+                        px-4 sm:px-6
+                        py-2 sm:py-2.5
                         rounded-full
-                        text-lg
+                        text-xs sm:text-sm
                         font-bold
-                        flex items-center gap-3
+                        flex items-center gap-2
                         transition-all
+                        shadow-lg
+                        hover:shadow-2xl
+                        hover:scale-[1.02]
                       "
                     >
                       JOIN TODAY
                       <ArrowRight
-                        size={22}
+                        size={16}
                         className="
                           group-hover:translate-x-1
                           transition
@@ -438,20 +457,24 @@ export default function Home() {
                     <button
                       className="
                         group
-                        bg-white
-                        hover:bg-gray-100
-                        text-red-500
-                        px-8 py-4
+                        bg-white/95
+                        hover:bg-white
+                        text-red-600
+                        px-4 sm:px-6
+                        py-2 sm:py-2.5
                         rounded-full
-                        text-lg
+                        text-xs sm:text-sm
                         font-bold
-                        flex items-center gap-3
+                        flex items-center gap-2
                         transition-all
+                        shadow-lg
+                        hover:shadow-2xl
+                        hover:scale-[1.02]
                       "
                     >
                       LEARN MORE
                       <ArrowRight
-                        size={22}
+                        size={16}
                         className="
                           group-hover:translate-x-1
                           transition
@@ -461,6 +484,18 @@ export default function Home() {
                   </div>
                 </div>
               </div>
+              {/* SLIDE INDICATORS */}
+              <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 flex gap-2">
+                {slides.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrent(idx)}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      current === idx ? "bg-red-500 w-10" : "bg-white/50 hover:bg-white/80"
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
           ))}
 
@@ -468,32 +503,40 @@ export default function Home() {
           <button
             onClick={prevSlide}
             className="
-              absolute left-5 bottom-10
+              absolute left-4 sm:left-5 bottom-10 sm:bottom-16
               z-30
-              w-16 h-16
+              w-12 sm:w-16 h-12 sm:h-16
               rounded-full
-              bg-red-500
+              bg-red-500/90
+              hover:bg-red-500
               text-white
               flex items-center justify-center
+              transition-all
+              hover:scale-110
+              shadow-lg
             "
           >
-            <ChevronLeft size={30} />
+            <ChevronLeft size={24} />
           </button>
 
           {/* RIGHT */}
           <button
             onClick={nextSlide}
             className="
-              absolute right-5 bottom-10
+              absolute right-4 sm:right-5 bottom-10 sm:bottom-16
               z-30
-              w-16 h-16
+              w-12 sm:w-16 h-12 sm:h-16
               rounded-full
-              bg-red-500
+              bg-red-500/90
+              hover:bg-red-500
               text-white
               flex items-center justify-center
+              transition-all
+              hover:scale-110
+              shadow-lg
             "
           >
-            <ChevronRight size={30} />
+            <ChevronRight size={24} />
           </button>
         </div>
       </section>

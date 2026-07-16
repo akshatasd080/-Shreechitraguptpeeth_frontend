@@ -166,14 +166,14 @@ export default function Navbar() {
               <img
                 src="/logo.png"
                 alt="logo"
-                className="relative w-14 h-14 object-contain drop-shadow-lg"
+                className="relative w-20 h-20 md:w-24 md:h-24 object-contain drop-shadow-lg"
               />
             </div>
             <div className="hidden sm:block">
-              <h1 className="text-xl font-black bg-gradient-to-r from-red-600 via-orange-600 to-pink-600 bg-clip-text text-transparent leading-tight">
+              <h1 className="text-lg md:text-xl font-black bg-gradient-to-r from-red-600 via-orange-600 to-pink-600 bg-clip-text text-transparent leading-tight">
                 Shree Chitragupt
               </h1>
-              <p className="text-xs font-semibold text-gray-500 tracking-wider">PEETH</p>
+              <p className="text-xs md:text-sm font-semibold text-gray-600 tracking-wider mt-0.5">PEETH</p>
             </div>
           </Link>
 
@@ -278,7 +278,7 @@ export default function Navbar() {
                         rounded-2xl
                         border
                         border-orange-100
-                        bg-white/98
+                        bg-white
                         backdrop-blur-xl
                         p-3
                         shadow-2xl
@@ -299,9 +299,12 @@ export default function Navbar() {
                             cursor-pointer
                             rounded-xl
                             p-0
-                            focus:bg-gradient-to-r from-red-50 to-orange-50
                             mb-1
                             last:mb-0
+                            focus:bg-transparent
+                            hover:bg-transparent
+                            data-[highlighted]:bg-transparent
+                            text-gray-700
                           "
                         >
 
@@ -315,15 +318,15 @@ export default function Navbar() {
                               font-semibold
                               text-gray-700
                               hover:text-red-600
+                              hover:bg-gradient-to-r from-red-50 to-orange-50
                               rounded-xl
                               transition-all
                               group
+                              flex items-center gap-3
                             "
                           >
-                            <div className="flex items-center gap-3">
-                              <div className="w-2 h-2 rounded-full bg-gradient-to-r from-red-500 to-orange-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                              {subItem.title}
-                            </div>
+                            <div className="w-2 h-2 rounded-full bg-gradient-to-r from-red-500 to-orange-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            {subItem.title}
                           </Link>
 
                         </DropdownMenuItem>
