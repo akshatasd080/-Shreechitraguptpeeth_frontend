@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Plus } from "lucide-react";
 import { Play } from "lucide-react";
 
@@ -105,6 +106,89 @@ export default function Home() {
       duration: "50 Min",
     },
   ];
+
+
+
+  const tabs = [
+  {
+    id: "mantra",
+    title: "🕉 Mantra",
+    items: [
+      { id: "radha-mantra", name: "Radha Mantra" },
+      { id: "narayan-mantra", name: "Narayan Mantra" },
+      { id: "kali-mantra", name: "Kali Mantra" },
+      { id: "agni-mantra", name: "Agni Mantra" },
+      { id: "shakti-mantra", name: "Shakti Mantra" },
+      { id: "hanuman-mool-mantra", name: "Hanuman Mool Mantra" },
+      { id: "shiv-mantra", name: "Shiv Mantra" },
+      { id: "durga-mantra", name: "Durga Mantra" },
+      { id: "lakshmi-mantra", name: "Lakshmi Mantra" },
+    ],
+  },
+
+  {
+    id: "aarti",
+    title: "🙏 Aarti",
+    items: [
+      { id: "chintpurni-aarti", name: "Chintpurni Aarti" },
+      { id: "bhagavad-gita-aarti", name: "Bhagavad Gita Aarti" },
+      { id: "annapurna-aarti", name: "Annapurna Aarti" },
+      { id: "om-jai-jagdish-hare", name: "Om Jai Jagdish Hare" },
+      { id: "datta-aarti", name: "Dattachi Aarti" },
+      { id: "ganesh-aarti", name: "Ganesh Aarti" },
+      { id: "kali-aarti", name: "Kaali Aarti" },
+      { id: "vishwakarma-aarti", name: "Vishwakarma Aarti" },
+    ],
+  },
+
+  {
+    id: "chalisa",
+    title: "📖 Chalisa",
+    items: [
+      { id: "saraswati-chalisa", name: "Saraswati Chalisa" },
+      { id: "shiv-chalisa", name: "Shiv Chalisa" },
+      { id: "ram-chalisa", name: "Ram Chalisa" },
+      { id: "chamunda-chalisa", name: "Chamunda Chalisa" },
+      { id: "santoshi-chalisa", name: "Santoshi Chalisa" },
+      { id: "hanuman-chalisa", name: "Hanuman Chalisa" },
+      { id: "durga-chalisa", name: "Durga Chalisa" },
+      { id: "kali-chalisa", name: "Kali Chalisa" },
+    ],
+  },
+
+  {
+    id: "sunRise",
+    title: "🌞 Sun Rise",
+    items: [
+      { id: "mumbai-sunrise", name: "Mumbai" },
+      { id: "delhi-sunrise", name: "Delhi" },
+      { id: "kolkata-sunrise", name: "Kolkata" },
+      { id: "chennai-sunrise", name: "Chennai" },
+      { id: "bangalore-sunrise", name: "Bangalore" },
+      { id: "hyderabad-sunrise", name: "Hyderabad" },
+      { id: "ahmedabad-sunrise", name: "Ahmedabad" },
+      { id: "pune-sunrise", name: "Pune" },
+      { id: "surat-sunrise", name: "Surat" },
+    ],
+  },
+
+  {
+    id: "moonRise",
+    title: "🌙 Moon Rise",
+    items: [
+      { id: "mumbai-moonrise", name: "Mumbai" },
+      { id: "delhi-moonrise", name: "Delhi" },
+      { id: "kolkata-moonrise", name: "Kolkata" },
+      { id: "chennai-moonrise", name: "Chennai" },
+      { id: "bangalore-moonrise", name: "Bangalore" },
+      { id: "hyderabad-moonrise", name: "Hyderabad" },
+      { id: "ahmedabad-moonrise", name: "Ahmedabad" },
+      { id: "pune-moonrise", name: "Pune" },
+      { id: "surat-moonrise", name: "Surat" },
+    ],
+  },
+];
+
 
   const gallery = [
     {
@@ -215,6 +299,9 @@ export default function Home() {
   ];
 
   const [current, setCurrent] = useState(0);
+  const [active, setActive] = useState(tabs[0].id);
+
+  
 
   // AUTO SLIDER
   useEffect(() => {
@@ -1402,6 +1489,140 @@ export default function Home() {
   </div>
 
 </section>
+
+
+
+ <section className="py-20 bg-gradient-to-b from-orange-50 to-white">
+
+      <div className="max-w-7xl mx-auto px-6">
+
+        {/* Heading */}
+
+        <div className="text-center">
+
+          <span className="inline-flex items-center gap-2 bg-orange-100 px-5 py-2 rounded-full text-orange-600 font-semibold">
+
+            🕉 Spiritual Resources
+
+          </span>
+
+          <h2 className="mt-5 text-4xl font-black text-gray-900">
+
+            Explore
+
+            <span className="text-orange-500">
+
+              {" "}Mantras, Aarti & Chalisa
+
+            </span>
+
+          </h2>
+
+          <p className="mt-3 text-gray-600 max-w-2xl mx-auto">
+
+            Access daily devotional prayers, mantras, aartis,
+            chalisas and sunrise timings.
+
+          </p>
+
+        </div>
+
+        {/* Tabs */}
+
+        <div className="flex flex-wrap justify-center gap-4 mt-12">
+
+          {tabs.map((tab) => (
+
+            <button
+
+              key={tab.id}
+
+              onClick={() => setActive(tab.id)}
+
+              className={`
+
+                px-6
+
+                h-12
+
+                rounded-full
+
+                font-semibold
+
+                transition
+
+                ${
+                  active === tab.id
+                    ? "bg-orange-500 text-white shadow-lg"
+                    : "bg-white border border-orange-200 text-gray-700 hover:bg-orange-50"
+                }
+
+              `}
+
+            >
+
+              {tab.title}
+
+            </button>
+
+          ))}
+
+        </div>
+
+        {/* Content */}
+
+        <div
+
+          className="
+
+            mt-10
+
+            bg-white
+
+            rounded-3xl
+
+            border
+
+            border-orange-100
+
+            shadow-lg
+
+            p-8
+
+          "
+
+        >
+
+          <div className="flex flex-wrap gap-4">
+            {tabs.find(tab => tab.id === active)?.items.map((item) => (
+              <Link
+                key={item.id}
+                to={`/spiritual/${active}/${item.id}`}
+                className="
+                  px-5
+                  py-3
+                  rounded-full
+                  bg-orange-50
+                  text-orange-600
+                  font-medium
+                  border
+                  border-orange-200
+                  hover:bg-orange-500
+                  hover:text-white
+                  transition-all
+                  duration-300
+                "
+              >
+                {item.name}
+              </Link>
+            ))}
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
 
       <section
         className="

@@ -11,6 +11,7 @@ import Layout from "./layout/Layout";
 import ProductDetails from "./pages/Product/ProductDetails";
 import Career from "./pages/Career/Career";
 import ApplyDialog from "./components/ui/ApplyDialog";
+import SpiritualContentPage from "./pages/SpiritualContent/SpiritualContentPage";
 
 import { restoreSession } from "./store/auth/authSlice";
 import ApplyRequest from "./pages/ApplyRequest/ApplyRequest";
@@ -100,6 +101,7 @@ export default function App() {
           <Route path="/membership" element={<Member/>}/>
           <Route path="/events" element={<Events/>}/>
           <Route path="/mission" element={<Mission/>}/>
+          <Route path="/spiritual/:type/:id" element={<SpiritualContentPage/>}/>
         </Route>
 
         {/* ================= PROTECTED ROUTES ================= */}
