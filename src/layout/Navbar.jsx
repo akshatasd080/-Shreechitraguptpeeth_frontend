@@ -45,7 +45,7 @@ export default function Navbar() {
     { title: "Home", path: "/" },
 
     {
-      title: "About Us",
+      title: "About ",
       dropdown: [
         {
           title: "Establishment of Shree Chitragupt Peeth",
@@ -111,6 +111,23 @@ export default function Navbar() {
     },
 
     { title: "Events", path: "/events" },
+    {
+      title: "News",
+      dropdown: [
+        {
+          title: "News Images",
+          path: "/news-images",
+        },
+        {
+          title: "News Videos",
+          path: "/news-videos",
+        },
+        {
+          title: "News Links",
+          path: "/news-links",
+        },
+      ],
+    },
     // { title: "Download", path: "/download" },
     { title: "Membership", path: "/membership" },
     { title: "Contact", action: "contact" },

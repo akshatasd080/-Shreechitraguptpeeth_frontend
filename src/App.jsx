@@ -12,6 +12,10 @@ import ProductDetails from "./pages/Product/ProductDetails";
 import Career from "./pages/Career/Career";
 import ApplyDialog from "./components/ui/ApplyDialog";
 import SpiritualContentPage from "./pages/SpiritualContent/SpiritualContentPage";
+import News from "./pages/News/News";
+import NewsImages from "./pages/News/NewsImages";
+import NewsVideos from "./pages/News/NewsVideos";
+import NewsLinks from "./pages/News/NewsLinks";
 
 import { restoreSession } from "./store/auth/authSlice";
 import ApplyRequest from "./pages/ApplyRequest/ApplyRequest";
@@ -100,6 +104,10 @@ export default function App() {
           <Route path="/media-gallery" element={<Mediagallery/>}/>
           <Route path="/membership" element={<Member/>}/>
           <Route path="/events" element={<Events/>}/>
+          <Route path="/news" element={<News/>}/>
+          <Route path="/news-images" element={<NewsImages/>}/>
+          <Route path="/news-videos" element={<NewsVideos/>}/>
+          <Route path="/news-links" element={<NewsLinks/>}/>
           <Route path="/mission" element={<Mission/>}/>
           <Route path="/spiritual/:type/:id" element={<SpiritualContentPage/>}/>
         </Route>
