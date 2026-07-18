@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Plus } from "lucide-react";
 import { Play } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
@@ -16,44 +17,51 @@ import {
   Calendar,
   Clock3,
   Check,
+  Languages,
 } from "lucide-react";
+import api from "@/api/axios";
+
+const API_BASE_URL =
+  import.meta.env.VITE_BASE_URL || "http://localhost:3004/api";
+const HERO_IMAGE_BASE = `${API_BASE_URL}/uploads/hero/`;
+const POOJA_IMAGE_BASE = `${API_BASE_URL}/uploads/pooja/`;
+const THOUGHT_IMAGE_BASE = `${API_BASE_URL}/uploads/thoughts/`;
+
+const DEFAULT_SLIDES = [
+  {
+    image: "/hero_1.png",
+    title: "श्री चित्रगुप्त पीठ, वृंदावन",
+    subtitle:
+      "श्री वृंदावन धाम की पावन भूमि पर स्थापित हो रही श्री चित्रगुप्त पीठ, भगवान श्री चित्रगुप्त जी को समर्पित विश्व की प्रथम आध्यात्मिक, सांस्कृतिक एवं वैदिक पीठ है। यह केवल एक मंदिर नहीं, बल्कि धर्म, न्याय, शिक्षा, संस्कार, सेवा, योग, तप एवं मानव कल्याण का एक समग्र आध्यात्मिक केंद्र है, जहाँ सनातन संस्कृति की अमूल्य विरासत को आनेवाली पीढ़ियों तक पहुँचाने का संकल्प चलाया गया है।",
+  },
+  {
+    image: "/posts/post8.png",
+    title: "नक्षत्र वाटिका",
+    subtitle:
+      "वैदिक ज्योतिष एवं भारतीय ऋषि परंपरा पर आधारित नक्षत्र वाटिका का उद्देश्य प्रकृति, ग्रह-नक्षत्रों और मानव जीवन के आध्यात्मिक संबंध को समझाना है। यहाँ प्रत्येक नक्षत्र के अनुरूप पवित्र वृक्षों का संरक्षण एवं रोपण किया जाएगा।",
+  },
+  {
+    image: "/posts/post8.png",
+    title: "जल परिक्रमा",
+    subtitle:
+      "जल परिक्रमा क्षेत्र भारतीय संस्कृति में जल के आध्यात्मिक एवं पर्यावरणीय महत्व को समर्पित होगा। यह श्रद्धालुओं को ध्यान, शांति और प्रकृति से जुड़ने का दिव्य अनुभव प्रदान करेगा।",
+  },
+  {
+    image: "/posts/post6.png",
+    title: "आयुर्वेदिक औषधालय",
+    subtitle:
+      "आयुर्वेद, योग एवं प्राकृतिक चिकित्सा के माध्यम से समाज को स्वस्थ एवं संतुलित जीवन प्रदान करना इस संस्थान का प्रमुख उद्देश्य होगा। यहाँ पारंपरिक भारतीय चिकित्सा पद्धतियों को आधुनिक स्वास्थ्य सेवाओं के साथ जोड़ा जाएगा।",
+  },
+  {
+    image: "/posts/post6.png",
+    title: "शोध संस्थान",
+    subtitle:
+      "श्री चित्रगुप्त चिंतन एवं शोध संस्थान भारतीय दर्शन, धर्मशास्त्र, वेद, पुराण, चित्रगुप्त साहित्य, भारतीय न्याय परंपरा एवं सनातन संस्कृति पर गहन शोध एवं प्रकाशन का राष्ट्रीय केंद्र होगा।",
+  },
+];
 
 export default function Home() {
-  const slides = [
-    {
-      image: "/hero_1.png",
-      title: "श्री चित्रगुप्त पीठ, वृंदावन",
-      subtitle:
-        "श्री वृंदावन धाम की पावन भूमि पर स्थापित हो रही श्री चित्रगुप्त पीठ, भगवान श्री चित्रगुप्त जी को समर्पित विश्व की प्रथम आध्यात्मिक, सांस्कृतिक एवं वैदिक पीठ है। यह केवल एक मंदिर नहीं, बल्कि धर्म, न्याय, शिक्षा, संस्कार, सेवा, योग, तप एवं मानव कल्याण का एक समग्र आध्यात्मिक केंद्र है, जहाँ सनातन संस्कृति की अमूल्य विरासत को आनेवाली पीढ़ियों तक पहुँचाने का संकल्प चलाया गया है।",
-    },
-
-   {
-  image: "/posts/post8.png",
-  title: "नक्षत्र वाटिका",
-  subtitle:
-    "वैदिक ज्योतिष एवं भारतीय ऋषि परंपरा पर आधारित नक्षत्र वाटिका का उद्देश्य प्रकृति, ग्रह-नक्षत्रों और मानव जीवन के आध्यात्मिक संबंध को समझाना है। यहाँ प्रत्येक नक्षत्र के अनुरूप पवित्र वृक्षों का संरक्षण एवं रोपण किया जाएगा।",
-},
-
-   {
-  image: "/posts/post8.png",
-  title: "जल परिक्रमा",
-  subtitle:
-    "जल परिक्रमा क्षेत्र भारतीय संस्कृति में जल के आध्यात्मिक एवं पर्यावरणीय महत्व को समर्पित होगा। यह श्रद्धालुओं को ध्यान, शांति और प्रकृति से जुड़ने का दिव्य अनुभव प्रदान करेगा।",
-},
-
-{
-  image: "/posts/post6.png",
-  title: "आयुर्वेदिक औषधालय",
-  subtitle:
-    "आयुर्वेद, योग एवं प्राकृतिक चिकित्सा के माध्यम से समाज को स्वस्थ एवं संतुलित जीवन प्रदान करना इस संस्थान का प्रमुख उद्देश्य होगा। यहाँ पारंपरिक भारतीय चिकित्सा पद्धतियों को आधुनिक स्वास्थ्य सेवाओं के साथ जोड़ा जाएगा।",
-},
-{
-  image: "/posts/post6.png",
-  title: "शोध संस्थान",
-  subtitle:
-    "श्री चित्रगुप्त चिंतन एवं शोध संस्थान भारतीय दर्शन, धर्मशास्त्र, वेद, पुराण, चित्रगुप्त साहित्य, भारतीय न्याय परंपरा एवं सनातन संस्कृति पर गहन शोध एवं प्रकाशन का राष्ट्रीय केंद्र होगा।",
-},
-  ];
+  const [slides, setSlides] = useState(DEFAULT_SLIDES);
 
   const features = [
     "श्री चित्रगुप्त पीठ वृन्दावन",
@@ -64,42 +72,53 @@ export default function Home() {
     "नक्षत्र वाटिका",
   ];
 
-  const videos = [
+  const [videos, setVideos] = useState([
     {
       title: "Shree Chitragupt Peeth Video 1",
+      description:
+        "Watch temple spiritual videos, events and devotional programs directly on our website.",
       url: "https://www.youtube.com/embed/RpcjBwvzRSU",
     },
     {
       title: "Shree Chitragupt Peeth Video 2",
+      description:
+        "Watch temple spiritual videos, events and devotional programs directly on our website.",
       url: "https://www.youtube.com/embed/RpcjBwvzRSU",
     },
     {
       title: "Shree Chitragupt Peeth Video 3",
+      description:
+        "Watch temple spiritual videos, events and devotional programs directly on our website.",
       url: "https://www.youtube.com/embed/X3PT3Ve0Wus",
     },
     {
       title: "Shree Chitragupt Peeth Video 4",
+      description:
+        "Watch temple spiritual videos, events and devotional programs directly on our website.",
       url: "https://www.youtube.com/embed/6kyWPlx8LdI",
     },
     {
       title: "Shree Chitragupt Peeth Video 5",
+      description:
+        "Watch temple spiritual videos, events and devotional programs directly on our website.",
       url: "https://www.youtube.com/embed/QYWZy_1F-WQ",
     },
     {
       title: "Shree Chitragupt Peeth Video 6",
+      description:
+        "Watch temple spiritual videos, events and devotional programs directly on our website.",
       url: "https://www.youtube.com/embed/01LAsYqmGEw",
     },
-  ];
+  ]);
 
-  const poojas = [
+  const [poojas, setPoojas] = useState([
     {
       image: "/posts/post1.jpg",
       title: "महा मृत्युंजय जाप",
       desc: "भगवान शिव की कृपा प्राप्ति एवं स्वास्थ्य लाभ हेतु विशेष महा मृत्युंजय जाप।",
       time: "Every Monday",
-      duration: "45 Min",
+      duration: "45 Mins",
     },
-
     {
       image: "/posts/post2.jpg",
       title: "श्री सत्यनारायण कथा",
@@ -107,25 +126,21 @@ export default function Home() {
       time: "Every Purnima",
       duration: "1 Hour",
     },
-
     {
       image: "/posts/post3.jpg",
       title: "रुद्राभिषेक पूजा",
       desc: "शिव कृपा एवं जीवन में सकारात्मक ऊर्जा हेतु रुद्राभिषेक पूजा।",
-      time: "Daily Available",
-      duration: "30 Min",
+      time: "Everyday",
+      duration: "45 Mins",
     },
-
     {
       image: "/posts/post1.jpg",
       title: "श्री हनुमान पाठ",
       desc: "भय, बाधा एवं नकारात्मक ऊर्जा से मुक्ति हेतु हनुमान पाठ।",
-      time: "Tuesday & Saturday",
-      duration: "50 Min",
+      time: "Tuesday",
+      duration: "1 Hour",
     },
-  ];
-
-
+  ]);
 
   const tabs = [
   {
@@ -318,25 +333,168 @@ export default function Home() {
 
   const [current, setCurrent] = useState(0);
   const [active, setActive] = useState(tabs[0].id);
+  const [dailyThought, setDailyThought] = useState(null);
+  const [thoughtLang, setThoughtLang] = useState("hi"); // hi | en
+  const [translatedEn, setTranslatedEn] = useState("");
+  const [translating, setTranslating] = useState(false);
 
-  
+  // Load active hero slides from backend
+  useEffect(() => {
+    const fetchHeroSlides = async () => {
+      try {
+        const res = await api.get("/hero-slides?active=true");
+        const apiSlides = res.data?.slides || [];
+        if (apiSlides.length > 0) {
+          setSlides(
+            apiSlides.map((s) => ({
+              image: s.image_filename
+                ? `${HERO_IMAGE_BASE}${s.image_filename}`
+                : "/hero_1.png",
+              title: s.title,
+              subtitle: s.subtitle || "",
+            }))
+          );
+          setCurrent(0);
+        }
+      } catch (_) {
+        // Keep DEFAULT_SLIDES if API is unavailable
+      }
+    };
+    fetchHeroSlides();
+  }, []);
+
+  // Load active poojas from backend
+  useEffect(() => {
+    const fetchPoojas = async () => {
+      try {
+        const res = await api.get("/poojas?active=true");
+        const apiPoojas = res.data?.poojas || [];
+        if (apiPoojas.length > 0) {
+          setPoojas(
+            apiPoojas.map((p) => ({
+              image: p.image_filename
+                ? `${POOJA_IMAGE_BASE}${p.image_filename}`
+                : "/posts/post1.jpg",
+              title: p.title,
+              desc: p.description || "",
+              time: p.day === "Everyday" ? "Everyday" : `Every ${p.day}`,
+              duration: p.duration,
+            }))
+          );
+        }
+      } catch (_) {
+        // Keep default poojas if API is unavailable
+      }
+    };
+    fetchPoojas();
+  }, []);
+
+  // Load latest 6 active YouTube videos from backend
+  useEffect(() => {
+    const fetchVideos = async () => {
+      try {
+        const res = await api.get(
+          "/youtube-videos?active=true&latest=true&limit=6"
+        );
+        const apiVideos = res.data?.videos || [];
+        if (apiVideos.length > 0) {
+          setVideos(
+            apiVideos.map((v) => ({
+              title: v.title,
+              description:
+                v.description ||
+                "Watch temple spiritual videos, events and devotional programs directly on our website.",
+              url: v.youtube_url,
+            }))
+          );
+        }
+      } catch (_) {
+        // Keep default videos if API is unavailable
+      }
+    };
+    fetchVideos();
+  }, []);
+
+  // Load today's daily thought
+  useEffect(() => {
+    const fetchThought = async () => {
+      try {
+        const res = await api.get("/daily-thoughts?today=true");
+        if (res.data?.thought) {
+          setDailyThought(res.data.thought);
+          setTranslatedEn("");
+          setThoughtLang("hi");
+        }
+      } catch (_) {
+        // keep null
+      }
+    };
+    fetchThought();
+  }, []);
+
+  const toggleThoughtLang = async () => {
+    if (thoughtLang === "en") {
+      setThoughtLang("hi");
+      return;
+    }
+
+    // Switching to English
+    const savedEn = (dailyThought?.thought_en || "").trim();
+    if (savedEn) {
+      setThoughtLang("en");
+      return;
+    }
+
+    // Auto-translate Hindi → English if English not saved
+    const hindi = (dailyThought?.thought_hi || "").trim();
+    if (!hindi) {
+      setThoughtLang("en");
+      return;
+    }
+
+    if (translatedEn) {
+      setThoughtLang("en");
+      return;
+    }
+
+    setTranslating(true);
+    try {
+      const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(
+        hindi
+      )}&langpair=hi|en`;
+      const res = await fetch(url);
+      const data = await res.json();
+      const translated =
+        data?.responseData?.translatedText?.trim() || hindi;
+      setTranslatedEn(translated);
+      setThoughtLang("en");
+    } catch (_) {
+      setTranslatedEn(hindi);
+      setThoughtLang("en");
+    } finally {
+      setTranslating(false);
+    }
+  };
 
   // AUTO SLIDER
   useEffect(() => {
+    if (slides.length <= 1) return;
     const interval = setInterval(() => {
-      nextSlide();
+      setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [current]);
+  }, [current, slides.length]);
 
   // NEXT
   const nextSlide = () => {
+    if (slides.length === 0) return;
     setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
   };
 
   // PREV
   const prevSlide = () => {
+    if (slides.length === 0) return;
     setCurrent((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
   };
 
@@ -454,7 +612,8 @@ export default function Home() {
                       />
                     </button>
 
-                    <button
+                    <Link
+                      to="/establishment"
                       className="
                         group
                         bg-white/95
@@ -480,7 +639,8 @@ export default function Home() {
                           transition
                         "
                       />
-                    </button>
+                    </Link>
+                    
                   </div>
                 </div>
               </div>
@@ -560,7 +720,7 @@ export default function Home() {
         <div className="absolute top-2 left-0 lg:left-4 w-36 h-44 rounded-2xl overflow-hidden border-4 border-white shadow-xl z-20">
 
           <img
-            src="/About/about1.jpg"
+            src="/About/about4.jpg"
             alt=""
             className="w-full h-full object-cover"
           />
@@ -572,7 +732,7 @@ export default function Home() {
         <div className="relative mt-10 w-full max-w-[470px] h-[540px] rounded-[28px] overflow-hidden shadow-2xl border-[6px] border-white">
 
           <img
-            src="/posts/post4.jpg"
+            src="/About/about6.jpg"
             alt=""
             className="w-full h-full object-cover"
           />
@@ -582,7 +742,7 @@ export default function Home() {
           <div className="absolute bottom-5 right-5 w-32 h-40 rounded-2xl overflow-hidden border-4 border-white shadow-xl">
 
             <img
-              src="/About/about3.jpg"
+              src="/About/about5.jpg"
               alt=""
               className="w-full h-full object-cover"
             />
@@ -655,7 +815,8 @@ export default function Home() {
 
         {/* Button */}
 
-        <button
+        <Link
+          to="/about-swami"
           className="
             mt-8
             px-8
@@ -683,7 +844,7 @@ export default function Home() {
 
           <ArrowRight size={20} />
 
-        </button>
+        </Link>
 
       </div>
 
@@ -692,6 +853,165 @@ export default function Home() {
   </div>
 
 </section>
+
+      {/* ================= DAILY THOUGHT / आज का विचार ================= */}
+      {dailyThought && (
+        <section className="relative bg-[#fff8f5] py-8 lg:py-12 overflow-hidden">
+          <div className="absolute inset-0 bg-[url('/pattern.png')] bg-cover bg-center opacity-[0.03]" />
+
+          <div className="relative z-10 max-w-[1200px] mx-auto px-5 lg:px-10">
+            <motion.div
+              className="text-center mb-6"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.55, ease: "easeOut" }}
+            >
+              <div className="flex items-center justify-center gap-2 mb-1.5">
+                <motion.span
+                  className="text-red-500 text-lg"
+                  animate={{ rotate: [0, 8, -8, 0], scale: [1, 1.08, 1] }}
+                  transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  ॐ
+                </motion.span>
+                <p className="uppercase tracking-[3px] text-red-500 font-bold text-xs">
+                  Daily Thought
+                </p>
+                <motion.span
+                  className="text-red-500 text-lg"
+                  animate={{ rotate: [0, -8, 8, 0], scale: [1, 1.08, 1] }}
+                  transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
+                >
+                  ॐ
+                </motion.span>
+              </div>
+              <h2 className="text-2xl md:text-3xl font-black text-red-600">
+                आज का विचार
+              </h2>
+            </motion.div>
+
+            <div className="grid lg:grid-cols-[280px_1fr] xl:grid-cols-[320px_1fr] gap-6 lg:gap-10 items-center">
+              {/* LEFT — Image */}
+              <motion.div
+                className="relative mx-auto lg:mx-0 w-full max-w-[280px] xl:max-w-[320px]"
+                initial={{ opacity: 0, x: -40, scale: 0.94 }}
+                whileInView={{ opacity: 1, x: 0, scale: 1 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.65, ease: "easeOut" }}
+              >
+                <motion.div
+                  className="rounded-2xl overflow-hidden shadow-xl border-4 border-white aspect-square"
+                  animate={{ y: [0, -6, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  whileHover={{ scale: 1.03 }}
+                >
+                  <img
+                    src={
+                      dailyThought.image_filename
+                        ? `${THOUGHT_IMAGE_BASE}${dailyThought.image_filename}`
+                        : "/About/about6.jpg"
+                    }
+                    alt="आज का विचार"
+                    className="w-full h-full object-cover"
+                  />
+                </motion.div>
+              </motion.div>
+
+              {/* RIGHT — Text + Hindi/English toggle */}
+              <motion.div
+                className="relative"
+                initial={{ opacity: 0, x: 40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.65, ease: "easeOut", delay: 0.12 }}
+              >
+                <div className="flex items-center justify-between gap-3 mb-3">
+                  <div className="flex items-center gap-2">
+                    <motion.div
+                      className="h-[2px] bg-red-500"
+                      initial={{ width: 0 }}
+                      whileInView={{ width: 32 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: 0.3 }}
+                    />
+                    <AnimatePresence mode="wait">
+                      <motion.span
+                        key={thoughtLang + "-label"}
+                        initial={{ opacity: 0, y: 6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -6 }}
+                        transition={{ duration: 0.25 }}
+                        className="uppercase tracking-[2px] text-red-500 font-bold text-xs"
+                      >
+                        {thoughtLang === "hi"
+                          ? "आज का विचार"
+                          : "Thought of the Day"}
+                      </motion.span>
+                    </AnimatePresence>
+                  </div>
+
+                  <motion.button
+                    type="button"
+                    onClick={toggleThoughtLang}
+                    disabled={translating}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="shrink-0 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-500 hover:bg-red-600 disabled:opacity-70 text-white text-xs font-bold shadow-md transition-colors"
+                  >
+                    <Languages size={14} />
+                    {translating
+                      ? "Converting..."
+                      : thoughtLang === "hi"
+                        ? "English"
+                        : "हिंदी"}
+                  </motion.button>
+                </div>
+
+                <AnimatePresence mode="wait">
+                  <motion.p
+                    key={thoughtLang + "-text"}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.3 }}
+                    className={`text-gray-800 leading-relaxed whitespace-pre-wrap ${
+                      thoughtLang === "hi"
+                        ? "text-base md:text-lg font-semibold"
+                        : "text-sm md:text-base"
+                    }`}
+                  >
+                    {thoughtLang === "hi"
+                      ? dailyThought.thought_hi
+                      : (dailyThought.thought_en || "").trim() ||
+                        translatedEn ||
+                        dailyThought.thought_hi}
+                  </motion.p>
+                </AnimatePresence>
+
+                {dailyThought.thought_date && (
+                  <motion.p
+                    className="mt-3 text-xs text-gray-500 font-medium"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.45 }}
+                  >
+                    {new Date(dailyThought.thought_date).toLocaleDateString(
+                      thoughtLang === "hi" ? "hi-IN" : "en-IN",
+                      {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                      }
+                    )}
+                  </motion.p>
+                )}
+              </motion.div>
+            </div>
+          </div>
+        </section>
+      )}
 
 <section className="relative min-h-screen bg-[#fafafa] py-16 lg:py-20 overflow-hidden">
 
@@ -733,156 +1053,149 @@ export default function Home() {
 
     </div>
 
-    {/* Cards */}
+    {/* Cards — horizontal scroll when more than 4 */}
 
-    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
+    <div className="relative">
+      {poojas.length > 4 && (
+        <p className="text-center text-sm text-gray-500 mb-4">
+          Swipe / scroll to see more poojas →
+        </p>
+      )}
 
-      {poojas.map((item, index) => (
-
-        <div
-          key={index}
-          className="
-            bg-white
-            rounded-3xl
-            overflow-hidden
-            border
-            border-gray-100
-            shadow-lg
-            hover:shadow-2xl
-            hover:-translate-y-2
-            transition-all
-            duration-500
-            flex
-            flex-col
-            h-full
-            group
-          "
-        >
-
-          {/* Image */}
-
-          <div className="relative overflow-hidden">
-
-            <img
-              src={item.image}
-              alt={item.title}
-              className="
-                w-full
-                h-56
-                object-cover
-                group-hover:scale-110
-                duration-700
-              "
-            />
-
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
-
-          </div>
-
-          {/* Content */}
-
-          {/* CONTENT */}
-
-<div className="p-5 flex flex-col h-full">
-
-  {/* Title */}
-
-  <h3 className="text-2xl font-bold text-red-600 mb-2">
-    {item.title}
-  </h3>
-
-  {/* Description */}
-
-  <p className="text-gray-600 text-[15px] leading-7 mb-5">
-    {item.desc}
-  </p>
-
-  {/* Info */}
-
-  <div className="space-y-3 mb-5">
-
-    <div className="flex items-center gap-3">
-
-      <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center">
-        <Calendar size={18} className="text-red-500" />
-      </div>
-
-      <span className="font-semibold text-gray-700">
-        {item.time}
-      </span>
-
-    </div>
-
-    <div className="flex items-center gap-3">
-
-      <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center">
-        <Clock3 size={18} className="text-red-500" />
-      </div>
-
-      <span className="font-semibold text-gray-700">
-        {item.duration}
-      </span>
-
-    </div>
-
-  </div>
-
-  {/* Button */}
-
-  <Dialog>
-
-    <DialogTrigger asChild>
-
-      <button
-        className="
-          w-full
-          h-14
-          rounded-full
-          bg-red-500
-          hover:bg-red-600
-          text-white
-          font-semibold
-          flex
-          items-center
-          justify-center
-          gap-2
-          transition-all
-          group/btn
-        "
+      <div
+        className={`
+          flex gap-5
+          overflow-x-auto
+          pb-4
+          snap-x snap-mandatory
+          scroll-smooth
+          [-ms-overflow-style:none]
+          [scrollbar-width:thin]
+          [&::-webkit-scrollbar]:h-1.5
+          [&::-webkit-scrollbar-thumb]:rounded-full
+          [&::-webkit-scrollbar-thumb]:bg-red-300
+        `}
       >
-        Book Pooja
+        {poojas.map((item, index) => (
+          <div
+            key={index}
+            className="
+              snap-start
+              shrink-0
+              w-[85%]
+              sm:w-[calc(50%-10px)]
+              xl:w-[calc(25%-15px)]
+              bg-white
+              rounded-3xl
+              overflow-hidden
+              border
+              border-gray-100
+              shadow-lg
+              hover:shadow-2xl
+              hover:-translate-y-2
+              transition-all
+              duration-500
+              flex
+              flex-col
+              h-full
+              group
+            "
+          >
+            {/* Image */}
+            <div className="relative overflow-hidden">
+              <img
+                src={item.image}
+                alt={item.title}
+                className="
+                  w-full
+                  h-56
+                  object-cover
+                  group-hover:scale-110
+                  duration-700
+                "
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
+            </div>
 
-        <ArrowRight
-          size={18}
-          className="group-hover/btn:translate-x-1 duration-300"
-        />
+            <div className="p-5 flex flex-col h-full">
+              <h3 className="text-2xl font-bold text-red-600 mb-2">
+                {item.title}
+              </h3>
 
-      </button>
+              <p className="text-gray-600 text-[15px] leading-7 mb-5 line-clamp-3">
+                {item.desc}
+              </p>
 
-    </DialogTrigger>
+              <div className="space-y-3 mb-5">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center">
+                    <Calendar size={18} className="text-red-500" />
+                  </div>
+                  <span className="font-semibold text-gray-700">
+                    {item.time}
+                  </span>
+                </div>
 
-    <DialogContent
-      className="
-        w-[95vw]
-        max-w-6xl
-        rounded-3xl
-        p-0
-        border-0
-        max-h-[90vh]
-        overflow-y-auto
-      "
-    >
-      <PoojaBookingDialog poojaName={item.title} />
-    </DialogContent>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center">
+                    <Clock3 size={18} className="text-red-500" />
+                  </div>
+                  <span className="font-semibold text-gray-700">
+                    {item.duration}
+                  </span>
+                </div>
+              </div>
 
-  </Dialog>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <button
+                    className="
+                      w-full
+                      h-14
+                      rounded-full
+                      bg-red-500
+                      hover:bg-red-600
+                      text-white
+                      font-semibold
+                      flex
+                      items-center
+                      justify-center
+                      gap-2
+                      transition-all
+                      group/btn
+                      mt-auto
+                    "
+                  >
+                    Book Pooja
+                    <ArrowRight
+                      size={18}
+                      className="group-hover/btn:translate-x-1 duration-300"
+                    />
+                  </button>
+                </DialogTrigger>
 
-</div>
-
-        </div>
-
-      ))}
-
+                <DialogContent
+                  className="
+                    w-[95vw]
+                    max-w-3xl
+                    rounded-2xl
+                    p-0
+                    border-0
+                    max-h-[90vh]
+                    overflow-y-auto
+                    top-[50%]
+                    left-[50%]
+                    translate-x-[-50%]
+                    translate-y-[-50%]
+                  "
+                >
+                  <PoojaBookingDialog poojaName={item.title} />
+                </DialogContent>
+              </Dialog>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
 
   </div>
@@ -1348,10 +1661,11 @@ export default function Home() {
                     text-gray-700
                     leading-[2]
                     text-lg
+                    line-clamp-4
                   "
                   >
-                    Watch temple spiritual videos, events and devotional
-                    programs directly on our website.
+                    {video.description ||
+                      "Watch temple spiritual videos, events and devotional programs directly on our website."}
                   </p>
                 </div>
               </div>

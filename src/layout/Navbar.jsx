@@ -10,9 +10,14 @@ import {
   Mail,
   MessageSquare,
   Heart,
+  Building2,
+  Send,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
+import api from "@/api/axios";
+import { toast } from "react-hot-toast";
 
 import {
   DropdownMenu,
@@ -21,14 +26,26 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+const CONTACT_SERVICES = [
+  "General Inquiry",
+  "Pooja Booking",
+  "Membership",
+  "Donation",
+  "Volunteer",
+  "Other",
+];
+
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     email: "",
+    company: "",
+    service: "",
     message: "",
   });
 
@@ -37,9 +54,21 @@ export default function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Lock body scroll when contact modal is open
+  useEffect(() => {
+    if (contactOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [contactOpen]);
 
   const navLinks = [
     { title: "Home", path: "/" },
@@ -128,23 +157,249 @@ export default function Navbar() {
         },
       ],
     },
-    // { title: "Download", path: "/download" },
     { title: "Membership", path: "/membership" },
     { title: "Contact", action: "contact" },
   ];
 
-  const handleContactSubmit = (e) => {
-    e.preventDefault();
-    console.log("Contact Form Submitted:", formData);
-    alert("Thank you for contacting us! We will get back to you soon.");
-    setContactOpen(false);
+  const resetContactForm = () => {
     setFormData({
       name: "",
       phone: "",
       email: "",
+      company: "",
+      service: "",
       message: "",
     });
   };
+
+  const handleContactSubmit = async (e) => {
+    e.preventDefault();
+
+    const phone = String(formData.phone || "").replace(/\D/g, "");
+    if (phone.length !== 10) {
+      toast.error("Please enter a valid 10-digit phone number");
+      return;
+    }
+    if (!formData.service) {
+      toast.error("Please select a service");
+      return;
+    }
+
+    try {
+      setSubmitting(true);
+      await api.post("/contacts", {
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        mobile_number: phone,
+        company: formData.company.trim() || null,
+        service: formData.service,
+        message: formData.message.trim() || null,
+      });
+      toast.success("Thank you! We will get back to you soon.");
+      setContactOpen(false);
+      resetContactForm();
+    } catch (err) {
+      toast.error(
+        err?.response?.data?.message || "Something went wrong. Please try again."
+      );
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const contactModal =
+    contactOpen &&
+    createPortal(
+      <div className="fixed inset-0 z-[10000] flex items-center justify-center p-4 sm:p-6">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="absolute inset-0 bg-black/55 backdrop-blur-[2px]"
+          onClick={() => !submitting && setContactOpen(false)}
+        />
+
+        <motion.div
+          initial={{ opacity: 0, y: 24, scale: 0.96 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 16, scale: 0.96 }}
+          transition={{ type: "spring", stiffness: 280, damping: 24 }}
+          className="relative z-10 w-full max-w-lg max-h-[min(90vh,720px)] flex flex-col bg-white rounded-2xl shadow-2xl overflow-hidden"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="contact-dialog-title"
+        >
+          {/* Compact header */}
+          <div className="relative shrink-0 bg-gradient-to-r from-red-600 via-orange-500 to-red-500 px-5 py-4 text-white">
+            <div className="flex items-center gap-3 pr-10">
+              <div className="w-11 h-11 rounded-xl bg-white/20 border border-white/25 flex items-center justify-center">
+                <MessageSquare className="w-5 h-5" />
+              </div>
+              <div>
+                <h2
+                  id="contact-dialog-title"
+                  className="text-xl font-black leading-tight"
+                >
+                  Contact Us
+                </h2>
+                <p className="text-white/85 text-xs font-medium">
+                  We usually reply within 24 hours
+                </p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => !submitting && setContactOpen(false)}
+              className="absolute top-3 right-3 w-9 h-9 rounded-xl bg-white/15 hover:bg-white/25 border border-white/20 flex items-center justify-center transition"
+              aria-label="Close"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          {/* Scrollable form body */}
+          <form
+            onSubmit={handleContactSubmit}
+            className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-4"
+          >
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <label className="flex items-center gap-2 text-sm font-semibold text-gray-800">
+                  <span className="w-7 h-7 rounded-lg bg-red-50 text-red-600 flex items-center justify-center">
+                    <User className="w-3.5 h-3.5" />
+                  </span>
+                  Full Name *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={formData.name}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
+                  placeholder="Your full name"
+                  className="w-full h-11 px-3.5 rounded-xl border border-gray-200 bg-gray-50 outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100 text-sm"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="flex items-center gap-2 text-sm font-semibold text-gray-800">
+                  <span className="w-7 h-7 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center">
+                    <Phone className="w-3.5 h-3.5" />
+                  </span>
+                  Phone *
+                </label>
+                <input
+                  type="tel"
+                  required
+                  value={formData.phone}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      phone: e.target.value.replace(/\D/g, "").slice(0, 10),
+                    })
+                  }
+                  placeholder="10-digit mobile"
+                  className="w-full h-11 px-3.5 rounded-xl border border-gray-200 bg-gray-50 outline-none focus:bg-white focus:border-orange-400 focus:ring-2 focus:ring-orange-100 text-sm"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="flex items-center gap-2 text-sm font-semibold text-gray-800">
+                  <span className="w-7 h-7 rounded-lg bg-pink-50 text-pink-600 flex items-center justify-center">
+                    <Mail className="w-3.5 h-3.5" />
+                  </span>
+                  Email *
+                </label>
+                <input
+                  type="email"
+                  required
+                  value={formData.email}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
+                  placeholder="you@example.com"
+                  className="w-full h-11 px-3.5 rounded-xl border border-gray-200 bg-gray-50 outline-none focus:bg-white focus:border-pink-400 focus:ring-2 focus:ring-pink-100 text-sm"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="flex items-center gap-2 text-sm font-semibold text-gray-800">
+                  <span className="w-7 h-7 rounded-lg bg-amber-50 text-amber-700 flex items-center justify-center">
+                    <Building2 className="w-3.5 h-3.5" />
+                  </span>
+                  Company
+                </label>
+                <input
+                  type="text"
+                  value={formData.company}
+                  onChange={(e) =>
+                    setFormData({ ...formData, company: e.target.value })
+                  }
+                  placeholder="Optional"
+                  className="w-full h-11 px-3.5 rounded-xl border border-gray-200 bg-gray-50 outline-none focus:bg-white focus:border-amber-400 focus:ring-2 focus:ring-amber-100 text-sm"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="flex items-center gap-2 text-sm font-semibold text-gray-800">
+                <span className="w-7 h-7 rounded-lg bg-red-50 text-red-600 flex items-center justify-center">
+                  <MessageSquare className="w-3.5 h-3.5" />
+                </span>
+                Service *
+              </label>
+              <select
+                required
+                value={formData.service}
+                onChange={(e) =>
+                  setFormData({ ...formData, service: e.target.value })
+                }
+                className="w-full h-11 px-3.5 rounded-xl border border-gray-200 bg-gray-50 outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100 text-sm"
+              >
+                <option value="">Select a service</option>
+                {CONTACT_SERVICES.map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="text-sm font-semibold text-gray-800">
+                Message
+              </label>
+              <textarea
+                rows={3}
+                value={formData.message}
+                onChange={(e) =>
+                  setFormData({ ...formData, message: e.target.value })
+                }
+                placeholder="How can we help you?"
+                className="w-full px-3.5 py-3 rounded-xl border border-gray-200 bg-gray-50 outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100 text-sm resize-none"
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={submitting}
+              className="w-full h-12 rounded-xl bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 disabled:opacity-70 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-red-200 transition"
+            >
+              {submitting ? (
+                "Sending..."
+              ) : (
+                <>
+                  <Send className="w-4 h-4" />
+                  Send Message
+                </>
+              )}
+            </button>
+          </form>
+        </motion.div>
+      </div>,
+      document.body
+    );
 
   return (
     <header 
@@ -582,223 +837,8 @@ export default function Navbar() {
         )}
       </AnimatePresence>
 
-      {/* CONTACT DIALOG */}
-      {contactOpen && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
-          {/* Backdrop */}
-          <div 
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-            onClick={() => setContactOpen(false)}
-          ></div>
-          
-          {/* Dialog Content */}
-          <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-2xl overflow-hidden animate-in fade-in zoom-in duration-300 max-h-[90vh] overflow-y-auto" style={{
-            scrollbarWidth: 'thin',
-            scrollbarColor: '#ef4444 white'
-          }}>
-            {/* Custom scrollbar */}
-            <style>{`
-              ::-webkit-scrollbar { width: 8px; }
-              ::-webkit-scrollbar-track { background: white; }
-              ::-webkit-scrollbar-thumb { 
-                background: linear-gradient(to bottom, #ef4444, #f97316); 
-                border-radius: 4px; 
-              }
-              ::-webkit-scrollbar-thumb:hover { background: linear-gradient(to bottom, #dc2626, #ea580c); }
-            `}</style>
-            
-            {/* Header */}
-            <div className="bg-gradient-to-br from-red-600 via-orange-500 to-pink-500 px-8 py-12 text-center relative overflow-hidden">
-              {/* Decorative elements */}
-              <div className="absolute -top-10 -left-10 w-40 h-40 bg-white/15 rounded-full animate-pulse"></div>
-              <div className="absolute top-1/2 right-0 w-32 h-32 bg-white/10 rounded-full translate-x-1/2 -translate-y-1/2"></div>
-              <div className="absolute -bottom-10 left-1/4 w-52 h-52 bg-white/10 rounded-full"></div>
-              
-              <div className="relative z-10">
-                <div className="w-24 h-24 bg-white/25 backdrop-blur-xl rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg border border-white/30">
-                  <MessageSquare className="w-12 h-12 text-white" />
-                </div>
-                <h2 className="text-4xl font-black text-white mb-3 drop-shadow-lg">Get in Touch</h2>
-                <p className="text-red-100 text-lg font-medium">Have questions? We're here to help!</p>
-              </div>
-              
-              {/* Close Button */}
-              <button
-                onClick={() => setContactOpen(false)}
-                className="absolute top-5 right-5 w-12 h-12 bg-white/20 hover:bg-white/30 rounded-2xl flex items-center justify-center transition-all backdrop-blur-sm border border-white/20 hover:scale-110"
-              >
-                <X className="w-7 h-7 text-white" />
-              </button>
-            </div>
-
-            {/* Form */}
-            <div className="p-10">
-              <form onSubmit={handleContactSubmit} className="space-y-7">
-                {/* Name */}
-                <div className="space-y-3">
-                  <label className="flex items-center gap-3 text-base font-bold text-gray-800">
-                    <div className="w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center">
-                      <User className="w-5 h-5 text-red-600" />
-                    </div>
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Enter your full name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="
-                      w-full
-                      px-6
-                      py-5
-                      border-2 border-gray-100
-                      bg-gray-50
-                      rounded-2xl
-                      outline-none
-                      focus:border-red-500
-                      focus:bg-white
-                      focus:ring-4 focus:ring-red-100
-                      transition-all
-                      text-gray-800
-                      text-base
-                      font-medium
-                    "
-                    required
-                  />
-                </div>
-
-                {/* Phone */}
-                <div className="space-y-3">
-                  <label className="flex items-center gap-3 text-base font-bold text-gray-800">
-                    <div className="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center">
-                      <Phone className="w-5 h-5 text-orange-600" />
-                    </div>
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    placeholder="Enter your phone number"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="
-                      w-full
-                      px-6
-                      py-5
-                      border-2 border-gray-100
-                      bg-gray-50
-                      rounded-2xl
-                      outline-none
-                      focus:border-orange-500
-                      focus:bg-white
-                      focus:ring-4 focus:ring-orange-100
-                      transition-all
-                      text-gray-800
-                      text-base
-                      font-medium
-                    "
-                    required
-                  />
-                </div>
-
-                {/* Email */}
-                <div className="space-y-3">
-                  <label className="flex items-center gap-3 text-base font-bold text-gray-800">
-                    <div className="w-10 h-10 bg-pink-100 rounded-xl flex items-center justify-center">
-                      <Mail className="w-5 h-5 text-pink-600" />
-                    </div>
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Enter your email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="
-                      w-full
-                      px-6
-                      py-5
-                      border-2 border-gray-100
-                      bg-gray-50
-                      rounded-2xl
-                      outline-none
-                      focus:border-pink-500
-                      focus:bg-white
-                      focus:ring-4 focus:ring-pink-100
-                      transition-all
-                      text-gray-800
-                      text-base
-                      font-medium
-                    "
-                    required
-                  />
-                </div>
-
-                {/* Message */}
-                <div className="space-y-3">
-                  <label className="flex items-center gap-3 text-base font-bold text-gray-800">
-                    <div className="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
-                      <MessageSquare className="w-5 h-5 text-purple-600" />
-                    </div>
-                    Your Message
-                  </label>
-                  <textarea
-                    name="message"
-                    placeholder="Write your message here..."
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    rows={5}
-                    className="
-                      w-full
-                      px-6
-                      py-5
-                      border-2 border-gray-100
-                      bg-gray-50
-                      rounded-2xl
-                      outline-none
-                      focus:border-purple-500
-                      focus:bg-white
-                      focus:ring-4 focus:ring-purple-100
-                      transition-all
-                      text-gray-800
-                      text-base
-                      font-medium
-                      resize-none
-                    "
-                    required
-                  />
-                </div>
-
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  className="
-                    w-full
-                    bg-gradient-to-r from-red-600 via-orange-500 to-pink-500
-                    hover:brightness-110
-                    text-white
-                    py-6
-                    rounded-2xl
-                    font-bold
-                    text-2xl
-                    transition-all
-                    shadow-2xl
-                    hover:shadow-3xl
-                    hover:shadow-red-300
-                    active:scale-97
-                    mt-3
-                  "
-                >
-                  Send Message ✨
-                </button>
-              </form>
-            </div>
-          </div>
-          
-        </div>
-      )}
+      {/* CONTACT DIALOG — portaled to body for true center */}
+      {contactModal}
     </header>
   );
 }

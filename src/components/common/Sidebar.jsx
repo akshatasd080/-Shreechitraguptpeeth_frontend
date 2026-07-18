@@ -22,7 +22,9 @@ import {
   Briefcase as LuBriefcase,
   Cpu as LuCpu,
   Users2 as LuUsers2,
-  Package as LuPackage
+  Package as LuPackage,
+  Phone as LuPhone,
+  HeartHandshake as LuDonation,
 } from "lucide-react";
 import api from "@/api/axios";
 import { appConfig } from "@/config/appConfig";
@@ -100,13 +102,7 @@ export default function Sidebar() {
       perms: [],
       hideForRoles: [],
     },
-    {
-      key: "companies",
-      label: "Companies",
-      to: "/dashboard/companies",
-      icon: <LuBuilding2 className="text-lg" />,
-      perms: ["company.read"],
-    },
+    
     {
       key: "roles",
       label: "Roles & Permissions",
@@ -114,78 +110,95 @@ export default function Sidebar() {
       icon: <LuShield className="text-lg" />,
       perms: ["role.read"],
     },
+   
     {
-      key: "job Application",
-      label: "Job Applications",
-      to: "/dashboard/apply-request",
-      icon: <VscGitStashApply className="text-lg" />,
-      perms: [],
+      key : "herosection",
+      label : "Hero Section",
+      to : "/dashboard/herosection",
+      icon : <LuLayoutGrid className="text-lg" />,
+      perms : [],
     },
     {
-      key: "our-clients",
-      label: "Our Clients",
-      to: `/dashboard/our-clients`,   
-      icon: <RiUserCommunityLine className="text-lg" />,
-      perms: ["our_client.read"],
+key : "pooja",
+label : "Pooja",
+to : "/dashboard/pooja",
+icon : <LuBriefcase className="text-lg" />,
+perms : [], 
     },
     {
-      key: "gallery",
-      label: "Gallery",
-      to: "/dashboard/gallery",
-      icon: <VscGitStashApply className="text-lg" />,
-      perms: ["gallery.read"],
+      key:"youtubevideo",
+      label:"Youtube Video",
+      to:"/dashboard/youtubevideo",
+      icon:<LuCpu className="text-lg" />,
+      perms:[],
     },
+   {
+    key:"newsiamges",
+    label:"News Images",
+    to:"/dashboard/newsimages",
+    icon:<LuUsers2 className="text-lg" />,
+    perms:[],
+   },
+   {
+key :"newsvideo",
+label:"News Video",
+to:"/dashboard/newsvideo",
+icon:<LuPackage className="text-lg" />,
+perms:[],
+   },
+   {
+    key:"newslinks",
+    label:"News Links",
+    to:"/dashboard/newslinks",
+    icon:<LuUsers className="text-lg" />,
+    perms:[],
+   },
+   {
+    key:"events",
+    label:"Events",
+    to:"/dashboard/events",
+    icon:<LuBuilding2 className="text-lg" />,
+    perms:[],
+   },
+   {
+    key:"DaliyThought",
+    label:"Daily Thought",
+    to:"/dashboard/dailythought",
+    icon:<LuCircleUser className="text-lg" />,
+    perms:[],
+   },
+   {
+    key:"contact",
+    label:"Contact",
+    to:"/dashboard/contact",
+    icon:<LuPhone className="text-lg" />,
+    perms:[],
+   },
+   {
+    key:"poojaBooking",
+    label:"Pooja Booking",
+    to:"/dashboard/poojabooking",
+    icon:<VscGitStashApply className="text-lg" />,
+    perms:[],
+   },
+   {
+    key:"donation",
+    label:"Donation",
+    to:"/dashboard/donation",
+    icon:<LuDonation className="text-lg" />,
+    perms:[],
+   },
+   
 
-    {
-      key: "career",
-      label: "Career",
-      to: "/dashboard/career",
-      icon: <VscGitStashApply className="text-lg" />,
-      perms: ["career.read"],
-    },
-
-    {
-      key: "leads",
-      label: "Leads",
-      to: "/dashboard/leads",
-      icon: <LuUsers className="text-lg" />,
-      perms: ["lead.read"],
-    },
-    {
-      key: "services",
-      label: "Services",
-      to: "/dashboard/services",
-      icon: <LuLayoutGrid className="text-lg" />,
-      perms: ["service.read"],
-    },
-    {
-      key: "projects",
-      label: "Projects",
-      to: "/dashboard/projects",
-      icon: <LuBriefcase className="text-lg" />,
-      perms: ["project.read"],
-    },
+    
     
     
   
-    
-    {
-      key: "products",
-      label: "Products",
-      to: "/dashboard/products",
-      icon: <LuPackage className="text-lg" />,
-      perms: ["product.read"],    
-    },
-  
+   
     
 
-    // {
-    //   key: "company-settings",
-    //   label: "Company Settings",
-    //   to: "/company-settings",
-    //   icon: <LuSettings className="text-lg" />,
-    //   perms: ["companySettings.read"],
-    // },
+    
+    
   ];
 
   // helper to check active path

@@ -39,6 +39,20 @@ import VideoGallery from "./pages/Gallery copy/VideoGallery";
 import Mediagallery from "./pages/Gallery copy/Mediagallery";
 import Member from "./pages/Member/Member";
 import Events from "./pages/Events/Events";
+import Herosection from "./pages/Herosection/Herosection";
+import Pooja from "./pages/Pooja/Pooja";
+import YouTubevideo from "./pages/YouTubeVideo/YouTubevideo";
+import AdminNewsImages from "./pages/NewsSection/NewsImages";
+import AdminNewsVideo from "./pages/NewsSection/NewsVideo";
+import AdminNewsLink from "./pages/NewsSection/NewsLink";
+import AllEvents from "./pages/Events/AllEvents";
+import Thought from "./pages/DaliyThought/Thought";
+import ContactDeatils from "./pages/ContactDeatils/ContactDeatils";
+import AdminPoojaBooking from "./pages/PoojaBooking/PoojaBooking";
+import DonationPage from "./pages/DonationPage/DonationPage";
+import DonationDeatils from "./pages/DonationPage/DonationDeatils";
+
+
 
 
 // ================= Lazy Loaded Pages =================
@@ -109,6 +123,7 @@ export default function App() {
           <Route path="/news-videos" element={<NewsVideos/>}/>
           <Route path="/news-links" element={<NewsLinks/>}/>
           <Route path="/mission" element={<Mission/>}/>
+          <Route path="/donate" element={<DonationPage/>}/>
           <Route path="/spiritual/:type/:id" element={<SpiritualContentPage/>}/>
         </Route>
 
@@ -144,11 +159,102 @@ export default function App() {
          
 
 
+
           <Route
-            path="companies"
+            path="dashboard/herosection"
             element={
-              <RequirePermission permission="company.read">
-                <CompaniesPage />
+              <RequirePermission permission="">
+                <Herosection/>
+              </RequirePermission>
+            }
+          />
+
+          <Route
+            path="dashboard/pooja"
+            element={
+              <RequirePermission permission="">
+                <Pooja />
+              </RequirePermission>
+            }
+          />
+
+          <Route
+            path="dashboard/youtubevideo"
+            element={
+              <RequirePermission permission="">
+                <YouTubevideo />
+              </RequirePermission>
+            }
+          />
+
+          <Route
+            path="dashboard/newsimages"
+            element={
+              <RequirePermission permission="">
+                <AdminNewsImages />
+              </RequirePermission>
+            }
+          />
+
+          <Route
+            path="dashboard/newsvideo"
+            element={
+              <RequirePermission permission="">
+                <AdminNewsVideo />
+              </RequirePermission>
+            }
+          />
+
+          <Route
+            path="dashboard/newslinks"
+            element={
+              <RequirePermission permission="">
+                <AdminNewsLink />
+              </RequirePermission>
+            }
+          />
+
+          <Route
+            path="dashboard/events"
+            element={
+              <RequirePermission permission="">
+                <AllEvents />
+              </RequirePermission>
+            }
+          />
+
+          <Route
+            path="dashboard/dailythought"
+            element={
+              <RequirePermission permission="">
+                <Thought />
+              </RequirePermission>
+            }
+          />
+
+          <Route
+            path="dashboard/contact"
+            element={
+              <RequirePermission permission="">
+                <ContactDeatils />
+              </RequirePermission>
+            }
+          />
+
+          <Route
+            path="dashboard/poojabooking"
+            element={
+              <RequirePermission permission="">
+                <AdminPoojaBooking />
+              </RequirePermission>
+            }
+          />
+
+          <Route
+            path="dashboard/donation"
+            element={
+              <RequirePermission permission="">
+                <DonationDeatils />
               </RequirePermission>
             }
           />

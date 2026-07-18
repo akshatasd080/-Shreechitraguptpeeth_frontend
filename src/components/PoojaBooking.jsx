@@ -5,379 +5,266 @@ import {
   Mail,
   Phone,
   MessageSquare,
+  Sparkles,
+  Send,
 } from "lucide-react";
-
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import api from "@/api/axios";
 
-export default function PoojaBookingDialog({ poojaName = "" }) {
+const FALLBACK_POOJAS = [
+  "महा मृत्युंजय जाप",
+  "रुद्राभिषेक पूजा",
+  "श्री सत्यनारायण कथा",
+  "हनुमान पाठ",
+  "शिव पूजा",
+  "गृह प्रवेश पूजा",
+  "नवग्रह शांति पूजा",
+];
+
+export default function PoojaBookingDialog({ poojaName = "", onSuccess }) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     mobile: "",
-    pooja: poojaName,
+    pooja: poojaName || "",
     date: "",
     time: "",
     message: "",
   });
-
+  const [poojaList, setPoojaList] = useState(FALLBACK_POOJAS);
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    setFormData((prev) => ({
+      ...prev,
+      pooja: poojaName || prev.pooja,
+    }));
+  }, [poojaName]);
+
+  useEffect(() => {
+    const fetchPoojas = async () => {
+      try {
+        const res = await api.get("/poojas?active=true");
+        const titles = (res.data?.poojas || [])
+          .map((p) => p.title)
+          .filter(Boolean);
+        if (titles.length > 0) {
+          const merged = [...new Set([...(poojaName ? [poojaName] : []), ...titles, ...FALLBACK_POOJAS])];
+          setPoojaList(merged);
+        }
+      } catch (_) {
+        // keep fallback
+      }
+    };
+    fetchPoojas();
+  }, [poojaName]);
+
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    if (name === "mobile") {
+      setFormData((prev) => ({
+        ...prev,
+        mobile: value.replace(/\D/g, "").slice(0, 10),
+      }));
+      return;
+    }
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
 
+    if (formData.mobile.length !== 10) {
+      toast.error("Please enter a valid 10-digit mobile number");
+      return;
+    }
+
+    setLoading(true);
     try {
-      await addDoc(collection(db, "poojaRequests"), {
-        ...formData,
-        createdAt: new Date(),
-        status: "pending",
+      await api.post("/pooja-bookings", {
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        mobile: formData.mobile,
+        pooja: formData.pooja,
+        date: formData.date,
+        time: formData.time,
+        message: formData.message.trim() || null,
       });
 
-      toast.success("Pooja Request Submitted Successfully");
-
+      toast.success("Pooja request submitted successfully");
       setFormData({
         name: "",
         email: "",
         mobile: "",
-        pooja: poojaName,
+        pooja: poojaName || "",
         date: "",
         time: "",
         message: "",
       });
+      onSuccess?.();
     } catch (error) {
-      console.error("Error submitting request:", error);
-      toast.error("Failed to submit request");
+      toast.error(
+        error?.response?.data?.message || "Failed to submit request"
+      );
     } finally {
       setLoading(false);
     }
   };
 
-  const poojaList = [
-    "महा मृत्युंजय जाप",
-    "रुद्राभिषेक पूजा",
-    "श्री सत्यनारायण कथा",
-    "हनुमान पाठ",
-    "शिव पूजा",
-    "ऑनलाइन विवाह पूजा",
-    "गृह प्रवेश पूजा",
-    "नवग्रह शांति पूजा",
-  ];
-
   return (
-    <div className="flex flex-col lg:flex-row">
-      {/* LEFT SIDE */}
-      <div
-        className="
-              bg-gradient-to-br
-              from-red-500
-              to-red-700
-              text-white
-              p-8 lg:p-10
-              lg:w-2/5
-              flex
-              flex-col
-              justify-center
-            "
-      >
-        <div className="flex items-center gap-3 mb-6">
-          <span className="text-2xl">ॐ</span>
-          <p className="uppercase tracking-[4px] font-bold">Online Pooja</p>
+    <div className="w-full max-w-3xl mx-auto bg-white overflow-hidden">
+      {/* Compact header */}
+      <div className="relative bg-gradient-to-r from-red-600 via-orange-500 to-red-500 px-5 py-4 text-white">
+        <div className="flex items-center gap-3">
+          <div className="w-11 h-11 rounded-xl bg-white/20 border border-white/25 flex items-center justify-center shrink-0">
+            <Sparkles className="w-5 h-5" />
+          </div>
+          <div>
+            <p className="text-[11px] uppercase tracking-[2px] font-bold text-white/90">
+              Online Pooja
+            </p>
+            <h2 className="text-xl sm:text-2xl font-black leading-tight">
+              Book Your Sacred Pooja
+            </h2>
+          </div>
         </div>
-        <h2
-          className="
-                text-3xl md:text-4xl lg:text-5xl
-                font-black
-                leading-tight
-              "
-        >
-          Book Your Sacred Pooja
-        </h2>
-        <p className="mt-6 text-base lg:text-lg leading-[2] text-white/90">
-          Participate in divine poojas and spiritual rituals online from your
-          home with blessings from temple priests.
-        </p>
-        <div className="space-y-4 mt-8 lg:mt-12">
-          <div className="flex items-center gap-4">
-            <div
-              className="
-                    w-12 h-12 lg:w-14 lg:h-14
-                    rounded-full
-                    bg-white/20
-                    flex
-                    items-center
-                    justify-center
-                  "
-            >
-              <Calendar size={20} className="lg:w-6 lg:h-6" />
-            </div>
-            <div>
-              <h3 className="font-bold lg:font-black text-base lg:text-xl">
-                Select Date
-              </h3>
-              <p className="text-white/80 mt-1 text-sm lg:text-base">
-                Choose your preferred pooja date.
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <div
-              className="
-                    w-12 h-12 lg:w-14 lg:h-14
-                    rounded-full
-                    bg-white/20
-                    flex
-                    items-center
-                    justify-center
-                  "
-            >
-              <Clock3 size={20} className="lg:w-6 lg:h-6" />
-            </div>
-            <div>
-              <h3 className="font-bold lg:font-black text-base lg:text-xl">
-                Flexible Timing
-              </h3>
-              <p className="text-white/80 mt-1 text-sm lg:text-base">
-                Select your suitable timing.
-              </p>
-            </div>
-          </div>
+        <div className="mt-3 flex flex-wrap gap-3 text-xs text-white/90">
+          <span className="inline-flex items-center gap-1.5 bg-white/15 rounded-full px-2.5 py-1">
+            <Calendar size={12} /> Select date
+          </span>
+          <span className="inline-flex items-center gap-1.5 bg-white/15 rounded-full px-2.5 py-1">
+            <Clock3 size={12} /> Flexible timing
+          </span>
         </div>
       </div>
 
-      {/* RIGHT FORM */}
-      <div className="bg-white p-6 md:p-8 lg:p-10 lg:w-3/5">
-        <h2
-          className="
-                  text-2xl md:text-3xl lg:text-4xl
-                  font-black
-                  text-red-500
-                  text-center
-                "
-        >
-          Pooja Request Form
-        </h2>
-        <form onSubmit={handleSubmit} className="space-y-6 mt-8">
-          {/* NAME */}
+      {/* Form */}
+      <form onSubmit={handleSubmit} className="p-5 sm:p-6 space-y-3.5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
           <div className="relative">
             <User
-              size={20}
-              className="
-                    absolute
-                    left-5
-                    top-1/2
-                    -translate-y-1/2
-                    text-red-500
-                  "
+              size={16}
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 text-red-500"
             />
             <input
               type="text"
               name="name"
-              placeholder="Full Name"
+              placeholder="Full Name *"
               value={formData.name}
               onChange={handleChange}
               required
-              className="
-                    w-full
-                    h-16
-                    rounded-2xl
-                    border
-                    border-gray-200
-                    pl-14
-                    pr-5
-                    outline-none
-                    focus:border-red-500
-                  "
+              className="w-full h-11 rounded-xl border border-gray-200 bg-gray-50 pl-10 pr-3 text-sm outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100"
             />
           </div>
 
-          {/* EMAIL */}
-          <div className="relative">
-            <Mail
-              size={20}
-              className="
-                    absolute
-                    left-5
-                    top-1/2
-                    -translate-y-1/2
-                    text-red-500
-                  "
-            />
-            <input
-              type="email"
-              name="email"
-              placeholder="Email Address"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              className="
-                    w-full
-                    h-16
-                    rounded-2xl
-                    border
-                    border-gray-200
-                    pl-14
-                    pr-5
-                    outline-none
-                    focus:border-red-500
-                  "
-            />
-          </div>
-
-          {/* MOBILE */}
           <div className="relative">
             <Phone
-              size={20}
-              className="
-                    absolute
-                    left-5
-                    top-1/2
-                    -translate-y-1/2
-                    text-red-500
-                  "
+              size={16}
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 text-red-500"
             />
             <input
               type="tel"
               name="mobile"
-              placeholder="Mobile Number"
+              placeholder="Mobile (10 digits) *"
               value={formData.mobile}
               onChange={handleChange}
               required
-              className="
-                    w-full
-                    h-16
-                    rounded-2xl
-                    border
-                    border-gray-200
-                    pl-14
-                    pr-5
-                    outline-none
-                    focus:border-red-500
-                  "
+              className="w-full h-11 rounded-xl border border-gray-200 bg-gray-50 pl-10 pr-3 text-sm outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100"
             />
           </div>
 
-          {/* SELECT */}
-          <select
-            name="pooja"
-            value={formData.pooja}
-            onChange={handleChange}
-            required
-            className="
-                  w-full
-                  h-16
-                  rounded-2xl
-                  border
-                  border-gray-200
-                  px-5
-                  outline-none
-                  focus:border-red-500
-                "
-          >
-            <option value="">Select Pooja</option>
-            {poojaList.map((pooja, index) => (
-              <option key={index} value={pooja}>
-                {pooja}
-              </option>
-            ))}
-          </select>
+          <div className="relative sm:col-span-2">
+            <Mail
+              size={16}
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 text-red-500"
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email Address *"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              className="w-full h-11 rounded-xl border border-gray-200 bg-gray-50 pl-10 pr-3 text-sm outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100"
+            />
+          </div>
+        </div>
 
-          {/* DATE TIME */}
-          <div className="grid grid-cols-2 gap-5">
+        <select
+          name="pooja"
+          value={formData.pooja}
+          onChange={handleChange}
+          required
+          className="w-full h-11 rounded-xl border border-gray-200 bg-gray-50 px-3 text-sm outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100"
+        >
+          <option value="">Select Pooja *</option>
+          {poojaList.map((pooja) => (
+            <option key={pooja} value={pooja}>
+              {pooja}
+            </option>
+          ))}
+        </select>
+
+        <div className="grid grid-cols-2 gap-3.5">
+          <div>
+            <label className="text-xs font-semibold text-gray-500 mb-1 block">
+              Date *
+            </label>
             <input
               type="date"
               name="date"
               value={formData.date}
               onChange={handleChange}
               required
-              className="
-                    h-16
-                    rounded-2xl
-                    border
-                    border-gray-200
-                    px-5
-                    outline-none
-                    focus:border-red-500
-                  "
+              className="w-full h-11 rounded-xl border border-gray-200 bg-gray-50 px-3 text-sm outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100"
             />
+          </div>
+          <div>
+            <label className="text-xs font-semibold text-gray-500 mb-1 block">
+              Time *
+            </label>
             <input
               type="time"
               name="time"
               value={formData.time}
               onChange={handleChange}
               required
-              className="
-                    h-16
-                    rounded-2xl
-                    border
-                    border-gray-200
-                    px-5
-                    outline-none
-                    focus:border-red-500
-                  "
+              className="w-full h-11 rounded-xl border border-gray-200 bg-gray-50 px-3 text-sm outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100"
             />
           </div>
+        </div>
 
-          {/* MESSAGE */}
-          <div className="relative">
-            <MessageSquare
-              size={20}
-              className="
-                    absolute
-                    left-5
-                    top-6
-                    text-red-500
-                  "
-            />
-            <textarea
-              rows="5"
-              name="message"
-              placeholder="Write your message..."
-              value={formData.message}
-              onChange={handleChange}
-              className="
-                    w-full
-                    rounded-2xl
-                    border
-                    border-gray-200
-                    pl-14
-                    pr-5
-                    pt-5
-                    outline-none
-                    focus:border-red-500
-                  "
-            />
-          </div>
+        <div className="relative">
+          <MessageSquare
+            size={16}
+            className="absolute left-3.5 top-3.5 text-red-500"
+          />
+          <textarea
+            rows={3}
+            name="message"
+            placeholder="Write your message (optional)..."
+            value={formData.message}
+            onChange={handleChange}
+            className="w-full rounded-xl border border-gray-200 bg-gray-50 pl-10 pr-3 py-3 text-sm outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100 resize-none"
+          />
+        </div>
 
-          {/* BUTTON */}
-          <button
-            type="submit"
-            disabled={loading}
-            className="
-                  w-full
-                  h-16
-                  rounded-full
-                  bg-red-500
-                  hover:bg-red-600
-                  text-white
-                  text-lg
-                  font-black
-                  transition-all
-                  disabled:opacity-50
-                "
-          >
-            {loading ? "Submitting..." : "Submit Pooja Request"}
-          </button>
-        </form>
-      </div>
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full h-12 rounded-xl bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-white text-sm font-bold flex items-center justify-center gap-2 shadow-lg shadow-red-200 transition disabled:opacity-50"
+        >
+          {loading ? (
+            "Submitting..."
+          ) : (
+            <>
+              <Send size={16} />
+              Submit Pooja Request
+            </>
+          )}
+        </button>
+      </form>
     </div>
   );
 }

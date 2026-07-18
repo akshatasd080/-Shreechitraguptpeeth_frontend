@@ -149,7 +149,7 @@ const servicess = [
 
       setLoading(true);
 
-      await api.post("/leads", {
+      await api.post("/contacts", {
         ...formData,
         message: formData.message || null,
       });
