@@ -1,19 +1,49 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Home, X } from "lucide-react";
 import { Link } from "react-router-dom";
+import api from "@/api/axios";
 
-const galleryImages = [
-  "/gallery/g1.jpg",
-  "/gallery/g2.jpg",
-  "/gallery/g3.jpg",
-  "/gallery/g4.jpg",
-  "/gallery/g5.jpg",
-  "/gallery/g6.jpg",
+const API_BASE_URL =
+  import.meta.env.VITE_BASE_URL || "http://localhost:3004/api";
+const IMAGE_BASE_URL = `${API_BASE_URL}/uploads/gallery/`;
+const FALLBACK_IMAGES = [
+  { src: "/gallery/g1.jpg", title: "Gallery Image" },
+  { src: "/gallery/g2.jpg", title: "Gallery Image" },
+  { src: "/gallery/g3.jpg", title: "Gallery Image" },
+  { src: "/gallery/g4.jpg", title: "Gallery Image" },
+  { src: "/gallery/g5.jpg", title: "Gallery Image" },
+  { src: "/gallery/g6.jpg", title: "Gallery Image" },
 ];
 
 const PhotoGallery = () => {
-
+  const [galleryImages, setGalleryImages] = useState(FALLBACK_IMAGES);
+  const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(null);
+
+  useEffect(() => {
+    const fetchGalleryImages = async () => {
+      setLoading(true);
+      try {
+        const res = await api.get("/gallery-images?active=true");
+        const apiImages = res.data?.images || [];
+        if (apiImages.length > 0) {
+          setGalleryImages(
+            apiImages.map((img) => ({
+              id: img.id,
+              src: `${IMAGE_BASE_URL}${img.image_filename}`,
+              title: img.title || "Gallery Image",
+            }))
+          );
+        }
+      } catch (_) {
+        // keep fallback images
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchGalleryImages();
+  }, []);
 
   return (
     <div className="w-full bg-[#f8f8f8] overflow-hidden">
@@ -160,7 +190,7 @@ const PhotoGallery = () => {
               text-[#ff3300]
             "
           >
-            BHUMI PUJAN 14 JAN 2023
+            Photo Gallery
           </h2>
 
           <p
@@ -173,20 +203,28 @@ const PhotoGallery = () => {
               leading-[2]
             "
           >
-            भगवान श्री चित्रगुप्त पीठ के भव्य भूमि पूजन एवं
-            आध्यात्मिक कार्यक्रम के दिव्य दृश्य।
+            Shree Chitragupt Peeth ke pavitra aur yaadgaar karyakramon ke
+            divya drishya.
           </p>
         </div>
 
         {/* =========================================
                     IMAGE GRID
         ========================================= */}
-        <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-8">
-
-          {galleryImages.map((image, index) => (
+        {loading ? (
+          <div className="text-center py-16 text-gray-500 text-lg font-medium">
+            Loading gallery images...
+          </div>
+        ) : galleryImages.length === 0 ? (
+          <div className="text-center py-16 text-gray-500 text-lg font-medium">
+            No gallery images available yet.
+          </div>
+        ) : (
+          <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-8">
+            {galleryImages.map((image, index) => (
 
             <div
-              key={index}
+              key={image.id || index}
               onClick={() => setSelectedImage(image)}
               className="
                 group
@@ -230,8 +268,8 @@ const PhotoGallery = () => {
               >
 
                 <img
-                  src={image}
-                  alt="Gallery"
+                  src={image.src}
+                  alt={image.title}
                   className="
                     w-full
                     h-[340px]
@@ -284,9 +322,16 @@ const PhotoGallery = () => {
                   </div>
                 </div>
               </div>
+
+              <div className="px-2 pt-5 pb-2 text-center">
+                <h3 className="text-lg font-bold text-[#ff3300] line-clamp-2">
+                  {image.title}
+                </h3>
+              </div>
             </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* =========================================
@@ -333,8 +378,8 @@ const PhotoGallery = () => {
 
           {/* IMAGE */}
           <img
-            src={selectedImage}
-            alt="Preview"
+            src={selectedImage.src}
+            alt={selectedImage.title}
             className="
               max-w-full
               max-h-[90vh]
@@ -342,6 +387,9 @@ const PhotoGallery = () => {
               shadow-[0_30px_100px_rgba(0,0,0,0.5)]
             "
           />
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-white text-[#ff3300] px-6 py-3 rounded-full font-bold shadow-2xl">
+            {selectedImage.title}
+          </div>
         </div>
       )}
     </div>

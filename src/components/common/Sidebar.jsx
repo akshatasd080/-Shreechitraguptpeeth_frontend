@@ -25,6 +25,9 @@ import {
   Package as LuPackage,
   Phone as LuPhone,
   HeartHandshake as LuDonation,
+  Images as LuImages,
+  Video as LuVideos,
+  Sparkles as LuMantra,
 } from "lucide-react";
 import api from "@/api/axios";
 import { appConfig } from "@/config/appConfig";
@@ -188,6 +191,27 @@ perms:[],
     icon:<LuDonation className="text-lg" />,
     perms:[],
    },
+   {
+    key:"galleryimages",
+    label:"Gallery Images",
+    to:"/dashboard/galleryimages",
+    icon:<LuImages className="text-lg" />,
+    perms:[],
+   },
+   {
+    key:"galleryvideos",
+    label:"Gallery Videos",
+    to:"/dashboard/galleryvideos",
+    icon:<LuVideos className="text-lg" />,
+    perms:[],
+   },
+   {
+    key:"mantras",
+ label:"Mantras",
+ to:"/dashboard/mantras",
+ icon:<LuMantra className="text-lg" />,
+ perms:[],
+  }
    
 
     

@@ -132,10 +132,8 @@ export default function Navbar() {
           title: "Video Gallery",
           path: "/video-gallery",
         },
-        {
-          title: "Media Gallery",
-          path: "/media-gallery",
-        },
+       
+        
       ],
     },
 
@@ -669,24 +667,49 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* MOBILE BUTTON */}
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setOpen(!open)}
-            className="
-              xl:hidden
-              w-12 h-12
-              rounded-2xl
-              bg-gradient-to-r from-red-500 to-orange-500
-              text-white
-              flex items-center justify-center
-              shadow-lg
-              shadow-red-200
-            "
-          >
-            {open ? <X size={24} /> : <Menu size={24} />}
-          </motion.button>
+          {/* MOBILE: Donate + Menu */}
+          <div className="flex lg:hidden items-center gap-2">
+            <Link to="/donate">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="
+                  h-10
+                  px-4
+                  rounded-xl
+                  bg-gradient-to-r from-red-600 via-orange-500 to-pink-500
+                  text-white
+                  text-xs
+                  font-black
+                  flex items-center justify-center
+                  gap-1.5
+                  shadow-lg
+                  shadow-red-200
+                  whitespace-nowrap
+                "
+              >
+                <Heart size={14} className="fill-current shrink-0" />
+                DONATE
+              </motion.button>
+            </Link>
+
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setOpen(!open)}
+              className="
+                w-12 h-12
+                rounded-2xl
+                bg-gradient-to-r from-red-500 to-orange-500
+                text-white
+                flex items-center justify-center
+                shadow-lg
+                shadow-red-200
+              "
+            >
+              {open ? <X size={24} /> : <Menu size={24} />}
+            </motion.button>
+          </div>
         </div>
       </div>
 
@@ -697,7 +720,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="xl:hidden border-t border-orange-100 bg-white/98 backdrop-blur-xl shadow-2xl"
+            className="lg:hidden border-t border-orange-100 bg-white/98 backdrop-blur-xl shadow-2xl max-h-[calc(100vh-88px)] overflow-y-auto"
           >
             <div className="p-5 space-y-3">
 

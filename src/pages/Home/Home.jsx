@@ -20,12 +20,197 @@ import {
   Languages,
 } from "lucide-react";
 import api from "@/api/axios";
+import { getCategoryLink } from "../SpiritualContent/spiritualUtils";
 
 const API_BASE_URL =
   import.meta.env.VITE_BASE_URL || "http://localhost:3004/api";
 const HERO_IMAGE_BASE = `${API_BASE_URL}/uploads/hero/`;
 const POOJA_IMAGE_BASE = `${API_BASE_URL}/uploads/pooja/`;
 const THOUGHT_IMAGE_BASE = `${API_BASE_URL}/uploads/thoughts/`;
+const SPIRITUAL_IMAGE_BASE = `${API_BASE_URL}/uploads/spiritual/`;
+
+const TYPE_ORDER = ["mantra", "aarti", "chalisa", "sunRise", "moonRise"];
+
+const DEFAULT_SPIRITUAL_TYPES = [
+  {
+    id: "mantra",
+    title: "🕉 Mantra",
+    color: "from-amber-500 to-orange-600",
+    categories: [
+      {
+        id: "mantra-sacred-mantras",
+        name: "Sacred Mantras",
+        items: [
+          { id: "radha-mantra", name: "Radha Mantra", type: "mantra", image: null },
+          { id: "narayan-mantra", name: "Narayan Mantra", type: "mantra", image: null },
+          { id: "kali-mantra", name: "Kali Mantra", type: "mantra", image: null },
+        ],
+      },
+    ],
+  },
+  {
+    id: "aarti",
+    title: "🙏 Aarti",
+    color: "from-rose-500 to-red-600",
+    categories: [
+      {
+        id: "aarti-divine-aarti",
+        name: "Divine Aarti",
+        items: [
+          { id: "ganesh-aarti", name: "Ganesh Aarti", type: "aarti", image: null },
+          { id: "om-jai-jagdish-hare", name: "Om Jai Jagdish Hare", type: "aarti", image: null },
+        ],
+      },
+    ],
+  },
+  {
+    id: "chalisa",
+    title: "📖 Chalisa",
+    color: "from-violet-500 to-purple-600",
+    categories: [
+      {
+        id: "chalisa-holy-chalisa",
+        name: "Holy Chalisa",
+        items: [
+          { id: "hanuman-chalisa", name: "Hanuman Chalisa", type: "chalisa", image: null },
+          { id: "shiv-chalisa", name: "Shiv Chalisa", type: "chalisa", image: null },
+        ],
+      },
+    ],
+  },
+  {
+    id: "sunRise",
+    title: "🌞 Sun Rise",
+    color: "from-yellow-400 to-orange-500",
+    categories: [
+      {
+        id: "sunrise-sunrise-timings",
+        name: "Sunrise Timings",
+        items: [{ id: "delhi-sunrise", name: "Delhi", type: "sunRise", image: null }],
+      },
+    ],
+  },
+  {
+    id: "moonRise",
+    title: "🌙 Moon Rise",
+    color: "from-indigo-400 to-blue-600",
+    categories: [
+      {
+        id: "moonrise-moonrise-timings",
+        name: "Moonrise Timings",
+        items: [{ id: "delhi-moonrise", name: "Delhi", type: "moonRise", image: null }],
+      },
+    ],
+  },
+];
+
+const SPIRITUAL_TYPE_META = {
+  mantra: {
+    id: "mantra",
+    label: "Mantra",
+    emoji: "🕉",
+    color: "from-amber-500 to-orange-600",
+    accent: "text-orange-600",
+    bg: "bg-orange-50",
+    border: "border-orange-200",
+    glow: "shadow-orange-200/60",
+  },
+  aarti: {
+    id: "aarti",
+    label: "Aarti",
+    emoji: "🙏",
+    color: "from-rose-500 to-red-600",
+    accent: "text-rose-600",
+    bg: "bg-rose-50",
+    border: "border-rose-200",
+    glow: "shadow-rose-200/60",
+  },
+  chalisa: {
+    id: "chalisa",
+    label: "Chalisa",
+    emoji: "📖",
+    color: "from-violet-500 to-purple-600",
+    accent: "text-violet-600",
+    bg: "bg-violet-50",
+    border: "border-violet-200",
+    glow: "shadow-violet-200/60",
+  },
+  sunRise: {
+    id: "sunRise",
+    label: "Sun Rise",
+    emoji: "🌞",
+    color: "from-yellow-400 to-orange-500",
+    accent: "text-yellow-600",
+    bg: "bg-yellow-50",
+    border: "border-yellow-200",
+    glow: "shadow-yellow-200/60",
+  },
+  moonRise: {
+    id: "moonRise",
+    label: "Moon Rise",
+    emoji: "🌙",
+    color: "from-indigo-400 to-blue-600",
+    accent: "text-indigo-600",
+    bg: "bg-indigo-50",
+    border: "border-indigo-200",
+    glow: "shadow-indigo-200/60",
+  },
+};
+
+const slugifyCategory = (text) =>
+  String(text || "")
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\u0900-\u097f]+/gi, "-")
+    .replace(/^-+|-+$/g, "") || "general";
+
+const buildSpiritualTypes = (resources) => {
+  const typesMap = {};
+
+  for (const item of resources) {
+    const type = item.type;
+    if (!typesMap[type]) {
+      typesMap[type] = {
+        id: type,
+        title: SPIRITUAL_TYPE_META[type]
+          ? `${SPIRITUAL_TYPE_META[type].emoji} ${SPIRITUAL_TYPE_META[type].label}`
+          : type,
+        ...SPIRITUAL_TYPE_META[type],
+        color: SPIRITUAL_TYPE_META[type]?.color || "from-orange-500 to-red-500",
+        categories: {},
+      };
+    }
+
+    const catName = item.category || "General";
+    const catId = `${type}__${slugifyCategory(catName)}`;
+
+    if (!typesMap[type].categories[catId]) {
+      typesMap[type].categories[catId] = {
+        id: catId,
+        name: catName,
+        items: [],
+      };
+    }
+
+    typesMap[type].categories[catId].items.push({
+      id: item.slug,
+      name: item.name,
+      type: item.type,
+      image: item.image_filename
+        ? `${SPIRITUAL_IMAGE_BASE}${item.image_filename}`
+        : null,
+    });
+  }
+
+  return TYPE_ORDER.filter(
+    (type) => Object.keys(typesMap[type]?.categories || {}).length > 0
+  ).map((type) => ({
+    ...typesMap[type],
+    categories: Object.values(typesMap[type].categories).sort((a, b) =>
+      a.name.localeCompare(b.name)
+    ),
+  }));
+};
 
 const DEFAULT_SLIDES = [
   {
@@ -142,85 +327,7 @@ export default function Home() {
     },
   ]);
 
-  const tabs = [
-  {
-    id: "mantra",
-    title: "🕉 Mantra",
-    items: [
-      { id: "radha-mantra", name: "Radha Mantra" },
-      { id: "narayan-mantra", name: "Narayan Mantra" },
-      { id: "kali-mantra", name: "Kali Mantra" },
-      { id: "agni-mantra", name: "Agni Mantra" },
-      { id: "shakti-mantra", name: "Shakti Mantra" },
-      { id: "hanuman-mool-mantra", name: "Hanuman Mool Mantra" },
-      { id: "shiv-mantra", name: "Shiv Mantra" },
-      { id: "durga-mantra", name: "Durga Mantra" },
-      { id: "lakshmi-mantra", name: "Lakshmi Mantra" },
-    ],
-  },
-
-  {
-    id: "aarti",
-    title: "🙏 Aarti",
-    items: [
-      { id: "chintpurni-aarti", name: "Chintpurni Aarti" },
-      { id: "bhagavad-gita-aarti", name: "Bhagavad Gita Aarti" },
-      { id: "annapurna-aarti", name: "Annapurna Aarti" },
-      { id: "om-jai-jagdish-hare", name: "Om Jai Jagdish Hare" },
-      { id: "datta-aarti", name: "Dattachi Aarti" },
-      { id: "ganesh-aarti", name: "Ganesh Aarti" },
-      { id: "kali-aarti", name: "Kaali Aarti" },
-      { id: "vishwakarma-aarti", name: "Vishwakarma Aarti" },
-    ],
-  },
-
-  {
-    id: "chalisa",
-    title: "📖 Chalisa",
-    items: [
-      { id: "saraswati-chalisa", name: "Saraswati Chalisa" },
-      { id: "shiv-chalisa", name: "Shiv Chalisa" },
-      { id: "ram-chalisa", name: "Ram Chalisa" },
-      { id: "chamunda-chalisa", name: "Chamunda Chalisa" },
-      { id: "santoshi-chalisa", name: "Santoshi Chalisa" },
-      { id: "hanuman-chalisa", name: "Hanuman Chalisa" },
-      { id: "durga-chalisa", name: "Durga Chalisa" },
-      { id: "kali-chalisa", name: "Kali Chalisa" },
-    ],
-  },
-
-  {
-    id: "sunRise",
-    title: "🌞 Sun Rise",
-    items: [
-      { id: "mumbai-sunrise", name: "Mumbai" },
-      { id: "delhi-sunrise", name: "Delhi" },
-      { id: "kolkata-sunrise", name: "Kolkata" },
-      { id: "chennai-sunrise", name: "Chennai" },
-      { id: "bangalore-sunrise", name: "Bangalore" },
-      { id: "hyderabad-sunrise", name: "Hyderabad" },
-      { id: "ahmedabad-sunrise", name: "Ahmedabad" },
-      { id: "pune-sunrise", name: "Pune" },
-      { id: "surat-sunrise", name: "Surat" },
-    ],
-  },
-
-  {
-    id: "moonRise",
-    title: "🌙 Moon Rise",
-    items: [
-      { id: "mumbai-moonrise", name: "Mumbai" },
-      { id: "delhi-moonrise", name: "Delhi" },
-      { id: "kolkata-moonrise", name: "Kolkata" },
-      { id: "chennai-moonrise", name: "Chennai" },
-      { id: "bangalore-moonrise", name: "Bangalore" },
-      { id: "hyderabad-moonrise", name: "Hyderabad" },
-      { id: "ahmedabad-moonrise", name: "Ahmedabad" },
-      { id: "pune-moonrise", name: "Pune" },
-      { id: "surat-moonrise", name: "Surat" },
-    ],
-  },
-];
+  const [spiritualTypes, setSpiritualTypes] = useState(DEFAULT_SPIRITUAL_TYPES);
 
 
   const gallery = [
@@ -332,7 +439,13 @@ export default function Home() {
   ];
 
   const [current, setCurrent] = useState(0);
-  const [active, setActive] = useState(tabs[0].id);
+  const [activeSpiritualType, setActiveSpiritualType] = useState(
+    DEFAULT_SPIRITUAL_TYPES[0].id
+  );
+
+  const handleSpiritualTypeChange = (typeId) => {
+    setActiveSpiritualType(typeId);
+  };
   const [dailyThought, setDailyThought] = useState(null);
   const [thoughtLang, setThoughtLang] = useState("hi"); // hi | en
   const [translatedEn, setTranslatedEn] = useState("");
@@ -413,6 +526,26 @@ export default function Home() {
       }
     };
     fetchVideos();
+  }, []);
+
+  // Load spiritual resources (mantras, aarti, chalisa) from backend
+  useEffect(() => {
+    const fetchSpiritualResources = async () => {
+      try {
+        const res = await api.get("/spiritual-resources?active=true");
+        const apiResources = res.data?.resources || [];
+        if (apiResources.length > 0) {
+          const builtTypes = buildSpiritualTypes(apiResources);
+          if (builtTypes.length > 0) {
+            setSpiritualTypes(builtTypes);
+            setActiveSpiritualType(builtTypes[0].id);
+          }
+        }
+      } catch (_) {
+        // Keep default spiritual tabs if API is unavailable
+      }
+    };
+    fetchSpiritualResources();
   }, []);
 
   // Load today's daily thought
@@ -1300,7 +1433,8 @@ export default function Home() {
         </div>
 
         {/* Button */}
-        <button
+        <Link
+          to="/donate"
           className="
             mt-4
             w-full
@@ -1325,7 +1459,8 @@ export default function Home() {
         >
           DONATE NOW
           <ArrowRight size={16} />
-        </button>
+        </Link>
+        
       </div>
     </div>
   ))}
@@ -1849,132 +1984,182 @@ export default function Home() {
 
 
 
- <section className="py-20 bg-gradient-to-b from-orange-50 to-white">
+ <section className="relative py-28 overflow-hidden">
 
-      <div className="max-w-7xl mx-auto px-6">
+      {/* Rich background */}
+      <div className="absolute inset-0 bg-[#fffaf7]" />
+      <div
+        className="absolute inset-0 opacity-[0.035]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ea580c' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }}
+      />
+      <div className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-gradient-to-b from-orange-200/50 via-amber-100/30 to-transparent rounded-full blur-3xl" />
+      <div className="pointer-events-none absolute bottom-0 right-0 w-96 h-96 bg-red-100/40 rounded-full blur-3xl" />
 
-        {/* Heading */}
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
 
-        <div className="text-center">
-
-          <span className="inline-flex items-center gap-2 bg-orange-100 px-5 py-2 rounded-full text-orange-600 font-semibold">
-
-            🕉 Spiritual Resources
-
-          </span>
-
-          <h2 className="mt-5 text-4xl font-black text-gray-900">
-
-            Explore
-
-            <span className="text-orange-500">
-
-              {" "}Mantras, Aarti & Chalisa
-
-            </span>
-
-          </h2>
-
-          <p className="mt-3 text-gray-600 max-w-2xl mx-auto">
-
-            Access daily devotional prayers, mantras, aartis,
-            chalisas and sunrise timings.
-
-          </p>
-
-        </div>
-
-        {/* Tabs */}
-
-        <div className="flex flex-wrap justify-center gap-4 mt-12">
-
-          {tabs.map((tab) => (
-
-            <button
-
-              key={tab.id}
-
-              onClick={() => setActive(tab.id)}
-
-              className={`
-
-                px-6
-
-                h-12
-
-                rounded-full
-
-                font-semibold
-
-                transition
-
-                ${
-                  active === tab.id
-                    ? "bg-orange-500 text-white shadow-lg"
-                    : "bg-white border border-orange-200 text-gray-700 hover:bg-orange-50"
-                }
-
-              `}
-
-            >
-
-              {tab.title}
-
-            </button>
-
-          ))}
-
-        </div>
-
-        {/* Content */}
-
-        <div
-
-          className="
-
-            mt-10
-
-            bg-white
-
-            rounded-3xl
-
-            border
-
-            border-orange-100
-
-            shadow-lg
-
-            p-8
-
-          "
-
-        >
-
-          <div className="flex flex-wrap gap-4">
-            {tabs.find(tab => tab.id === active)?.items.map((item) => (
-              <Link
-                key={item.id}
-                to={`/spiritual/${active}/${item.id}`}
-                className="
-                  px-5
-                  py-3
-                  rounded-full
-                  bg-orange-50
-                  text-orange-600
-                  font-medium
-                  border
-                  border-orange-200
-                  hover:bg-orange-500
-                  hover:text-white
-                  transition-all
-                  duration-300
-                "
-              >
-                {item.name}
-              </Link>
-            ))}
+        {/* Header */}
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-orange-500/10 to-red-500/10 border border-orange-200/60 text-orange-700 text-sm font-semibold tracking-wide">
+            <span className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse" />
+            Spiritual Resources
           </div>
 
+          <h2 className="mt-5 text-4xl sm:text-5xl font-black text-gray-900 tracking-tight">
+            Divine{" "}
+            <span className="relative inline-block">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-red-500 to-amber-500">
+                Mantras & Prayers
+              </span>
+              <span className="absolute -bottom-1 left-0 right-0 h-1 bg-gradient-to-r from-orange-400 to-red-400 rounded-full opacity-40" />
+            </span>
+          </h2>
+
+          <p className="mt-5 text-gray-500 text-base sm:text-lg leading-relaxed">
+            Select a devotional type, explore categories, and read sacred content.
+          </p>
+        </div>
+
+        {/* Main panel */}
+        <div className="relative rounded-[2rem] bg-white/70 backdrop-blur-xl border border-white shadow-[0_8px_60px_-12px_rgba(234,88,12,0.15)] overflow-hidden">
+
+          {/* Top accent bar */}
+          <div className="h-1.5 bg-gradient-to-r from-orange-400 via-red-500 to-amber-400" />
+
+          <div className="p-6 sm:p-8 lg:p-10">
+
+            {/* Type selector — icon cards */}
+            <div>
+              <div className="flex items-center gap-3 mb-5">
+                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-orange-200 to-transparent" />
+                <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 shrink-0">
+                  Devotional Type
+                </span>
+                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-orange-200 to-transparent" />
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+                {spiritualTypes.map((type) => {
+                  const isActive = activeSpiritualType === type.id;
+                  const meta = SPIRITUAL_TYPE_META[type.id] || {};
+                  const totalItems = type.categories.reduce(
+                    (sum, cat) => sum + cat.items.length,
+                    0
+                  );
+
+                  return (
+                    <button
+                      key={type.id}
+                      onClick={() => handleSpiritualTypeChange(type.id)}
+                      className={`
+                        relative group text-left
+                        rounded-2xl p-4 sm:p-5
+                        border-2 transition-all duration-300
+                        ${
+                          isActive
+                            ? `bg-gradient-to-br ${type.color} border-transparent text-white shadow-xl ${meta.glow || ""} -translate-y-1`
+                            : `bg-white ${meta.border || "border-orange-100"} hover:border-orange-300 hover:shadow-lg hover:-translate-y-0.5`
+                        }
+                      `}
+                    >
+                      <span className={`text-3xl sm:text-4xl block mb-2 ${isActive ? "" : "grayscale-[30%] group-hover:grayscale-0"} transition-all`}>
+                        {meta.emoji || "🕉"}
+                      </span>
+                      <span className={`block font-bold text-sm sm:text-base leading-tight ${isActive ? "text-white" : "text-gray-800"}`}>
+                        {meta.label || type.title}
+                      </span>
+                      <span
+                        className={`inline-block mt-2 text-[11px] font-bold px-2 py-0.5 rounded-full ${
+                          isActive
+                            ? "bg-white/20 text-white"
+                            : `${meta.bg || "bg-orange-50"} ${meta.accent || "text-orange-600"}`
+                        }`}
+                      >
+                        {totalItems} items
+                      </span>
+                      {isActive && (
+                        <motion.div
+                          layoutId="spiritual-type-indicator"
+                          className="absolute -bottom-px left-1/2 -translate-x-1/2 w-8 h-1 bg-white rounded-full"
+                        />
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Category selector */}
+            {(() => {
+              const currentType = spiritualTypes.find(
+                (t) => t.id === activeSpiritualType
+              );
+              const categories = currentType?.categories || [];
+              const meta = SPIRITUAL_TYPE_META[currentType?.id] || {};
+
+              if (!categories.length) return null;
+
+              return (
+                <motion.div
+                  key={currentType.id}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="mt-8 pt-8 border-t border-orange-100/80"
+                >
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
+                    <div>
+                      <p className={`text-xs font-bold uppercase tracking-widest ${meta.accent || "text-orange-600"}`}>
+                        {meta.emoji} {meta.label} Categories
+                      </p>
+                      <p className="text-gray-400 text-sm mt-0.5">
+                        {categories.length} categor{categories.length === 1 ? "y" : "ies"} available
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2.5">
+                    {categories.map((category) => {
+                      const hoverMap = {
+                        mantra: "hover:bg-gradient-to-r hover:from-amber-500 hover:to-orange-600 hover:border-transparent hover:text-white",
+                        aarti: "hover:bg-gradient-to-r hover:from-rose-500 hover:to-red-600 hover:border-transparent hover:text-white",
+                        chalisa: "hover:bg-gradient-to-r hover:from-violet-500 hover:to-purple-600 hover:border-transparent hover:text-white",
+                        sunRise: "hover:bg-gradient-to-r hover:from-yellow-400 hover:to-orange-500 hover:border-transparent hover:text-white",
+                        moonRise: "hover:bg-gradient-to-r hover:from-indigo-400 hover:to-blue-600 hover:border-transparent hover:text-white",
+                      };
+
+                      return (
+                        <Link
+                          key={category.id}
+                          to={getCategoryLink(currentType.id, category)}
+                          className={`
+                            group inline-flex items-center gap-2
+                            px-5 py-2.5 rounded-full
+                            font-semibold text-sm
+                            border border-gray-200 bg-white text-gray-700
+                            transition-all duration-300
+                            hover:shadow-md hover:-translate-y-0.5
+                            ${hoverMap[currentType.id] || hoverMap.mantra}
+                          `}
+                        >
+                          <span>{category.name}</span>
+                          <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[20px] text-center bg-gray-100 text-gray-500 group-hover:bg-white/25 group-hover:text-white">
+                            {category.items.length}
+                          </span>
+                          <ArrowRight
+                            size={14}
+                            className="opacity-40 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all"
+                          />
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </motion.div>
+              );
+            })()}
+
+          </div>
         </div>
 
       </div>

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Home, Play } from "lucide-react";
 import { Link } from "react-router-dom";
+import api from "@/api/axios";
 
-const videos = [
+const FALLBACK_VIDEOS = [
   {
     title: "श्री चित्रगुप्त पीठ वीडियो",
     url: "https://www.youtube.com/embed/bpy6LDwDhCc",
@@ -26,6 +27,35 @@ const videos = [
 ];
 
 const VideoGallery = () => {
+  const [videos, setVideos] = useState(FALLBACK_VIDEOS);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchVideos = async () => {
+      setLoading(true);
+      try {
+        const res = await api.get("/gallery-videos?active=true");
+        const apiVideos = res.data?.videos || [];
+        if (apiVideos.length > 0) {
+          setVideos(
+            apiVideos.map((video) => ({
+              id: video.id,
+              title: video.title || "श्री चित्रगुप्त पीठ वीडियो",
+              url: video.youtube_url,
+              description: video.description || "",
+            }))
+          );
+        }
+      } catch (_) {
+        // keep fallback videos
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchVideos();
+  }, []);
+
   return (
     <div className="w-full bg-[#f8f8f8] overflow-hidden">
 
@@ -192,12 +222,20 @@ const VideoGallery = () => {
         {/* =========================================
                     VIDEO GRID
         ========================================= */}
-        <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-8">
-
+        {loading ? (
+          <div className="text-center py-16 text-gray-500 text-lg font-medium">
+            Loading gallery videos...
+          </div>
+        ) : videos.length === 0 ? (
+          <div className="text-center py-16 text-gray-500 text-lg font-medium">
+            No gallery videos available yet.
+          </div>
+        ) : (
+          <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-8">
           {videos.map((video, index) => (
 
             <div
-              key={index}
+              key={video.id || index}
               className="
                 group
                 bg-white
@@ -295,8 +333,8 @@ const VideoGallery = () => {
                     text-[15px]
                   "
                 >
-                  श्री चित्रगुप्त पीठ के धार्मिक एवं
-                  आध्यात्मिक कार्यक्रम।
+                  {video.description ||
+                    "श्री चित्रगुप्त पीठ के धार्मिक एवं आध्यात्मिक कार्यक्रम।"}
                 </p>
 
                 {/* BUTTON */}
@@ -331,7 +369,8 @@ const VideoGallery = () => {
               </div>
             </div>
           ))}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

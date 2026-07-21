@@ -12,6 +12,7 @@ import ProductDetails from "./pages/Product/ProductDetails";
 import Career from "./pages/Career/Career";
 import ApplyDialog from "./components/ui/ApplyDialog";
 import SpiritualContentPage from "./pages/SpiritualContent/SpiritualContentPage";
+import SpiritualCategoryPage from "./pages/SpiritualContent/SpiritualCategoryPage";
 import News from "./pages/News/News";
 import NewsImages from "./pages/News/NewsImages";
 import NewsVideos from "./pages/News/NewsVideos";
@@ -37,6 +38,7 @@ import Mission from "./pages/About/Mission";
 import PhotoGallery from "./pages/Gallery copy/PhotoGallery";
 import VideoGallery from "./pages/Gallery copy/VideoGallery";
 import Mediagallery from "./pages/Gallery copy/Mediagallery";
+import GalleryImageAdmin from "./pages/Gallery/GallreyImage";
 import Member from "./pages/Member/Member";
 import Events from "./pages/Events/Events";
 import Herosection from "./pages/Herosection/Herosection";
@@ -51,6 +53,9 @@ import ContactDeatils from "./pages/ContactDeatils/ContactDeatils";
 import AdminPoojaBooking from "./pages/PoojaBooking/PoojaBooking";
 import DonationPage from "./pages/DonationPage/DonationPage";
 import DonationDeatils from "./pages/DonationPage/DonationDeatils";
+import GallreyImage from "./pages/Gallery/GallreyImage";
+import GalleryVideo from "./pages/Gallery/GalleryVideo";
+import Mantras from "./pages/Mantras/Mantras";
 
 
 
@@ -124,6 +129,7 @@ export default function App() {
           <Route path="/news-links" element={<NewsLinks/>}/>
           <Route path="/mission" element={<Mission/>}/>
           <Route path="/donate" element={<DonationPage/>}/>
+          <Route path="/spiritual/:type/category/:categorySlug" element={<SpiritualCategoryPage/>}/>
           <Route path="/spiritual/:type/:id" element={<SpiritualContentPage/>}/>
         </Route>
 
@@ -224,6 +230,15 @@ export default function App() {
           />
 
           <Route
+            path="dashboard/galleryimages"
+            element={
+              <RequirePermission permission="">
+                <GalleryImageAdmin />
+              </RequirePermission>
+            }
+          />
+
+          <Route
             path="dashboard/dailythought"
             element={
               <RequirePermission permission="">
@@ -255,6 +270,33 @@ export default function App() {
             element={
               <RequirePermission permission="">
                 <DonationDeatils />
+              </RequirePermission>
+            }
+          />
+
+          <Route
+            path="dashboard/galleryimages"
+            element={
+              <RequirePermission permission="">
+                <GallreyImage />
+              </RequirePermission>
+            }
+          />
+
+          <Route
+            path="dashboard/galleryvideos"
+            element={
+              <RequirePermission permission="">
+                <GalleryVideo />
+              </RequirePermission>
+            }
+          />
+
+          <Route
+            path="dashboard/mantras"
+            element={
+              <RequirePermission permission="">
+                <Mantras />
               </RequirePermission>
             }
           />

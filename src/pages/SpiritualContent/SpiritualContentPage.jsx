@@ -1,22 +1,60 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Home, ArrowLeft } from "lucide-react";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import api from "@/api/axios";
 import { getSpiritualContent } from "./spiritualData";
+
+const API_BASE_URL =
+  import.meta.env.VITE_BASE_URL || "http://localhost:3004/api";
+const IMAGE_BASE_URL = `${API_BASE_URL}/uploads/spiritual/`;
 
 const SpiritualContentPage = () => {
   const { type, id } = useParams();
   const navigate = useNavigate();
-  
-  const content = getSpiritualContent(type, id);
-  
+  const [content, setContent] = useState(null);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    // Scroll to top of page when component mounts or params change
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth' // or 'auto' for instant jump
-    });
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, [type, id]);
+
+  useEffect(() => {
+    const fetchContent = async () => {
+      setLoading(true);
+      try {
+        const res = await api.get(`/spiritual-resources/${type}/${id}`);
+        const resource = res.data?.resource;
+        if (resource) {
+          setContent({
+            title: resource.name,
+            subtitle: resource.category,
+            content: resource.content,
+            image: resource.image_filename
+              ? `${IMAGE_BASE_URL}${resource.image_filename}`
+              : null,
+          });
+          setLoading(false);
+          return;
+        }
+      } catch (_) {
+        // Fall back to static data
+      }
+
+      const staticContent = getSpiritualContent(type, id);
+      setContent(staticContent);
+      setLoading(false);
+    };
+
+    fetchContent();
+  }, [type, id]);
+
+  if (loading) {
+    return (
+      <div className="w-full bg-[#fffaf7] min-h-screen flex items-center justify-center">
+        <p className="text-gray-500 font-medium">Loading...</p>
+      </div>
+    );
+  }
 
   if (!content) {
     return (
@@ -35,8 +73,6 @@ const SpiritualContentPage = () => {
 
   return (
     <div className="w-full bg-[#fffaf7] overflow-hidden">
-      {/* ================= HERO SECTION ================= */}
-
       <div
         className="
           relative
@@ -49,13 +85,13 @@ const SpiritualContentPage = () => {
           bg-no-repeat
         "
         style={{
-          backgroundImage: "url('/New folder/subheader1.jpg')",
+          backgroundImage: content.image
+            ? `url('${content.image}')`
+            : "url('/New folder/subheader1.jpg')",
         }}
       >
-        {/* OVERLAY */}
         <div className="absolute inset-0 bg-black/50" />
 
-        {/* CONTENT */}
         <div
           className="
             relative
@@ -68,7 +104,6 @@ const SpiritualContentPage = () => {
             px-4
           "
         >
-          {/* TOP TAG */}
           <span
             className="
               px-4 py-2
@@ -86,7 +121,6 @@ const SpiritualContentPage = () => {
             Shree Chitragupt Peeth
           </span>
 
-          {/* TITLE */}
           <h1
             className="
               text-3xl
@@ -99,7 +133,6 @@ const SpiritualContentPage = () => {
             {content.title}
           </h1>
 
-          {/* BREADCRUMB */}
           <div
             className="
               absolute
@@ -130,9 +163,7 @@ const SpiritualContentPage = () => {
               HOME
             </Link>
 
-            <span className="text-gray-400 text-sm">
-              /
-            </span>
+            <span className="text-gray-400 text-sm">/</span>
 
             <span className="text-red-500 text-[13px] font-semibold">
               {content.title.toUpperCase()}
@@ -141,11 +172,7 @@ const SpiritualContentPage = () => {
         </div>
       </div>
 
-      {/* ================= MAIN CONTENT SECTION ================= */}
-
       <div className="max-w-[1100px] mx-auto px-4 lg:px-6 pt-20 pb-16">
-        
-        {/* Back Button */}
         <button
           onClick={() => navigate(-1)}
           className="
@@ -165,15 +192,23 @@ const SpiritualContentPage = () => {
           <ArrowLeft size={16} />
           पीछे जाएँ
         </button>
-        
-        {/* Subtitle if present */}
+
         {content.subtitle && (
           <h2 className="text-xl md:text-2xl font-semibold text-orange-600 mb-6">
             {content.subtitle}
           </h2>
         )}
-        
-        {/* Content Card */}
+
+        {content.image && (
+          <div className="mb-8 rounded-2xl overflow-hidden border border-orange-100 shadow-sm">
+            <img
+              src={content.image}
+              alt={content.title}
+              className="w-full max-h-80 object-cover"
+            />
+          </div>
+        )}
+
         <div
           className="
             bg-white
