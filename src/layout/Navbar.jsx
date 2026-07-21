@@ -12,6 +12,7 @@ import {
   Heart,
   Building2,
   Send,
+  Calendar,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
@@ -40,6 +41,7 @@ export default function Navbar() {
   const [contactOpen, setContactOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [hasUpcomingEvents, setHasUpcomingEvents] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -69,6 +71,26 @@ export default function Navbar() {
       document.body.style.overflow = "";
     };
   }, [contactOpen]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const fetchUpcomingEvents = async () => {
+      try {
+        const res = await api.get("/events?active=true&type=upcoming");
+        if (!cancelled) {
+          setHasUpcomingEvents((res.data?.events || []).length > 0);
+        }
+      } catch {
+        if (!cancelled) setHasUpcomingEvents(false);
+      }
+    };
+
+    fetchUpcomingEvents();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const navLinks = [
     { title: "Home", path: "/" },
@@ -137,7 +159,7 @@ export default function Navbar() {
       ],
     },
 
-    { title: "Events", path: "/events" },
+    { title: "Events", path: "/events", showUpcomingIndicator: true },
     {
       title: "News",
       dropdown: [
@@ -168,6 +190,33 @@ export default function Navbar() {
       service: "",
       message: "",
     });
+  };
+
+  const renderEventsIndicator = (isActive = false, compact = false) => {
+    if (!hasUpcomingEvents) return null;
+
+    return (
+      <span className="inline-flex items-center gap-1.5">
+        <span className="relative flex h-2.5 w-2.5 shrink-0">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange-400 opacity-75" />
+          <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-gradient-to-r from-red-500 to-orange-500" />
+        </span>
+        {!compact && (
+          <motion.span
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${
+              isActive
+                ? "bg-white/20 text-white"
+                : "bg-orange-100 text-orange-600"
+            }`}
+          >
+            <Calendar className="h-3 w-3" />
+            Upcoming
+          </motion.span>
+        )}
+      </span>
+    );
   };
 
   const handleContactSubmit = async (e) => {
@@ -480,6 +529,13 @@ export default function Navbar() {
                           ? "bg-gradient-to-r from-red-600 to-orange-600 text-white shadow-lg shadow-red-200"
                           : "text-gray-700 hover:text-red-600 hover:bg-gradient-to-r from-red-50 to-orange-50"
                       }
+                      ${
+                        item.showUpcomingIndicator &&
+                        hasUpcomingEvents &&
+                        !isActive
+                          ? "ring-2 ring-orange-300/60 ring-offset-1 shadow-sm shadow-orange-100"
+                          : ""
+                      }
                     `
                     }
                   >
@@ -487,9 +543,11 @@ export default function Navbar() {
                       <motion.span
                         initial={false}
                         animate={{ y: isActive ? 0 : 0 }}
-                        className="relative z-10"
+                        className="relative z-10 inline-flex items-center gap-2"
                       >
                         {item.title}
+                        {item.showUpcomingIndicator &&
+                          renderEventsIndicator(isActive)}
                       </motion.span>
                     )}
                   </NavLink>
@@ -765,22 +823,37 @@ export default function Navbar() {
                     <NavLink
                       to={item.path}
                       onClick={() => setOpen(false)}
-                      className="
+                      className={({ isActive }) =>
+                        `
                         block
                         px-5
                         py-4
                         rounded-2xl
                         text-[15px]
                         font-bold
-                        bg-gradient-to-r from-gray-50 to-orange-50/30
-                        text-gray-800
-                        hover:from-red-50
-                        hover:to-orange-100
-                        hover:text-red-600
                         transition-all
-                      "
+                        ${
+                          isActive
+                            ? "bg-gradient-to-r from-red-600 to-orange-600 text-white shadow-lg shadow-red-200"
+                            : "bg-gradient-to-r from-gray-50 to-orange-50/30 text-gray-800 hover:from-red-50 hover:to-orange-100 hover:text-red-600"
+                        }
+                        ${
+                          item.showUpcomingIndicator &&
+                          hasUpcomingEvents &&
+                          !isActive
+                            ? "ring-2 ring-orange-300/70"
+                            : ""
+                        }
+                      `
+                      }
                     >
-                      {item.title}
+                      {({ isActive }) => (
+                        <span className="inline-flex items-center gap-2">
+                          {item.title}
+                          {item.showUpcomingIndicator &&
+                            renderEventsIndicator(isActive, true)}
+                        </span>
+                      )}
                     </NavLink>
 
                   ) : (
