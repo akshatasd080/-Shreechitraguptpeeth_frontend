@@ -33,6 +33,7 @@ import CareerPage from "./pages/Career/CareerPage";
 import AboutPeeth from "./pages/About/AboutPeeth";
 import AboutSwami from "./pages/About/AboutSwami";
 import Establishment from "./pages/About/Establishment";
+import AboutChitragupt from "./pages/About/AboutChitragupt";
 import Volunteers from "./pages/About/Volunteers";
 import Mission from "./pages/About/Mission";
 import PhotoGallery from "./pages/Gallery copy/PhotoGallery";
@@ -117,6 +118,7 @@ export default function App() {
           <Route path="/establishment" element={<Establishment />} />
           <Route path="/about-peeth" element={<AboutPeeth/>} />
           <Route path="/about-swami" element={<AboutSwami/>} />
+          <Route path="/about-chitragupt" element={<AboutChitragupt />} />
           <Route path="/volunteers" element={<Volunteers/>} />
           <Route path="/photo-gallery" element={<PhotoGallery/>} />
           <Route path="/video-gallery" element={<VideoGallery/>}/>

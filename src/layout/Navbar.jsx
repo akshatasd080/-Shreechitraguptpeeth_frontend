@@ -118,30 +118,15 @@ export default function Navbar() {
           title: "Our Volunteers",
           path: "/volunteers",
         },
+        {
+          title: "About Shri Chitragupt Ji",
+          path: "/about-chitragupt",
+        },
       ],
     },
 
-    {
-      title: "Explore",
-      dropdown: [
-        {
-          title: "Temple History",
-          path: "/temple-history",
-        },
-        {
-          title: "Spiritual Activities",
-          path: "/activities",
-        },
-        {
-          title: "Daily Events",
-          path: "/daily-events",
-        },
-        {
-          title: "Religious Programs",
-          path: "/programs",
-        },
-      ],
-    },
+  
+    
 
     {
       title: "Gallery",
