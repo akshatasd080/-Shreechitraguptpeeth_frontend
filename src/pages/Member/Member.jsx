@@ -483,6 +483,7 @@ const Member = () => {
                         outline-none
                         focus:border-[#ff3300]
                         transition-all
+                        text-gray-900
                       "
                     />
                   </div>
@@ -525,6 +526,7 @@ const Member = () => {
                         pr-5
                         outline-none
                         focus:border-[#ff3300]
+                        text-gray-900
                       "
                     />
                   </div>
@@ -567,6 +569,7 @@ const Member = () => {
                         pr-5
                         outline-none
                         focus:border-[#ff3300]
+                        text-gray-900
                       "
                     />
                   </div>
@@ -609,6 +612,7 @@ const Member = () => {
                         pr-5
                         outline-none
                         focus:border-[#ff3300]
+                        text-gray-900
                       "
                     />
                   </div>
@@ -638,6 +642,7 @@ const Member = () => {
                       px-5
                       outline-none
                       focus:border-[#ff3300]
+                      text-gray-900
                     "
                   />
                 </div>
@@ -666,6 +671,7 @@ const Member = () => {
                       px-5
                       outline-none
                       focus:border-[#ff3300]
+                      text-gray-900
                     "
                   />
                 </div>
@@ -695,6 +701,7 @@ const Member = () => {
                     px-5
                     outline-none
                     focus:border-[#ff3300]
+                    text-gray-900
                   "
                 />
               </div>
@@ -723,6 +730,7 @@ const Member = () => {
                     outline-none
                     focus:border-[#ff3300]
                     resize-none
+                    text-gray-900
                   "
                 />
               </div>

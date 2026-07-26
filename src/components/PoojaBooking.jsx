@@ -154,7 +154,7 @@ export default function PoojaBookingDialog({ poojaName = "", onSuccess }) {
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full h-11 rounded-xl border border-gray-200 bg-gray-50 pl-10 pr-3 text-sm outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100"
+              className="w-full h-11 rounded-xl border border-gray-200 bg-gray-50 pl-10 pr-3 text-sm text-gray-900 outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100"
             />
           </div>
 
@@ -170,7 +170,7 @@ export default function PoojaBookingDialog({ poojaName = "", onSuccess }) {
               value={formData.mobile}
               onChange={handleChange}
               required
-              className="w-full h-11 rounded-xl border border-gray-200 bg-gray-50 pl-10 pr-3 text-sm outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100"
+              className="w-full h-11 rounded-xl border border-gray-200 bg-gray-50 pl-10 pr-3 text-sm text-gray-900 outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100"
             />
           </div>
 
@@ -186,7 +186,7 @@ export default function PoojaBookingDialog({ poojaName = "", onSuccess }) {
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full h-11 rounded-xl border border-gray-200 bg-gray-50 pl-10 pr-3 text-sm outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100"
+              className="w-full h-11 rounded-xl border border-gray-200 bg-gray-50 pl-10 pr-3 text-sm text-gray-900 outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100"
             />
           </div>
         </div>
@@ -196,7 +196,7 @@ export default function PoojaBookingDialog({ poojaName = "", onSuccess }) {
           value={formData.pooja}
           onChange={handleChange}
           required
-          className="w-full h-11 rounded-xl border border-gray-200 bg-gray-50 px-3 text-sm outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100"
+          className="w-full h-11 rounded-xl border border-gray-200 bg-gray-50 px-3 text-sm text-gray-900 outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100"
         >
           <option value="">Select Pooja *</option>
           {poojaList.map((pooja) => (
@@ -217,7 +217,7 @@ export default function PoojaBookingDialog({ poojaName = "", onSuccess }) {
               value={formData.date}
               onChange={handleChange}
               required
-              className="w-full h-11 rounded-xl border border-gray-200 bg-gray-50 px-3 text-sm outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100"
+              className="w-full h-11 rounded-xl border border-gray-200 bg-gray-50 px-3 text-sm text-gray-900 outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100"
             />
           </div>
           <div>
@@ -230,7 +230,7 @@ export default function PoojaBookingDialog({ poojaName = "", onSuccess }) {
               value={formData.time}
               onChange={handleChange}
               required
-              className="w-full h-11 rounded-xl border border-gray-200 bg-gray-50 px-3 text-sm outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100"
+              className="w-full h-11 rounded-xl border border-gray-200 bg-gray-50 px-3 text-sm text-gray-900 outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100"
             />
           </div>
         </div>
@@ -246,7 +246,7 @@ export default function PoojaBookingDialog({ poojaName = "", onSuccess }) {
             placeholder="Write your message (optional)..."
             value={formData.message}
             onChange={handleChange}
-            className="w-full rounded-xl border border-gray-200 bg-gray-50 pl-10 pr-3 py-3 text-sm outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100 resize-none"
+            className="w-full rounded-xl border border-gray-200 bg-gray-50 pl-10 pr-3 py-3 text-sm text-gray-900 outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100 resize-none"
           />
         </div>
 

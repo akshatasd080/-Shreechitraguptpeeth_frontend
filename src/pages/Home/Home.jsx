@@ -18,6 +18,7 @@ import {
   Clock3,
   Check,
   Languages,
+  X,
 } from "lucide-react";
 import api from "@/api/axios";
 import { getCategoryLink } from "../SpiritualContent/spiritualUtils";
@@ -346,43 +347,37 @@ export default function Home() {
     {
       image: "/donate/donate1.jpeg",
       title: "श्री चित्रगुप्त पीठ वृंदावन",
-      desc: "Temple is place where hindu worship consectetur adipisicing elit, sed do",
+      desc: `श्री वृंदावन धाम की पावन भूमि पर स्थापित हो रही श्री चित्रगुप्त पीठ भगवान श्री चित्रगुप्त जी को समर्पित विश्व की प्रथम आध्यात्मिक, सांस्कृतिक एवं वैदिक पीठ है। यह केवल एक मन्दिर नहीं, अपितु धर्म, न्याय, शिक्षा, संस्कार, सेवा, योग, शोध एवं मानव कल्याण का एक समग्र आध्यात्मिक केंद्र है, जहाँ सनातन संस्कृति की अमूल्य विरासत को आने वाली पीढ़ियों तक पहुँचाने का संकल्प लिया गया है।`,
     },
 
     {
       image: "/donate/donate2.jpeg",
       title: "नक्षत्र वाटिका",
-      desc: "Temple is place where hindu worship consectetur adipisicing elit, sed do",
+      desc: `वैदिक ज्योतिष एवं भारतीय ऋषि परम्परा पर आधारित नक्षत्र वाटिका का उद्देश्य प्रकृति, ग्रह-नक्षत्रों और मानव जीवन के आध्यात्मिक संबंध को समझाना है। यहाँ प्रत्येक नक्षत्र के अनुरूप पवित्र वृक्षों का संरक्षण एवं रोपण किया जाएगा।`,
     },
 
     {
       image: "/donate/donate3.jpeg",
       title: "जल परिक्रमा",
-      desc: "Temple is place where hindu worship consectetur adipisicing elit, sed do",
-    },
-
-    {
-      image: "/donate/donate4.jpeg",
-      title: "घर आँगन",
-      desc: "घर आंगन बुजुर्ग माता-पिता के लिए आधुनिक एवं मेडिकल सुविधायुक्त सुविधाओं के साथ 42 कमरे व 6 डॉरमेट्री हॉल के साथ भव्य भवन",
+      desc: `जल परिक्रमा क्षेत्र भारतीय संस्कृति में जल के आध्यात्मिक एवं पर्यावरणीय महत्व को समर्पित होगा। यह श्रद्धालुओं को ध्यान, शान्ति और प्रकृति से जुड़ने का दिव्य अनुभव प्रदान करेगा।`,
     },
 
     {
       image: "/donate/donate5.jpeg",
-      title: "श्री चित्रगुप्त निवास",
-      desc: "श्री चित्रगुप्त निवास 50 वातानुकूलित कमरे एवं भोजनालय का भव्य अतिथि गृह।",
+      title: "गुरुकुल",
+      desc: `श्री चित्रगुप्त विद्यापीठ भारतीय वैदिक शिक्षा, संस्कृत, वेद, उपनिषद, योग, भारतीय दर्शन एवं आधुनिक ज्ञान-विज्ञान के समन्वय के माध्यम से चरित्रवान एवं राष्ट्र निष्ठ विद्यार्थियों के निर्माण हेतु समर्पित होगा।`,
     },
 
     {
       image: "/donate/donate6.jpeg",
-      title: "श्री चित्रगुप्त विद्यापीठ",
-      desc: "Temple is place where hindu worship consectetur adipisicing elit, sed do",
+      title: "आयुर्वेदिक औषधालय",
+      desc: `आयुर्वेद, योग एवं प्राकृतिक चिकित्सा के माध्यम से समाज को स्वस्थ एवं संतुलित जीवन प्रदान करना इस संस्थान का प्रमुख उद्देश्य होगा। यहाँ पारंपरिक भारतीय चिकित्सा पद्धतियों को आधुनिक स्वास्थ्य सेवाओं के साथ जोड़ा जाएगा।`,
     },
 
     {
       image: "/donate/donate7.jpeg",
-      title: "श्री चित्रगुप्त चिंतन एवं शोध संस्थान",
-      desc: "श्री चित्रगुप्त जी के लेखन हेतु एवं शोध चिंतन संस्थान।",
+      title: "शोध संस्थान",
+      desc: `श्री चित्रगुप्त चिन्तन एवं शोध संस्थान भारतीय दर्शन, धर्मशास्त्र, वेद, पुराण, चित्रगुप्त साहित्य, भारतीय न्याय परम्परा एवं सनातन संस्कृति पर गहन शोध एवं प्रकाशन का राष्ट्रीय केंद्र होगा।`,
     },
   ];
 
@@ -450,6 +445,7 @@ export default function Home() {
   const [thoughtLang, setThoughtLang] = useState("hi"); // hi | en
   const [translatedEn, setTranslatedEn] = useState("");
   const [translating, setTranslating] = useState(false);
+  const [selectedDonation, setSelectedDonation] = useState(null);
 
   // Load active hero slides from backend
   useEffect(() => {
@@ -1378,6 +1374,7 @@ export default function Home() {
   {donations.map((item, index) => (
     <div
       key={index}
+      onClick={() => setSelectedDonation(index)}
       className="
         bg-white
         rounded-2xl
@@ -1389,9 +1386,12 @@ export default function Home() {
         hover:-translate-y-1
         border
         border-gray-100
+        hover:border-red-200
+        hover:ring-4 hover:ring-red-100/60
         flex
         flex-col
         group
+        cursor-pointer
       "
     >
       {/* Image */}
@@ -1408,17 +1408,27 @@ export default function Home() {
           "
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+        <div className="absolute top-3 right-3 group-hover:scale-100 scale-0 transition-transform duration-300 origin-top-right">
+          <div className="w-9 h-9 rounded-full bg-white/95 backdrop-blur text-red-600 flex items-center justify-center shadow-lg">
+            <Plus size={18} strokeWidth={2.5} className="group-hover:rotate-45 transition-transform duration-300" />
+          </div>
+        </div>
       </div>
 
       {/* Content */}
       <div className="flex flex-col flex-1 p-4">
-        <h3 className="text-lg font-bold text-red-600 mb-2 leading-snug">
+        <h3 className="text-lg font-bold text-red-600 mb-2 leading-snug group-hover:text-red-700 transition-colors">
           {item.title}
         </h3>
 
         <p className="text-gray-600 text-sm leading-6 line-clamp-3">
           {item.desc}
         </p>
+
+        <div className="mt-2 flex items-center gap-1.5 text-[12px] font-bold text-red-600/90 opacity-70 group-hover:opacity-100 transition-opacity">
+          पूरा विवरण पढ़ने के लिए क्लिक करें
+          <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+        </div>
 
         {/* Progress */}
         <div className="mt-4">
@@ -1435,6 +1445,7 @@ export default function Home() {
         {/* Button */}
         <Link
           to="/donate"
+          onClick={(e) => e.stopPropagation()}
           className="
             mt-4
             w-full
@@ -1465,6 +1476,168 @@ export default function Home() {
     </div>
   ))}
 </div>
+
+  {/* Donation Details Modal */}
+  <AnimatePresence>
+    {selectedDonation !== null && donations[selectedDonation] && (
+      <>
+        <motion.div
+          key="donation-modal-backdrop"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          onClick={() => setSelectedDonation(null)}
+          className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
+        />
+        <motion.div
+          key="donation-modal-panel"
+          initial={{ opacity: 0, y: 30, scale: 0.92 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 20, scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 280, damping: 26, mass: 0.9 }}
+          className="fixed inset-0 z-[101] flex items-center justify-center p-3 sm:p-5 pointer-events-none"
+        >
+          <div
+            className="
+              pointer-events-auto
+              w-full
+              max-w-2xl
+              max-h-[90vh]
+              overflow-hidden
+              bg-white
+              rounded-[1.7rem]
+              shadow-[0_40px_90px_-20px_rgba(220,38,38,0.45)]
+              flex
+              flex-col
+              relative
+            "
+          >
+            {/* Top Image */}
+            <div className="relative w-full h-44 sm:h-56 shrink-0 overflow-hidden">
+              <img
+                src={donations[selectedDonation].image}
+                alt={donations[selectedDonation].title}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-transparent" />
+              <button
+                onClick={() => setSelectedDonation(null)}
+                aria-label="Close details"
+                className="
+                  absolute top-3 right-3
+                  w-10 h-10 sm:w-11 sm:h-11
+                  rounded-full
+                  bg-white/95 backdrop-blur
+                  text-gray-800 hover:text-red-600
+                  flex items-center justify-center
+                  shadow-xl
+                  hover:scale-110 active:scale-95
+                  transition-all
+                  duration-200
+                "
+              >
+                <X size={20} strokeWidth={2.5} />
+              </button>
+
+              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/95 backdrop-blur shadow-lg mb-3">
+                  <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-br from-red-500 to-orange-500 animate-pulse" />
+                  <span className="text-[11px] font-black tracking-[0.2em] text-red-600">
+                    DONATION · प्रोजेक्ट विवरण
+                  </span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-black text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] leading-tight">
+                  {donations[selectedDonation].title}
+                </h2>
+              </div>
+            </div>
+
+            {/* Scrollable Content */}
+            <div className="flex-1 overflow-y-auto p-5 sm:p-7 space-y-5 custom-scrollbar">
+              <div className="flex items-center gap-3 text-[13px] font-bold text-gray-500 uppercase tracking-wider">
+                <span className="h-[2px] w-10 bg-gradient-to-r from-red-500 via-orange-500 to-transparent rounded-full" />
+                पूरा विवरण · Full Description
+              </div>
+
+              <p className="text-[15px] sm:text-base text-gray-800 leading-[1.95] whitespace-pre-line">
+                {donations[selectedDonation].desc}
+              </p>
+
+              <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                <div className="rounded-2xl p-4 bg-gradient-to-br from-orange-50 via-white to-red-50 border border-orange-100">
+                  <div className="text-[11px] font-black tracking-widest text-orange-700 mb-1">RAISED · जमा हुआ</div>
+                  <div className="text-2xl sm:text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-orange-600 to-red-600">90%</div>
+                </div>
+                <div className="rounded-2xl p-4 bg-gradient-to-br from-red-50 via-white to-orange-50 border border-red-100">
+                  <div className="text-[11px] font-black tracking-widest text-red-700 mb-1">GOAL · लक्ष्य</div>
+                  <div className="text-2xl sm:text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-red-600 to-orange-600">100%</div>
+                </div>
+              </div>
+
+              {/* Large Progress */}
+              <div>
+                <div className="flex justify-between text-sm font-bold mb-2">
+                  <span className="text-gray-700">Funding Progress</span>
+                  <span className="text-red-600">90% · Almost There!</span>
+                </div>
+                <div className="w-full h-3 rounded-full bg-gray-200 overflow-hidden shadow-inner">
+                  <div className="h-full w-[90%] rounded-full bg-gradient-to-r from-red-500 via-red-500 to-orange-500 relative">
+                    <div className="absolute inset-0 bg-white/25 animate-pulse" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Footer Sticky CTA */}
+            <div className="sticky bottom-0 shrink-0 border-t border-gray-100 bg-gradient-to-br from-white via-orange-50/30 to-red-50/30 backdrop-blur p-4 sm:p-5 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+              <div className="flex-1 min-w-0">
+                <div className="text-[12px] font-black tracking-widest text-red-600 mb-1">सेवा का अवसर</div>
+                <div className="text-gray-700 text-sm font-semibold truncate">
+                  {donations[selectedDonation].title}
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 sm:gap-3">
+                <button
+                  onClick={() => setSelectedDonation(null)}
+                  className="
+                    h-11 sm:h-12 px-5
+                    rounded-full
+                    bg-white border border-gray-200
+                    text-gray-800 hover:text-red-600 hover:border-red-300
+                    text-sm font-bold
+                    shadow-sm hover:shadow
+                    transition-all
+                  "
+                >
+                  बंद करें
+                </button>
+                <Link
+                  to="/donate"
+                  onClick={() => setSelectedDonation(null)}
+                  className="
+                    h-11 sm:h-12 px-5 sm:px-7
+                    rounded-full
+                    bg-gradient-to-r from-red-600 via-orange-500 to-red-500
+                    bg-[length:200%_100%] hover:bg-[position:100%_0]
+                    text-white
+                    text-sm sm:text-[15px] font-black
+                    flex items-center justify-center gap-2
+                    shadow-xl shadow-red-500/40 hover:shadow-red-500/60
+                    transition-all duration-300
+                  "
+                >
+                  DONATE NOW
+                  <ArrowRight size={17} />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </>
+    )}
+  </AnimatePresence>
 
     {/* Scroll Top */}
 

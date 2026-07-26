@@ -600,7 +600,9 @@ export default function Navbar() {
                             focus:bg-transparent
                             hover:bg-transparent
                             data-[highlighted]:bg-transparent
-                            text-gray-700
+                            focus:text-gray-900
+                            data-[highlighted]:text-gray-900
+                            text-gray-900
                           "
                         >
 
@@ -612,8 +614,8 @@ export default function Navbar() {
                               py-3
                               text-[14px]
                               font-semibold
-                              text-gray-700
-                              hover:text-red-600
+                              text-gray-900
+                              hover:text-black
                               hover:bg-gradient-to-r from-red-50 to-orange-50
                               rounded-xl
                               transition-all
@@ -639,41 +641,57 @@ export default function Navbar() {
           {/* RIGHT SIDE */}
           <div className="hidden lg:flex items-center gap-3">
 
-            <motion.button
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              whileTap={{ scale: 0.9 }}
-              className="
-                w-12 h-12
-                rounded-2xl
-                bg-gradient-to-br from-red-500 to-orange-500
-                text-white
-                flex items-center justify-center
-                shadow-lg
-                shadow-red-200
-                hover:shadow-red-300
-                transition-all
-              "
+            <a
+              href="tel:+917065013874"
+              aria-label="Call +91 70650 13874"
+              title="कॉल करें: +91-7065013874"
+              className="inline-block"
             >
-              <PhoneCall size={19} />
-            </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                whileTap={{ scale: 0.9 }}
+                className="
+                  w-12 h-12
+                  rounded-2xl
+                  bg-gradient-to-br from-red-500 to-orange-500
+                  text-white
+                  flex items-center justify-center
+                  shadow-lg
+                  shadow-red-200
+                  hover:shadow-red-300
+                  transition-all
+                "
+              >
+                <PhoneCall size={19} />
+              </motion.button>
+            </a>
 
-            <motion.button
-              whileHover={{ scale: 1.1, rotate: -5 }}
-              whileTap={{ scale: 0.9 }}
-              className="
-                w-12 h-12
-                rounded-2xl
-                bg-gradient-to-br from-orange-500 to-pink-500
-                text-white
-                flex items-center justify-center
-                shadow-lg
-                shadow-orange-200
-                hover:shadow-orange-300
-                transition-all
-              "
+            <a
+              href="https://wa.me/917065013874?text=नमस्ते%20श्री%20चित्रगुप्त%20पीठ%2C%20मुझे%20कुछ%20जानकारी%20चाहिए%20थी%E0%A5%A4"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="WhatsApp +91 70650 13874"
+              title="WhatsApp करें: +91-7065013874"
+              className="inline-block"
             >
-              <MessageCircleMore size={19} />
-            </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.1, rotate: -5 }}
+                whileTap={{ scale: 0.9 }}
+                className="
+                  w-12 h-12
+                  rounded-2xl
+                  bg-gradient-to-br from-green-500 via-emerald-500 to-green-600
+                  text-white
+                  flex items-center justify-center
+                  shadow-lg
+                  shadow-green-200
+                  hover:shadow-green-300
+                  transition-all
+                "
+              >
+                <MessageCircleMore size={19} />
+              </motion.button>
+            </a>
 
             <Link
               to="/donate"
@@ -710,8 +728,57 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* MOBILE: Donate + Menu */}
+          {/* MOBILE: Phone + WhatsApp + Donate + Menu */}
           <div className="flex lg:hidden items-center gap-2">
+
+            <a
+              href="tel:+917065013874"
+              aria-label="Call +91 70650 13874"
+              title="कॉल करें: +91-7065013874"
+              className="inline-block"
+            >
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="
+                  w-10 h-10
+                  rounded-xl
+                  bg-gradient-to-br from-red-500 to-orange-500
+                  text-white
+                  flex items-center justify-center
+                  shadow-lg
+                  shadow-red-200
+                "
+              >
+                <PhoneCall size={16} />
+              </motion.button>
+            </a>
+
+            <a
+              href="https://wa.me/917065013874?text=नमस्ते%20श्री%20चित्रगुप्त%20पीठ%2C%20मुझे%20कुछ%20जानकारी%20चाहिए%20थी%E0%A5%A4"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="WhatsApp +91 70650 13874"
+              title="WhatsApp करें: +91-7065013874"
+              className="inline-block"
+            >
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="
+                  w-10 h-10
+                  rounded-xl
+                  bg-gradient-to-br from-green-500 via-emerald-500 to-green-600
+                  text-white
+                  flex items-center justify-center
+                  shadow-lg
+                  shadow-green-200
+                "
+              >
+                <MessageCircleMore size={16} />
+              </motion.button>
+            </a>
+
             <Link to="/donate">
               <motion.button
                 whileHover={{ scale: 1.05 }}
@@ -741,8 +808,8 @@ export default function Navbar() {
               whileTap={{ scale: 0.95 }}
               onClick={() => setOpen(!open)}
               className="
-                w-12 h-12
-                rounded-2xl
+                w-10 h-10
+                rounded-xl
                 bg-gradient-to-r from-red-500 to-orange-500
                 text-white
                 flex items-center justify-center
@@ -750,7 +817,7 @@ export default function Navbar() {
                 shadow-red-200
               "
             >
-              {open ? <X size={24} /> : <Menu size={24} />}
+              {open ? <X size={20} /> : <Menu size={20} />}
             </motion.button>
           </div>
         </div>
@@ -871,9 +938,9 @@ export default function Navbar() {
                                 bg-white
                                 text-[14px]
                                 font-semibold
-                                text-gray-700
+                                text-gray-900
                                 hover:bg-gradient-to-r from-red-50 to-orange-50
-                                hover:text-red-600
+                                hover:text-black
                                 transition-all
                                 shadow-sm
                               "
@@ -888,6 +955,63 @@ export default function Navbar() {
                   )}
                 </motion.div>
               ))}
+
+              {/* QUICK CONTACT — CALL + WHATSAPP (mobile menu) */}
+              <div className="mt-5 rounded-[1.5rem] border border-orange-100 bg-gradient-to-br from-orange-50 via-white to-red-50 shadow-[0_15px_40px_-20px_rgba(220,38,38,0.35)] p-5 relative overflow-hidden">
+                <div className="absolute -top-8 -right-8 w-28 h-28 rounded-full bg-gradient-to-br from-orange-400/30 via-red-400/20 to-transparent blur-2xl" />
+
+                <div className="relative text-[11px] font-black tracking-[0.25em] text-orange-700 mb-3 flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-br from-red-500 to-orange-500 animate-pulse" />
+                  CONTACT US · संपर्क करें
+                  <span className="h-px flex-1 bg-gradient-to-r from-transparent via-orange-300 to-transparent" />
+                </div>
+
+                <div className="relative text-center mb-4">
+                  <div className="text-gray-500 text-[11px] font-semibold mb-1">टोल-फ्री नहीं · सीधा संपर्क</div>
+                  <a href="tel:+917065013874" className="inline-flex items-center gap-2 group">
+                    <span className="text-2xl md:text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-red-700 via-red-600 to-orange-600 group-hover:scale-[1.02] transition-transform">
+                      +91 70650 13874
+                    </span>
+                  </a>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3 relative">
+                  <a
+                    href="tel:+917065013874"
+                    className="
+                      group inline-flex items-center justify-center gap-2
+                      h-12 rounded-xl
+                      bg-gradient-to-br from-red-500 via-red-600 to-orange-500
+                      text-white text-[13px] font-black
+                      shadow-lg shadow-red-300/60
+                      hover:shadow-red-400/70
+                      hover:brightness-110
+                      transition-all
+                    "
+                  >
+                    <PhoneCall size={16} className="group-hover:rotate-12 transition-transform" />
+                    कॉल करें
+                  </a>
+                  <a
+                    href="https://wa.me/917065013874?text=नमस्ते%20श्री%20चित्रगुप्त%20पीठ%2C%20मुझे%20कुछ%20जानकारी%20चाहिए%20थी%E0%A5%A4"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="
+                      group inline-flex items-center justify-center gap-2
+                      h-12 rounded-xl
+                      bg-gradient-to-br from-green-500 via-emerald-500 to-green-600
+                      text-white text-[13px] font-black
+                      shadow-lg shadow-green-300/60
+                      hover:shadow-green-400/70
+                      hover:brightness-110
+                      transition-all
+                    "
+                  >
+                    <MessageCircleMore size={16} className="group-hover:rotate-12 transition-transform" />
+                    WhatsApp
+                  </a>
+                </div>
+              </div>
 
               {/* Donate Button in Mobile Menu */}
               <Link to="/donate" onClick={() => setOpen(false)}>

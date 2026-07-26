@@ -434,46 +434,45 @@ const AboutSwami = () => {
 
           <div>
 
-            {/* LANGUAGE BUTTONS */}
+            {/* TOP ACTION BAR — language toggle + share placeholder */}
 
-            <div className="flex items-center gap-3 mb-6">
+            <div className="mb-7 flex flex-wrap items-center justify-between gap-4">
+              {/* LANGUAGE SWITCHER — SEGMENTED CONTROL */}
+              <div className="relative inline-flex items-center p-1.5 rounded-full bg-gradient-to-r from-red-50 via-orange-50 to-amber-50 border border-red-200/80 shadow-[0_10px_30px_-15px_rgba(220,38,38,0.3)]">
+                <div
+                  className={`
+                    absolute top-1.5 bottom-1.5 w-[calc(50%-6px)] rounded-full
+                    bg-gradient-to-r from-red-600 via-orange-500 to-amber-500
+                    shadow-lg shadow-orange-500/40
+                    transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]
+                    ${language === "hindi" ? "left-1.5" : "left-[calc(50%)]"}
+                  `}
+                />
+                <button
+                  onClick={() => setLanguage("hindi")}
+                  className="relative z-10 px-5 md:px-6 py-2 rounded-full text-sm font-black transition-all duration-300 select-none"
+                >
+                  <span className={language === "hindi" ? "text-white drop-shadow-sm" : "text-red-700 hover:text-red-800"}>
+                    हिंदी
+                  </span>
+                </button>
+                <button
+                  onClick={() => setLanguage("english")}
+                  className="relative z-10 px-5 md:px-6 py-2 rounded-full text-sm font-black transition-all duration-300 select-none"
+                >
+                  <span className={language === "english" ? "text-white drop-shadow-sm" : "text-red-700 hover:text-red-800"}>
+                    English
+                  </span>
+                </button>
+              </div>
 
-              <button
-                onClick={() => setLanguage("hindi")}
-                className={`
-                  px-5 py-2.5
-                  rounded-full
-                  text-sm
-                  font-medium
-                  transition-all
-                  ${
-                    language === "hindi"
-                      ? "bg-gradient-to-r from-red-600 to-orange-500 text-white shadow-lg"
-                      : "bg-white text-gray-700 border border-gray-200 hover:border-red-300"
-                  }
-                `}
-              >
-                हिंदी
-              </button>
-
-              <button
-                onClick={() => setLanguage("english")}
-                className={`
-                  px-5 py-2.5
-                  rounded-full
-                  text-sm
-                  font-medium
-                  transition-all
-                  ${
-                    language === "english"
-                      ? "bg-gradient-to-r from-red-600 to-orange-500 text-white shadow-lg"
-                      : "bg-white text-gray-700 border border-gray-200 hover:border-red-300"
-                  }
-                `}
-              >
-                English
-              </button>
-
+              {/* Decorative स्वास्तिक/ॐ chip */}
+              <div className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/70 backdrop-blur border border-orange-200/70 shadow-sm">
+                <span className="w-2 h-2 rounded-full bg-gradient-to-br from-red-500 to-orange-500 animate-pulse" />
+                <span className="text-[11px] font-black tracking-[0.25em] text-orange-700">
+                  {language === "hindi" ? "॥ श्री गुरुर्देवो नमः ॥" : "॥ SHRI GURU DEVAH NAMAH ॥"}
+                </span>
+              </div>
             </div>
 
             {/* TAG */}
@@ -518,96 +517,60 @@ const AboutSwami = () => {
               {content.mainTitle}
             </h2>
 
-            {/* INTRO BOX */}
+            {/* INTRO BOX — REFINED NEW UI */}
 
             <div
               className="
-                bg-gradient-to-br from-white to-gray-50
-                rounded-3xl
-                p-6
+                bg-gradient-to-br
+                from-white
+                via-orange-50/30
+                to-amber-50
+                rounded-[2rem]
+                p-7
                 border
-                border-orange-100
-                shadow-xl
+                border-amber-100
+                shadow-[0_20px_60px_-20px_rgba(220,38,38,0.25)]
+                relative
+                overflow-hidden
+                group
               "
             >
+              <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-gradient-to-br from-red-400/20 via-orange-400/15 to-transparent blur-3xl" />
+              <div className="absolute -bottom-20 -left-10 w-44 h-44 rounded-full bg-gradient-to-tr from-amber-400/20 via-yellow-300/10 to-transparent blur-3xl" />
 
               <p
                 className="
-                  text-gray-700
-                  leading-relaxed
-                  text-base
+                  relative
+                  text-gray-800
+                  leading-[1.9]
+                  text-[15px] md:text-base
+                  font-medium
                 "
               >
                 {content.intro}
               </p>
 
+              <div className="relative mt-5 flex items-center gap-3 opacity-80">
+                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-orange-300 to-transparent" />
+                <span className="text-xl text-orange-500 font-black tracking-widest">॥ ॐ ॥</span>
+                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-orange-300 to-transparent" />
+              </div>
+
             </div>
 
-            {/* CONTENT */}
+            {/* CONTENT — COMPLETE NEW 3-COL CARD UI WITH NUMBER + VERTICAL ACCENT */}
 
-            <div className="mt-10 space-y-8">
+        
 
-              {content.sections.map((section, index) => (
-
-                <div
-                  key={index}
-                  className="
-                    bg-white
-                    rounded-3xl
-                    p-7
-                    border
-                    border-orange-100
-                    shadow-xl
-                    hover:shadow-2xl
-                    hover:-translate-y-1
-                    transition-all
-                    duration-300
-                  "
-                >
-
-                  <h3
-                    className="
-                      text-xl
-                      md:text-2xl
-                      font-black
-                      text-transparent
-                      bg-clip-text
-                      bg-gradient-to-r
-                      from-red-600
-                      to-orange-500
-                      mb-5
-                      flex
-                      items-center
-                      gap-3
-                    "
-                  >
-                    <div className="w-8 h-8 bg-gradient-to-r from-red-600 to-orange-500 rounded-full flex items-center justify-center">
-                      <ChevronRight size={16} className="text-white" />
-                    </div>
-                    {section.title}
-                  </h3>
-
-                  <ul className="space-y-3">
-                    {section.points.map((point, idx) => (
-                      <li
-                        key={idx}
-                        className="
-                          text-gray-700
-                          leading-relaxed
-                          text-base
-                          flex
-                          items-start
-                          gap-3
-                        "
-                      >
-                        <div className="w-2 h-2 bg-gradient-to-r from-red-600 to-orange-500 rounded-full mt-2 flex-shrink-0" />
-                        {point}
-                      </li>
-                    ))}
-                  </ul>
-
+            {/* Decorative section-end ॐ divider */}
+            <div className="mt-16 flex flex-col items-center gap-3">
+              <div className="flex items-center gap-4 w-full max-w-lg">
+                <div className="h-[2px] flex-1 bg-gradient-to-r from-transparent via-orange-400 to-red-500" />
+                <div className="relative w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-br from-red-600 via-orange-500 to-amber-500 flex items-center justify-center text-white shadow-xl shadow-orange-500/30 animate-[spin_18s_linear_infinite]">
+                  <span className="text-xl md:text-2xl font-black">ॐ</span>
                 </div>
-              ))}
+                <div className="h-[2px] flex-1 bg-gradient-to-l from-transparent via-orange-400 to-red-500" />
+              </div>
             </div>
           </div>
 
@@ -615,41 +578,74 @@ const AboutSwami = () => {
 
           <div className="relative lg:sticky lg:top-8 space-y-6">
 
-            {/* IMAGE CARD */}
+            {/* IMAGE CARD — PREMIUM GLOW FRAME */}
 
             <div
               className="
-                overflow-hidden
-                rounded-3xl
-                border-[8px]
-                border-white
-                shadow-2xl
                 relative
+                rounded-[2rem]
+                p-[3px]
+                overflow-hidden
+                shadow-2xl
               "
             >
-
-              <img
-                src="/New folder/swamiji.jpg"
-                alt="Swami Ji"
-                className="
-                  w-full
-                  h-[480px]
-                  object-cover
-                  transition-transform
-                  duration-700
-                  hover:scale-105
-                "
+              {/* Animated spinning gradient border */}
+              <div
+                className="absolute -inset-x-10 -inset-y-24 opacity-90"
+                style={{
+                  background: 'conic-gradient(from 0deg at 50% 50%, #dc2626 0deg, #f97316 90deg, #f59e0b 180deg, #f97316 270deg, #dc2626 360deg)',
+                  animation: 'spin 8s linear infinite',
+                }}
               />
 
-              {/* Decorative corner */}
-              <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-red-500 to-orange-500 rounded-full opacity-20 blur-2xl" />
-              <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-gradient-to-br from-orange-500 to-red-500 rounded-full opacity-20 blur-2xl" />
+              <div className="relative rounded-[1.85rem] overflow-hidden border-[6px] border-white bg-white">
 
+                <img
+                  src="/New folder/swamiji.jpg"
+                  alt="Swami Ji"
+                  className="
+                    w-full
+                    h-[480px]
+                    object-cover
+                    transition-transform
+                    duration-700
+                    hover:scale-[1.06]
+                  "
+                />
+
+                {/* Decorative corner */}
+                <div className="absolute -top-6 -right-6 w-32 h-32 bg-gradient-to-br from-red-500 to-orange-500 rounded-full opacity-30 blur-3xl pointer-events-none" />
+                <div className="absolute -bottom-6 -left-6 w-40 h-40 bg-gradient-to-br from-orange-500 to-amber-500 rounded-full opacity-30 blur-3xl pointer-events-none" />
+
+                {/* Bottom gradient overlay with name plate */}
+                <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-black/70 via-black/40 to-transparent flex items-end p-5 md:p-6">
+                  <div className="flex items-center gap-3 w-full">
+                    <div className="w-10 h-10 md:w-11 md:h-11 rounded-xl bg-gradient-to-br from-red-600 via-orange-500 to-amber-500 flex items-center justify-center text-white shadow-lg shadow-orange-500/40 flex-shrink-0">
+                      <span className="text-xl font-black">ॐ</span>
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <h5 className="text-white font-black text-base md:text-lg leading-tight">
+                        {language === "hindi"
+                          ? "स्वामी श्री चित्रगुप्तानंद जी"
+                          : "Swami Shri Chitraguptanand Ji"}
+                      </h5>
+                      <p className="text-orange-200 text-[11px] md:text-xs font-semibold tracking-wide mt-0.5">
+                        {language === "hindi"
+                          ? "पीठाधीश्वर · श्री चित्रगुप्त पीठ, वृन्दावन"
+                          : "Peethadhishwar · Shri Chitragupt Peeth, Vrindavan"}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
             </div>
 
-            {/* CARDS BELOW IMAGE */}
+            {/* STATS & INFO CARDS — FILL EMPTY SPACE */}
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4">
+
+              {/* 50+ YEARS */}
               <div
                 className="
                   bg-gradient-to-br from-white to-gray-50
@@ -658,6 +654,7 @@ const AboutSwami = () => {
                   p-5
                   border
                   border-orange-100
+                  flex flex-col
                 "
               >
                 <h4
@@ -674,7 +671,7 @@ const AboutSwami = () => {
                 <p
                   className="
                     mt-2
-                    text-gray-600
+                    text-gray-700
                     text-sm
                     leading-relaxed
                     font-semibold
@@ -686,6 +683,7 @@ const AboutSwami = () => {
                 </p>
               </div>
 
+              {/* PEETH TITLE */}
               <div
                 className="
                   bg-gradient-to-br from-orange-50 to-red-50
@@ -694,44 +692,69 @@ const AboutSwami = () => {
                   p-5
                   border
                   border-orange-100
+                  flex flex-col
                 "
               >
                 <h4
                   className="
-                    text-lg
+                    text-base md:text-lg
                     font-black
                     text-red-600
                     mb-2
+                    leading-tight
                   "
                 >
                   {language === "hindi" ? "ॐ श्री चित्रगुप्ताय" : "Om Shri Chitraguptaya"}
                 </h4>
                 <p
                   className="
-                    text-gray-600
-                    text-xs
+                    text-gray-700
+                    text-xs md:text-sm
+                    font-semibold
                     leading-relaxed
                   "
                 >
                   {language === "hindi" ? "पीठाधीश्वर, वृन्दावन" : "Peethadhishwar, Vrindavan"}
                 </p>
               </div>
+
+           
+
+           
+
+
             </div>
           </div>
         </div>
 
         {/* ================= ACHIEVEMENTS ================= */}
 
-        <div className="mt-24">
+        <div className="mt-28 relative">
 
           {/* TITLE */}
 
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 relative">
+            <div className="absolute inset-0 flex items-center justify-center -z-10">
+              <div className="w-full max-w-2xl h-32 rounded-full bg-gradient-to-b from-orange-200/30 via-rose-200/20 to-transparent blur-3xl" />
+            </div>
 
-            <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="w-16 h-1 bg-gradient-to-r from-transparent via-orange-400 to-transparent" />
-              <div className="text-red-500 text-3xl">ॐ</div>
-              <div className="w-16 h-1 bg-gradient-to-r from-transparent via-orange-400 to-transparent" />
+            <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-gradient-to-r from-red-50 via-orange-50 to-amber-50 border border-red-200/70 mb-8 shadow-sm">
+              <span className="h-1 w-10 rounded-full bg-gradient-to-r from-red-500 via-orange-500 to-amber-500" />
+              <span className="text-[11px] md:text-xs font-black tracking-[0.25em] text-red-700">
+                {language === "hindi" ? "उपलब्धियाँ एवं सेवाएँ" : "ACHIEVEMENTS & SERVICES"}
+              </span>
+              <span className="h-1 w-10 rounded-full bg-gradient-to-r from-amber-500 via-orange-500 to-red-500" />
+            </div>
+
+            <div className="flex items-center justify-center gap-4 mb-5">
+              <div className="h-[2px] w-20 md:w-28 bg-gradient-to-r from-transparent via-orange-400 to-red-500" />
+              <div className="relative">
+                <div className="absolute -inset-2 rounded-full bg-gradient-to-br from-red-500 to-orange-500 opacity-25 blur-md" />
+                <div className="relative w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-br from-red-600 via-orange-500 to-amber-500 flex items-center justify-center text-white shadow-lg shadow-orange-500/30">
+                  <span className="text-2xl md:text-3xl font-black">ॐ</span>
+                </div>
+              </div>
+              <div className="h-[2px] w-20 md:w-28 bg-gradient-to-l from-transparent via-orange-400 to-red-500" />
             </div>
 
             <h2
@@ -742,8 +765,10 @@ const AboutSwami = () => {
                 text-transparent
                 bg-clip-text
                 bg-gradient-to-r
-                from-red-600
+                from-red-700
+                via-red-600
                 to-orange-500
+                leading-[1.1]
               "
             >
               {language === "hindi"
@@ -753,86 +778,297 @@ const AboutSwami = () => {
 
           </div>
 
-          {/* GRID */}
+          {/* GRID — NEW UI matching section cards */}
 
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-7 relative">
 
-            {content.achievements.map((item, index) => (
+            {content.achievements.map((item, index) => {
+              const accents = [
+                "from-red-500 via-rose-500 to-orange-500",
+                "from-orange-500 via-amber-500 to-yellow-500",
+                "from-rose-500 via-red-500 to-orange-500",
+                "from-amber-500 via-orange-500 to-red-500",
+                "from-red-500 via-orange-500 to-amber-500",
+                "from-orange-500 via-red-500 to-rose-500",
+              ];
+              const accent = accents[index % accents.length];
+              const hindiLetters = ["ॐ", "श्री", "राम", "सीता", "हरि", "गुरु"];
+              const letter = hindiLetters[index % hindiLetters.length];
 
-              <div
-                key={index}
-                className="
-                  bg-gradient-to-br from-white to-gray-50
-                  rounded-3xl
-                  p-7
-                  border
-                  border-orange-100
-                  shadow-xl
-                  hover:shadow-2xl
-                  hover:-translate-y-3
-                  transition-all
-                  duration-300
-                  group
-                "
-              >
-
-                {/* ICON */}
-
+              return (
                 <div
+                  key={index}
                   className="
-                    w-16 h-16
-                    rounded-2xl
-                    bg-gradient-to-r
-                    from-red-600
-                    to-orange-500
-                    flex
-                    items-center
-                    justify-center
-                    text-white
-                    text-2xl
-                    font-black
-                    mb-5
-                    shadow-lg
-                    group-hover:scale-110
-                    transition-transform
-                    duration-300
+                    group/card
+                    relative
+                    bg-gradient-to-br
+                    from-white
+                    to-orange-50/40
+                    rounded-[1.7rem]
+                    p-[1px]
+                    hover:-translate-y-2
+                    hover:rotate-[0.1deg]
+                    hover:shadow-[0_30px_60px_-25px_rgba(220,38,38,0.35)]
+                    transition-all
+                    duration-500
+                    ease-out
+                    shadow-xl
                   "
                 >
-                  ॐ
+                  <div
+                    className={`
+                      absolute inset-0 rounded-[1.7rem] opacity-70 group-hover/card:opacity-100 transition-opacity duration-500
+                      bg-gradient-to-br ${accent}
+                    `}
+                    style={{ WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'xor', maskComposite: 'exclude', padding: '1px' }}
+                  />
+
+                  <div className="relative bg-white rounded-[1.6rem] p-6 md:p-7 h-full overflow-hidden">
+
+                    <div className="absolute inset-0 opacity-0 group-hover/card:opacity-[0.05] transition-opacity duration-700 pointer-events-none"
+                      style={{ backgroundImage: 'repeating-linear-gradient(135deg, #dc2626 0, #dc2626 1px, transparent 0, transparent 14px)' }}
+                    />
+
+                    {/* ICON */}
+                    <div className="relative mb-6">
+                      <div
+                        className={`
+                          relative
+                          w-16 h-16 md:w-[72px] md:h-[72px]
+                          rounded-[1.4rem]
+                          bg-gradient-to-br ${accent}
+                          flex
+                          items-center
+                          justify-center
+                          text-white
+                          font-black
+                          shadow-xl
+                          group-hover/card:scale-110 group-hover/card:-rotate-6
+                          transition-transform duration-500
+                        `}
+                      >
+                        <span className="text-2xl md:text-3xl">{letter}</span>
+                        <div className={`absolute -inset-1 rounded-[1.4rem] bg-gradient-to-br ${accent} opacity-50 blur-xl -z-10`} />
+                      </div>
+                    </div>
+
+                    <h3
+                      className={`
+                        text-xl md:text-2xl
+                        font-black
+                        mb-4
+                        leading-tight
+                        text-transparent bg-clip-text
+                        bg-gradient-to-r ${accent}
+                      `}
+                    >
+                      {item.title}
+                    </h3>
+
+                    <p className="text-gray-700 text-[15px] md:text-base leading-[1.85]">
+                      {item.desc}
+                    </p>
+
+                    <div className="relative mt-6 flex items-center justify-between">
+                      <span className={`inline-flex items-center gap-1 text-xs font-black tracking-wide bg-clip-text text-transparent bg-gradient-to-r ${accent} group-hover/card:translate-x-1 transition-transform duration-300`}>
+                        श्री गुरुदेव कृपा
+                        <ChevronRight size={14} />
+                      </span>
+                      <div className={`h-[2px] w-16 rounded-full bg-gradient-to-r from-transparent ${accent}`} />
+                    </div>
+                  </div>
                 </div>
-
-                {/* TITLE */}
-
-                <h3
-                  className="
-                    text-xl
-                    font-black
-                    text-transparent
-                    bg-clip-text
-                    bg-gradient-to-r
-                    from-red-600
-                    to-orange-500
-                    mb-4
-                  "
-                >
-                  {item.title}
-                </h3>
-
-                {/* DESCRIPTION */}
-
-                <p
-                  className="
-                    text-gray-600
-                    leading-relaxed
-                    text-base
-                  "
-                >
-                  {item.desc}
-                </p>
-
-              </div>
-            ))}
+              );
+            })}
           </div>
+
+        </div>
+
+        {/* ================= INSTITUTIONAL / संस्थागत योगदान ================= */}
+
+        <div className="mt-28 relative">
+
+          {/* TITLE */}
+
+          <div className="text-center mb-16 relative">
+            <div className="absolute inset-0 flex items-center justify-center -z-10">
+              <div className="w-full max-w-2xl h-32 rounded-full bg-gradient-to-b from-amber-200/30 via-orange-200/20 to-transparent blur-3xl" />
+            </div>
+
+            <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-gradient-to-r from-amber-50 via-orange-50 to-red-50 border border-orange-200/70 mb-8 shadow-sm">
+              <span className="h-1 w-10 rounded-full bg-gradient-to-r from-amber-500 via-orange-500 to-red-500" />
+              <span className="text-[11px] md:text-xs font-black tracking-[0.25em] text-orange-700">
+                {language === "hindi" ? "संस्थागत योगदान" : "INSTITUTIONAL LEGACY"}
+              </span>
+              <span className="h-1 w-10 rounded-full bg-gradient-to-r from-red-500 via-orange-500 to-amber-500" />
+            </div>
+
+            <div className="flex items-center justify-center gap-4 mb-5">
+              <div className="h-[2px] w-20 md:w-28 bg-gradient-to-r from-transparent via-red-500 to-orange-500" />
+              <div className="relative">
+                <div className="absolute -inset-2 rounded-full bg-gradient-to-br from-orange-500 to-amber-500 opacity-25 blur-md" />
+                <div className="relative w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-br from-amber-600 via-orange-500 to-red-600 flex items-center justify-center text-white shadow-lg shadow-orange-500/30">
+                  <span className="text-2xl md:text-3xl font-black">श्री</span>
+                </div>
+              </div>
+              <div className="h-[2px] w-20 md:w-28 bg-gradient-to-l from-transparent via-red-500 to-orange-500" />
+            </div>
+
+            <h2
+              className="
+                text-3xl
+                md:text-5xl
+                font-black
+                text-transparent
+                bg-clip-text
+                bg-gradient-to-r
+                from-orange-700
+                via-red-600
+                to-rose-600
+                leading-[1.1]
+              "
+            >
+              {language === "hindi"
+                ? "संस्थागत योगदान एवं उपलब्धियाँ"
+                : "Institutional Contributions"}
+            </h2>
+          </div>
+
+          {/* GRID — EXACT SAME PREMIUM ACHIEVEMENT CARD STYLE */}
+
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-7 relative">
+
+            {content.sections.slice(8).map((section, index) => {
+              const accents = [
+                "from-amber-500 via-orange-500 to-red-500",
+                "from-red-500 via-rose-500 to-amber-500",
+                "from-orange-500 via-amber-500 to-red-500",
+                "from-rose-500 via-red-500 to-orange-500",
+                "from-amber-500 via-red-500 to-rose-500",
+                "from-orange-500 via-red-500 to-amber-500",
+                "from-red-500 via-orange-500 to-amber-500",
+                "from-rose-500 via-amber-500 to-red-500",
+              ];
+              const accent = accents[index % accents.length];
+              const hindiLetters = ["स्वा", "मी", "चि", "त्र", "गुप्त", "श्री", "पीठ", "धर्म"];
+              const letter = hindiLetters[index % hindiLetters.length];
+
+              return (
+                <div
+                  key={index}
+                  className="
+                    group/card
+                    relative
+                    bg-gradient-to-br
+                    from-white
+                    via-orange-50/30
+                    to-amber-50/60
+                    rounded-[1.7rem]
+                    p-[1px]
+                    hover:-translate-y-2
+                    hover:rotate-[0.1deg]
+                    hover:shadow-[0_30px_60px_-25px_rgba(234,88,12,0.4)]
+                    transition-all
+                    duration-500
+                    ease-out
+                    shadow-xl
+                  "
+                >
+                  <div
+                    className={`
+                      absolute inset-0 rounded-[1.7rem] opacity-70 group-hover/card:opacity-100 transition-opacity duration-500
+                      bg-gradient-to-br ${accent}
+                    `}
+                    style={{ WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'xor', maskComposite: 'exclude', padding: '1px' }}
+                  />
+
+                  <div className="relative bg-white rounded-[1.6rem] p-6 md:p-7 h-full overflow-hidden">
+
+                    <div className="absolute inset-0 opacity-0 group-hover/card:opacity-[0.05] transition-opacity duration-700 pointer-events-none"
+                      style={{ backgroundImage: 'repeating-linear-gradient(135deg, #ea580c 0, #ea580c 1px, transparent 0, transparent 14px)' }}
+                    />
+
+                    {/* ICON SQUARE */}
+                    <div className="relative mb-6">
+                      <div
+                        className={`
+                          relative
+                          w-16 h-16 md:w-[72px] md:h-[72px]
+                          rounded-[1.4rem]
+                          bg-gradient-to-br ${accent}
+                          flex
+                          items-center
+                          justify-center
+                          text-white
+                          font-black
+                          shadow-xl
+                          group-hover/card:scale-110 group-hover/card:-rotate-6
+                          transition-transform duration-500
+                        `}
+                      >
+                        <span className="text-xl md:text-2xl font-black tracking-tighter">{letter}</span>
+                        <div className={`absolute -inset-1 rounded-[1.4rem] bg-gradient-to-br ${accent} opacity-50 blur-xl -z-10`} />
+                      </div>
+                    </div>
+
+                    {/* TITLE */}
+                    <h3
+                      className={`
+                        text-xl md:text-2xl
+                        font-black
+                        mb-4
+                        leading-tight
+                        text-transparent bg-clip-text
+                        bg-gradient-to-r ${accent}
+                      `}
+                    >
+                      {section.title}
+                    </h3>
+
+                    {/* POINTS LIST with gradient bullets (jo sections hai unke multiple points hain — isliye list format) */}
+                    <ul className="space-y-3 relative">
+                      {section.points.map((point, idx) => (
+                        <li
+                          key={idx}
+                          className="
+                            text-gray-700
+                            leading-[1.85]
+                            text-[15px] md:text-base
+                            flex
+                            items-start
+                            gap-2.5
+                            group/point
+                          "
+                        >
+                          <span
+                            className={`
+                              mt-[9px] inline-block w-2 h-2 rounded-full flex-shrink-0
+                              bg-gradient-to-br ${accent}
+                              shadow-[0_0_0_4px_rgba(251,146,60,0.1)]
+                              group-hover/point:scale-150 group-hover/point:rotate-45
+                              transition-all duration-300
+                            `}
+                          />
+                          <span className="group-hover/point:text-gray-900 transition-colors duration-200">
+                            {point}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <div className="relative mt-7 flex items-center justify-between">
+                      <span className={`inline-flex items-center gap-1 text-[11px] md:text-xs font-black tracking-wide bg-clip-text text-transparent bg-gradient-to-r ${accent} group-hover/card:translate-x-1 transition-transform duration-300`}>
+                        जय श्री चित्रगुप्त
+                        <ChevronRight size={14} />
+                      </span>
+                      <div className={`h-[2px] w-20 rounded-full bg-gradient-to-r from-transparent ${accent}`} />
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
         </div>
       </div>
     </div>
