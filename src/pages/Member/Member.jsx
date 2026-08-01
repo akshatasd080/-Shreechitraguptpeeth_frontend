@@ -10,30 +10,33 @@ import {
   Upload,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import api from "@/api/axios";
+
+const emptyForm = {
+  fullName: "",
+  mobile: "",
+  email: "",
+  city: "",
+  state: "",
+  profession: "",
+  experience: "",
+  skills: "",
+  message: "",
+  image: null,
+};
 
 const Member = () => {
-
-  const [formData, setFormData] = useState({
-    fullName: "",
-    mobile: "",
-    email: "",
-    city: "",
-    state: "",
-    profession: "",
-    experience: "",
-    skills: "",
-    message: "",
-    image: null,
-  });
+  const [formData, setFormData] = useState(emptyForm);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleChange = (e) => {
-
     const { name, value, files } = e.target;
 
     if (name === "image") {
       setFormData({
         ...formData,
-        image: files[0],
+        image: files[0] || null,
       });
     } else {
       setFormData({
@@ -43,12 +46,51 @@ const Member = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(formData);
+    const mobile = String(formData.mobile || "").replace(/\D/g, "");
+    if (!formData.fullName.trim()) {
+      toast.error("Full name is required");
+      return;
+    }
+    if (mobile.length !== 10) {
+      toast.error("Please enter a valid 10-digit mobile number");
+      return;
+    }
+    if (!formData.email.trim()) {
+      toast.error("Email is required");
+      return;
+    }
 
-    alert("Membership Request Submitted Successfully!");
+    const data = new FormData();
+    data.append("full_name", formData.fullName.trim());
+    data.append("mobile_number", mobile);
+    data.append("email", formData.email.trim());
+    data.append("city", formData.city.trim());
+    data.append("state", formData.state.trim());
+    data.append("profession", formData.profession.trim());
+    data.append("experience", formData.experience.trim());
+    data.append("skills", formData.skills.trim());
+    data.append("message", formData.message.trim());
+    if (formData.image) {
+      data.append("image", formData.image);
+    }
+
+    try {
+      setSubmitting(true);
+      await api.post("/members", data, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      toast.success("Membership request submitted successfully!");
+      setFormData(emptyForm);
+    } catch (err) {
+      toast.error(
+        err?.response?.data?.message || "Something went wrong. Please try again."
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -781,12 +823,15 @@ const Member = () => {
                   </h3>
 
                   <p className="mt-2 text-gray-500">
-                    Click here to upload image
+                    {formData.image
+                      ? formData.image.name
+                      : "Click here to upload image"}
                   </p>
 
                   <input
                     type="file"
                     name="image"
+                    accept="image/png,image/jpeg,image/jpg,image/webp"
                     onChange={handleChange}
                     hidden
                   />
@@ -796,6 +841,7 @@ const Member = () => {
               {/* BUTTON */}
               <button
                 type="submit"
+                disabled={submitting}
                 className="
                   mt-10
                   w-full
@@ -811,9 +857,13 @@ const Member = () => {
                   hover:scale-[1.02]
                   transition-all
                   duration-300
+                  disabled:opacity-70
+                  disabled:hover:scale-100
                 "
               >
-                Submit Membership Request
+                {submitting
+                  ? "Submitting..."
+                  : "Submit Membership Request"}
               </button>
             </form>
           </div>

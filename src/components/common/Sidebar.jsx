@@ -28,6 +28,7 @@ import {
   Images as LuImages,
   Video as LuVideos,
   Sparkles as LuMantra,
+  UserPlus as LuUserPlus,
 } from "lucide-react";
 import api from "@/api/axios";
 import { appConfig } from "@/config/appConfig";
@@ -175,6 +176,13 @@ perms:[],
     label:"Contact",
     to:"/dashboard/contact",
     icon:<LuPhone className="text-lg" />,
+    perms:[],
+   },
+   {
+    key:"member",
+    label:"Member",
+    to:"/dashboard/member",
+    icon:<LuUserPlus className="text-lg" />,
     perms:[],
    },
    {

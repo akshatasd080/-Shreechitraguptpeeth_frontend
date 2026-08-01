@@ -215,7 +215,7 @@ const servicess = [
           value={formData.name}
           onChange={handleChange}
           placeholder="Enter Your Name"
-          className="mt-1 bg-white border-slate-300 text-slate-900"
+          className="mt-1 h-11 bg-white border-slate-300 text-black caret-black placeholder:text-slate-400 dark:bg-white dark:text-black dark:placeholder:text-slate-400"
         />
 
         {errors.name && (
@@ -239,7 +239,7 @@ const servicess = [
           value={formData.email}
           onChange={handleChange}
           placeholder="Enter Your Email"
-          className="mt-1 bg-white border-slate-300 text-slate-900"
+          className="mt-1 h-11 bg-white border-slate-300 text-black caret-black placeholder:text-slate-400 dark:bg-white dark:text-black dark:placeholder:text-slate-400"
         />
 
         {errors.email && (
@@ -262,7 +262,7 @@ const servicess = [
           value={formData.mobile_number}
           onChange={handleChange}
           placeholder="9354589167"
-          className="mt-1 bg-white border-slate-300 text-slate-900"
+          className="mt-1 h-11 bg-white border-slate-300 text-black caret-black placeholder:text-slate-400 dark:bg-white dark:text-black dark:placeholder:text-slate-400"
         />
 
         {errors.mobile_number && (
@@ -285,7 +285,7 @@ const servicess = [
           value={formData.company}
           onChange={handleChange}
           placeholder="Company Name"
-          className="mt-1 bg-white border-slate-300 text-slate-900"
+          className="mt-1 h-11 bg-white border-slate-300 text-black caret-black placeholder:text-slate-400 dark:bg-white dark:text-black dark:placeholder:text-slate-400"
         />
 
       </div>
@@ -305,7 +305,7 @@ const servicess = [
         onChange={handleChange}
         placeholder="Write your project details..."
         rows={4}
-        className="mt-1 bg-white border-slate-300 text-slate-900"
+        className="mt-1 bg-white border-slate-300 text-black caret-black placeholder:text-slate-400 dark:bg-white dark:text-black dark:placeholder:text-slate-400"
       />
 
     </div>
@@ -322,14 +322,18 @@ const servicess = [
         onValueChange={handleServiceChange}
       >
 
-        <SelectTrigger className="mt-1 bg-white border-slate-300 text-slate-900">
+        <SelectTrigger className="mt-1 h-11 w-full bg-white border-slate-300 text-black dark:bg-white dark:text-black">
           <SelectValue placeholder="Select service" />
         </SelectTrigger>
 
-        <SelectContent className="bg-white text-slate-900">
+        <SelectContent className="bg-white text-black dark:bg-white dark:text-black">
 
           {servicess.map((item) => (
-            <SelectItem key={item} value={item}>
+            <SelectItem
+              key={item}
+              value={item}
+              className="text-black focus:bg-slate-100 focus:text-black"
+            >
               {item}
             </SelectItem>
           ))}

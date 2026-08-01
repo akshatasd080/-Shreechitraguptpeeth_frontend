@@ -54,6 +54,7 @@ import ContactDeatils from "./pages/ContactDeatils/ContactDeatils";
 import AdminPoojaBooking from "./pages/PoojaBooking/PoojaBooking";
 import DonationPage from "./pages/DonationPage/DonationPage";
 import DonationDeatils from "./pages/DonationPage/DonationDeatils";
+import MemberDetails from "./pages/Member/MemberDetails";
 import GallreyImage from "./pages/Gallery/GallreyImage";
 import GalleryVideo from "./pages/Gallery/GalleryVideo";
 import Mantras from "./pages/Mantras/Mantras";
@@ -254,6 +255,15 @@ export default function App() {
             element={
               <RequirePermission permission="">
                 <ContactDeatils />
+              </RequirePermission>
+            }
+          />
+
+          <Route
+            path="dashboard/member"
+            element={
+              <RequirePermission permission="">
+                <MemberDetails />
               </RequirePermission>
             }
           />
