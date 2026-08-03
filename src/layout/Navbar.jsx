@@ -256,7 +256,7 @@ export default function Navbar() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 16, scale: 0.96 }}
           transition={{ type: "spring", stiffness: 280, damping: 24 }}
-          className="relative z-10 w-full max-w-lg max-h-[min(90vh,720px)] flex flex-col bg-white rounded-2xl shadow-2xl overflow-hidden"
+          className="relative z-10 w-full max-w-lg max-h-[min(90vh,720px)] flex flex-col bg-white rounded-2xl shadow-2xl overflow-hidden text-black [color-scheme:light]"
           role="dialog"
           aria-modal="true"
           aria-labelledby="contact-dialog-title"
@@ -292,7 +292,7 @@ export default function Navbar() {
           {/* Scrollable form body */}
           <form
             onSubmit={handleContactSubmit}
-            className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-4"
+            className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-4 text-black"
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
@@ -310,7 +310,8 @@ export default function Navbar() {
                     setFormData({ ...formData, name: e.target.value })
                   }
                   placeholder="Your full name"
-                  className="w-full h-11 px-3.5 rounded-xl border border-gray-200 bg-gray-50 outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100 text-sm"
+                  style={{ color: "#000", WebkitTextFillColor: "#000", caretColor: "#000" }}
+                  className="w-full h-11 px-3.5 rounded-xl border border-gray-200 bg-gray-50 outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100 text-sm !text-black placeholder:text-gray-400"
                 />
               </div>
 
@@ -332,7 +333,8 @@ export default function Navbar() {
                     })
                   }
                   placeholder="10-digit mobile"
-                  className="w-full h-11 px-3.5 rounded-xl border border-gray-200 bg-gray-50 outline-none focus:bg-white focus:border-orange-400 focus:ring-2 focus:ring-orange-100 text-sm"
+                  style={{ color: "#000", WebkitTextFillColor: "#000", caretColor: "#000" }}
+                  className="w-full h-11 px-3.5 rounded-xl border border-gray-200 bg-gray-50 outline-none focus:bg-white focus:border-orange-400 focus:ring-2 focus:ring-orange-100 text-sm !text-black placeholder:text-gray-400"
                 />
               </div>
 
@@ -351,7 +353,8 @@ export default function Navbar() {
                     setFormData({ ...formData, email: e.target.value })
                   }
                   placeholder="you@example.com"
-                  className="w-full h-11 px-3.5 rounded-xl border border-gray-200 bg-gray-50 outline-none focus:bg-white focus:border-pink-400 focus:ring-2 focus:ring-pink-100 text-sm"
+                  style={{ color: "#000", WebkitTextFillColor: "#000", caretColor: "#000" }}
+                  className="w-full h-11 px-3.5 rounded-xl border border-gray-200 bg-gray-50 outline-none focus:bg-white focus:border-pink-400 focus:ring-2 focus:ring-pink-100 text-sm !text-black placeholder:text-gray-400"
                 />
               </div>
 
@@ -369,7 +372,8 @@ export default function Navbar() {
                     setFormData({ ...formData, company: e.target.value })
                   }
                   placeholder="Optional"
-                  className="w-full h-11 px-3.5 rounded-xl border border-gray-200 bg-gray-50 outline-none focus:bg-white focus:border-amber-400 focus:ring-2 focus:ring-amber-100 text-sm"
+                  style={{ color: "#000", WebkitTextFillColor: "#000", caretColor: "#000" }}
+                  className="w-full h-11 px-3.5 rounded-xl border border-gray-200 bg-gray-50 outline-none focus:bg-white focus:border-amber-400 focus:ring-2 focus:ring-amber-100 text-sm !text-black placeholder:text-gray-400"
                 />
               </div>
             </div>
@@ -387,7 +391,8 @@ export default function Navbar() {
                 onChange={(e) =>
                   setFormData({ ...formData, service: e.target.value })
                 }
-                className="w-full h-11 px-3.5 rounded-xl border border-gray-200 bg-gray-50 outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100 text-sm"
+                style={{ color: "#000" }}
+                className="w-full h-11 px-3.5 rounded-xl border border-gray-200 bg-gray-50 outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100 text-sm !text-black"
               >
                 <option value="">Select a service</option>
                 {CONTACT_SERVICES.map((s) => (
@@ -409,7 +414,8 @@ export default function Navbar() {
                   setFormData({ ...formData, message: e.target.value })
                 }
                 placeholder="How can we help you?"
-                className="w-full px-3.5 py-3 rounded-xl border border-gray-200 bg-gray-50 outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100 text-sm resize-none"
+                style={{ color: "#000", WebkitTextFillColor: "#000", caretColor: "#000" }}
+                className="w-full px-3.5 py-3 rounded-xl border border-gray-200 bg-gray-50 outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100 text-sm resize-none !text-black placeholder:text-gray-400"
               />
             </div>
 
