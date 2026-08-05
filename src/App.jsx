@@ -68,7 +68,9 @@ const CompaniesPage = React.lazy(() => import("./pages/Companies/Companies"));
 const CompanyDetailPage = React.lazy(() => import("./pages/Companies/CompanyDetail"));
 const HomePage = React.lazy(() => import("./pages/Home/Home"));
 const LoginPage = React.lazy(() => import("./pages/Login"));
+const SignupPage = React.lazy(() => import("./pages/Signup"));
 const Dashboard = React.lazy(() => import("./pages/Dashboard"));
+const UserManagement = React.lazy(() => import("./pages/User/User"));
 const Departments = React.lazy(() => import("./pages/Departments/Departments"));
 const Roles = React.lazy(() => import("./pages/RolesAndPermissions/Roles"));
 const AdminsPage = React.lazy(() => import("./pages/Admins/Admins"));
@@ -108,6 +110,7 @@ export default function App() {
       <Routes>
         {/* ================= LOGIN WITHOUT LAYOUT ================= */}
         <Route path="login" element={<LoginPage />} />
+        <Route path="signup" element={<SignupPage />} />
 
         {/* ================= PUBLIC ROUTES ================= */}
         <Route element={<Layout type="public" />}>
@@ -145,6 +148,7 @@ export default function App() {
           }
         >
           <Route path="dashboard" element={<Dashboard />} />
+          <Route path="dashboard/user" element={<UserManagement />} />
 
           <Route
             path="dashboard/departments"

@@ -97,6 +97,39 @@ export const login = createAsyncThunk(
   }
 )
 
+export const register = createAsyncThunk(
+  'auth/register',
+  async ({ name, email, mobile_number, password, confirmPassword }, { rejectWithValue, dispatch }) => {
+    try {
+      const res = await api.post('/auth/register', { name, email, mobile_number, password, confirmPassword })
+      const data = res.data
+
+      const token = extractTokenString(data)
+      if (token) {
+        localStorage.setItem('CSPL_accessToekn', token)
+        api.defaults.headers.common['Authorization'] = `Bearer ${token}`
+      }
+
+      const user = data.user || (data?.data && data.data.user) || null
+
+      try {
+        const p = await api.get('/auth/permissions')
+        const perms = p.data?.permissions || p.data || []
+        const normalized = normalizePermissions(perms)
+        dispatch(setPermissions(normalized))
+      } catch (permErr) {
+        const claimPerms = normalizePermissions(decodeJwt(localStorage.getItem('CSPL_accessToekn'))?.permissions || decodeJwt(localStorage.getItem('CSPL_accessToekn'))?.perms || [])
+        dispatch(setPermissions(claimPerms))
+      }
+
+      return { user }
+    } catch (err) {
+      const msg = err.response?.data?.message || err.message || 'Register failed'
+      return rejectWithValue(msg)
+    }
+  }
+)
+
 // restoreSession thunk
 export const restoreSession = createAsyncThunk(
   'auth/restoreSession',
@@ -195,6 +228,20 @@ const slice = createSlice({
         state.user = action.payload.user || action.payload
       })
       .addCase(login.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload || action.error.message
+      })
+      .addCase(register.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(register.fulfilled, (state, action) => {
+        state.loading = false
+        state.error = null
+        state.initialized = true
+        state.user = action.payload.user || action.payload
+      })
+      .addCase(register.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload || action.error.message
       })

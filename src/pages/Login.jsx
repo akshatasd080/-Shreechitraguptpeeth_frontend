@@ -224,8 +224,11 @@ relative overflow-hidden">
     <div className="mt-8 pt-6 border-t border-gray-100 text-center">
       <p className="text-sm border-gray-100">
         Don't have an account?{" "}
-        <span className="text-sky-600 font-medium hover:text-sky-700 hover:underline transition-all cursor-pointer">
-          Contact admin
+        <span 
+          onClick={() => navigate("/signup")}
+          className="text-sky-600 font-medium hover:text-sky-700 hover:underline transition-all cursor-pointer"
+        >
+          Sign up
         </span>
       </p>
     </div>
