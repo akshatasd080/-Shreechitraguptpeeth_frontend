@@ -11,13 +11,14 @@ const AboutSwami = () => {
       heroTitle: "स्वामी जी के बारे में",
       breadcrumb: "स्वामी जी",
       tag: "ॐ श्री चित्रगुप्ताय नमः",
-      mainTitle: "जगद्गुरु श्री चित्रगुप्ताचार्य डॉ. स्वामी सच्चिदानन्द चित्रगुप्त पीठाधीश्वर श्री चित्रगुप्त पीठ, वृन्दावन",
+      mainTitle: "जगद्गुरु श्री चित्रगुप्ताचार्य डॉ. स्वामी सच्चिदानन्द चित्रगुप्त पीठाधीश्वर",
+      peethLine: "श्री चित्रगुप्त पीठ, वृन्दावन",
       intro: "जगद्गुरु श्री चित्रगुप्ताचार्य डॉ. स्वामी सच्चिदानन्द चित्रगुप्त जी महाराज धर्म, संस्कृति, अध्यात्म एवं समाज सेवा के महान प्रेरणास्रोत हैं।",
       sections: [
         {
-          title: "जन्म एवं प्रारंभिक जीवन",
+          title: "जन्म एवं प्रारम्भिक जीवन",
           points: [
-            "जगद्गुरु श्री चित्रगुप्ताचार्य डॉ. स्वामी सच्चिदानन्द चित्रगुप्त जी का जन्म चिचित नाम श्री संजीव कुमार सक्सेना के रूप में हुआ।",
+            "जगद्गुरु श्री चित्रगुप्ताचार्य डॉ. स्वामी सच्चिदानन्द चित्रगुप्त जी का जन्म शिक्षित नाम श्री संजीव कुमार सक्सेना के रूप में हुआ।",
             "आपका जन्म 1 अप्रैल 1972 को उत्तर प्रदेश के रायबरेली जनपद में हुआ।",
             "बाल्यकाल से ही आपका मन धर्म, अध्यात्म एवं मानव सेवा के प्रति विशेष रूप से समर्पित था।"
           ]
@@ -25,35 +26,35 @@ const AboutSwami = () => {
         {
           title: "मातृ कृपा एवं आध्यात्मिक संस्कार",
           points: [
-            "स्वामी जी की पूज्य माताजी श्रीमती शांति देवी स्वर्गमा भगवती की परम उपासका एवं महान साधिका थीं।",
-            "समाज में वे 'वीरांगना वाली माता जी' के नाम से प्रसिद्ध थीं।",
-            "उनकी कठोर तपस्या, अखण्ड साधना एवं मां भगवती के श्रीचरणों में अटूट भक्ति के परिणामस्वरूप उन्हें स्वामी सच्चिदानन्द जी जैसे दिव्य संत पुत्र की प्राप्ति हुई।",
+            "स्वामी जी की पूज्य माताजी श्रीमती शान्ति देवी स्वयं माँ भगवती की परम उपासिका एवं महान साधिका थीं।",
+            "समाज में वे \"चरण वाली माता जी\" के नाम से विख्यात थीं।",
+            "उनकी कठोर तपस्या, अखण्ड साधना एवं माँ भगवती के श्रीचरणों में अटूट भक्ति के परिणामस्वरूप उन्हें स्वामी सच्चिदानन्द जी जैसे दिव्य संत पुत्र की प्राप्ति हुई।",
             "माता श्री के आध्यात्मिक संस्कारों एवं साधना का प्रभाव स्वामी जी के जीवन पर प्रारम्भ से ही स्पष्ट रूप से विद्यमान रहा, जिसने उन्हें धर्म, अध्यात्म और ईश्वर-साक्षात्कार के मार्ग पर अग्रसर किया।"
           ]
         },
         {
           title: "शिक्षा",
           points: [
-            "प्रारंभिक शिक्षा: जनपद उन्नाव, उत्तर प्रदेश",
-            "माध्यमिक शिक्षा: डी.ए.वी. स्कूल, बरेली, उत्तर प्रदेश",
-            "उच्च शिक्षा: विधि (Law) की शिक्षा — महाविद्यालय, लखनऊ, उत्तर प्रदेश"
+            "प्रारम्भिक शिक्षा — जनपद उन्नाव, उत्तर प्रदेश",
+            "माध्यमिक शिक्षा — डी.ए.वी. स्कूल, बरेली, उत्तर प्रदेश",
+            "उच्च शिक्षा — विधि (Law) की शिक्षा — महर्षि विश्वविद्यालय, लखनऊ, उत्तर प्रदेश"
           ]
         },
         {
-          title: "आध्यात्मिक एवं दायिक गुरु",
+          title: "आध्यात्मिक एवं धार्मिक गुरु",
           points: [
             "स्वामी जी को अनेक महान संतों एवं आध्यात्मिक विभूतियों का सान्निध्य एवं आशीर्वाद प्राप्त हुआ—",
-            "• परम पूज्य महर्षि महेश योगी जी — ध्यान एवं अध्यात्म (ट्रांसेंडेंटल मेडिटेशन) के गुरु।",
-            "• परम पूज्य अवधूत श्री कपाली जी महाराज।",
-            "• परम पूज्य स्वामी दीक्षापान जी महाराज।",
-            "• ब्रह्मचारी गौरी शंकराचार्य जी महाराज से दीक्षा एवं आध्यात्मिक मार्गदर्शन प्राप्त किया, जिनकी दिव्य प्रेरणा से अपने पितृपितृ अखाडा के आधार महामण्डलेश्वर के रूप में सनातन धर्म की सेवा की।"
+            "परम पूज्य महर्षि महेश योगी जी — ध्यान एवं अध्यात्म (ट्रान्सेंडैंटल मेडिटेशन) के गुरु।",
+            "परम पूज्य अवधूत श्री कपाली जी महाराज।",
+            "परम पूज्य स्वामी चक्रपाणि जी महाराज।",
+            "ब्रह्मर्षि गौरी शंकराचार्य जी महाराज से दीक्षा एवं आध्यात्मिक मार्गदर्शन प्राप्त किया, जिनकी दिव्य प्रेरणा से आपने पशुपति अखाड़ा के आचार्य महामण्डलेश्वर के रूप में सनातन धर्म की सेवा की।"
           ]
         },
         {
           title: "प्रेरणास्रोत",
           points: [
             "स्वामी विवेकानन्द",
-            "नेताजी सुभाष चंद्र बोस"
+            "नेताजी सुभाष चन्द्र बोस"
           ]
         },
         {
@@ -78,22 +79,22 @@ const AboutSwami = () => {
         {
           title: "यात्रा के प्रमुख संकल्प",
           points: [
-            "1. भारत की सभी पवित्र नदियों का शुद्धीकरण।",
-            "2. जल संरक्षण एवं पर्यावरण सुरक्षा।",
-            "3. ट्रांसेंडेंटल मेडिटेशन एवं योग के माध्यम से समाज में स्वास्थ्य, शांति एवं आध्यात्मिक जागरण का प्रसार।",
-            "4. अधर्म एवं विनाशकारी विचारों का उन्मूलन।"
+            "भारत की सभी पवित्र नदियों का शुद्धीकरण।",
+            "जल संरक्षण एवं पर्यावरण सुरक्षा।",
+            "ट्रान्सेंडैंटल मेडिटेशन एवं योग के माध्यम से समाज में स्वास्थ्य, शान्ति एवं आध्यात्मिक जागरण का प्रसार।",
+            "अधर्म एवं विनाशकारी शक्तियों का उन्मूलन।"
           ]
         },
         {
-          title: "श्री चित्रगुप्त पीठ उपलब्धियाँ एवं संस्थागत योगदान",
+          title: "उपलब्धियाँ एवं संस्थागत योगदान",
           points: [
-            "डॉ. स्वामी सच्चिदानन्द चित्रगुप्त जी ने अपना सम्पूर्ण जीवन केवल व्यक्तिगत तप एवं साधना तक सीमित नहीं रखा, बल्कि धर्म के संगठन, समाज जागरण एवं सनातन संस्कृति के पुनरुत्थान के लिए समर्पित कर दिया।"
+            "डॉ. स्वामी सच्चिदानन्द चित्रगुप्त जी ने अपना सम्पूर्ण जीवन केवल व्यक्तिगत तप एवं साधना तक सीमित नहीं रखा, बल्कि धर्म के संगठन, समाज जागरण एवं सनातन संस्कृति के पुनरुत्थान के लिए समर्पित किया।"
           ]
         },
         {
           title: "1. श्री चित्रगुप्त पीठ, वृन्दावन (मथुरा)",
           points: [
-            "आपके दिव्य नेतृत्व में श्री चित्रगुप्त पीठ की स्थापना भगवान श्री चित्रगुप्त जी की आराधना, महिमा-प्रचार एवं सनातन धर्म के शाश्वत सिद्धांतों के प्रसार हेतु की गई।",
+            "आपके दिव्य नेतृत्व में श्री चित्रगुप्त पीठ की स्थापना भगवान श्री चित्रगुप्त जी की आराधना, महिमा-प्रचार एवं सनातन धर्म के शाश्वत सिद्धान्तों के प्रसार हेतु की गई।",
             "यहाँ नियमित रूप से पूजा-अर्चना, यज्ञ, ध्यान, सत्संग, प्रवचन एवं कथा का आयोजन होता है।",
             "पीठ धार्मिक जागरण के साथ-साथ समाज सेवा के विविध कार्यों में भी सक्रिय रूप से संलग्न है।",
             "स्वामी जी सदैव सनातन परिवारों में तलाक की बढ़ती प्रवृत्ति के प्रबल विरोधी रहे हैं।",
@@ -101,24 +102,24 @@ const AboutSwami = () => {
           ]
         },
         {
-          title: "2. श्री चित्रगुप्त अखाडा",
+          title: "2. श्री चित्रगुप्त अखाड़ा",
           points: [
-            "परम पूज्य स्वामी दीक्षापान जी महाराज के आशीर्वाद से स्थापित यह अखाडा स्वामी जी के मार्गदर्शन में धर्म, न्याय एवं सनातन मूल्यों की रक्षा हेतु कार्यरत है।",
-            "अखाडा का प्रमुख उद्देश्य युवाओं को उनकी सांस्कृतिक एवं आध्यात्मिक विरासत से जोड़ना तथा राष्ट्रीय एकता एवं सामाजिक समरसता को सुदृढ़ करना है।"
+            "परम पूज्य स्वामी चक्रपाणि जी महाराज के आशीर्वाद से स्थापित यह अखाड़ा स्वामी जी के मार्गदर्शन में धर्म, न्याय एवं सनातन मूल्यों की रक्षा हेतु कार्यरत है।",
+            "अखाड़े का प्रमुख उद्देश्य युवाओं को उनकी सांस्कृतिक एवं आध्यात्मिक विरासत से जोड़ना तथा राष्ट्रीय एकता एवं सामाजिक समरसता को सुदृढ़ करना है।"
           ]
         },
         {
           title: "3. धार्मिक एवं सामाजिक अभियान",
           points: [
             "नदियों की स्वच्छता एवं पर्यावरण संरक्षण हेतु नियमित जन-जागरण अभियान।",
-            "ट्रांसेंडेंटल मेडिटेशन एवं योग शिविरों का आयोजन, जिनका संचालन कारागारों एवं सुधार गृहों में भी किया जाता है, जिससे शारीरिक, मानसिक एवं आध्यात्मिक स्वास्थ्य का विकास हो।",
-            "निबन्ध प्रतियोगिताओं, व्याख्यानों एवं संगोष्ठियों के माध्यम से युवाओं में धर्म, संस्कृति एवं कर्तव्यवानता के संस्कारों का विकास।"
+            "ट्रान्सेंडैंटल मेडिटेशन एवं योग शिविरों का आयोजन, जिनका संचालन कारागारों एवं सुधार गृहों में भी किया जाता है, जिससे शारीरिक, मानसिक एवं आध्यात्मिक स्वास्थ्य का विकास हो।",
+            "निबन्ध प्रतियोगिताओं, व्याख्यानों एवं संगोष्ठियों के माध्यम से युवाओं में धर्म, संस्कृति एवं कर्तव्यनिष्ठा के संस्कारों का विकास।"
           ]
         },
         {
           title: "4. राष्ट्रीय एवं धार्मिक मंचों पर प्रतिनिधित्व",
           points: [
-            "स्वामी जी ने अनेक राष्ट्रीय एवं अंतर्राष्ट्रीय मंचों पर सनातन धर्म, भगवान श्री चित্রगुप्त जी की महिमा तथा मानव सेवा के आदर्शों का प्रभावशाली प्रतिनिधित्व करते हुए विश्वभर के लोगों को प्रेरित किया है।"
+            "स्वामी जी ने अनेक राष्ट्रीय एवं अंतरराष्ट्रीय मंचों पर सनातन धर्म, भगवान श्री चित्रगुप्त जी की महिमा तथा मानव सेवा के आदर्शों का प्रभावशाली प्रतिनिधित्व करते हुए विश्वभर के लोगों को प्रेरित किया है।"
           ]
         },
         {
@@ -131,9 +132,9 @@ const AboutSwami = () => {
         {
           title: "समग्र दृष्टिकोण",
           points: [
-            "जगद्गुरु श्री चित्रगुप्ताचार्य डॉ. स्वामी सच्चिदानन्द चित्रगुप्त जी का जीवन एक आदिवासी संन्यासी, साधक एवं समाज सुधारक का उत्कृष्ट उदाहरण है।",
-            "उन्होंने अपने जीवन से यह सिद्ध किया है कि धर्म केवल पूजा-पद्धति या कर्मकाण्ड तक सीमित नहीं है, बल्कि न्याय, सेवा, करुणा, प्रकृति संरक्षण एवं मानव कल्याण के माध्यम से समाज में साकार होता है।",
-            "उनका प्रेरणादायी जीवन आज भी सम्पूर्ण मानवता को धर्मचेतना, करुणा, नैतिकता एवं ईश्वरभक्ति के साथ जीवन जीने की प्रेरणा प्रदान कर रहा है।"
+            "जगद्गुरु श्री चित्रगुप्ताचार्य डॉ. स्वामी सच्चिदानन्द चित्रगुप्त जी का जीवन एक आदर्श संन्यासी, साधक एवं समाज सुधारक का उत्कृष्ट उदाहरण है।",
+            "उन्होंने अपने जीवन से यह सिद्ध किया कि धर्म केवल पूजा-पद्धति या कर्मकाण्ड तक सीमित नहीं है, बल्कि न्याय, सेवा, करुणा, प्रकृति संरक्षण एवं मानव कल्याण के माध्यम से समाज में साकार होता है।",
+            "उनका प्रेरणादायी जीवन आज भी सम्पूर्ण मानवता को धर्मनिष्ठा, करुणा, नैतिकता एवं ईश्वरचेतना के साथ जीवन जीने की प्रेरणा प्रदान कर रहा है।"
           ]
         }
       ],
@@ -168,60 +169,61 @@ const AboutSwami = () => {
       heroTitle: "About Swami Ji",
       breadcrumb: "ABOUT SWAMI",
       tag: "Om Shri Chitraguptaya Namah",
-      mainTitle: "Jagadguru Shri Chitraguptacharya Dr. Swami Sachchidanand Chitragupt Peethadhishwar Shri Chitragupt Peeth, Vrindavan",
+      mainTitle: "Jagadguru Shri Chitraguptacharya Dr. Swami Sachchidanand Chitragupt Peethadhishwar",
+      peethLine: "Shri Chitragupt Peeth, Vrindavan",
       intro: "Jagadguru Shri Chitraguptacharya Dr. Swami Sachchidanand Chitragupt Ji Maharaj is a great source of inspiration for religion, culture, spirituality and social service.",
       sections: [
         {
           title: "Birth and Early Life",
           points: [
             "Jagadguru Shri Chitraguptacharya Dr. Swami Sachchidanand Chitragupt Ji was born with the worldly name Shri Sanjeev Kumar Saxena.",
-            "He was born on 1st April 1972 in Rai Bareli district, Uttar Pradesh.",
+            "He was born on 1st April 1972 in Raebareli district, Uttar Pradesh.",
             "Since childhood, his mind was specially dedicated to religion, spirituality and human service."
           ]
         },
         {
           title: "Mother's Grace and Spiritual Sanskars",
           points: [
-            "Swami Ji's revered mother Shrimati Shanti Devi Swargiya was a great devotee of Maa Bhagwati.",
-            "In society, she was famous as 'Veerangana Wali Mata Ji'.",
-            "As a result of her severe penance, continuous sadhana and unwavering devotion at the feet of Maa Bhagwati, she received a divine saint son like Swami Sachchidanand Ji.",
-            "The influence of Mata Shri's spiritual values and sadhana was clearly visible on Swami Ji's life from the beginning, which led him on the path of religion, spirituality and God-realization."
+            "Swami Ji's revered mother Shrimati Shanti Devi was herself a supreme devotee and great sadhika of Maa Bhagwati.",
+            "In society, she was renowned as \"Charan Wali Mata Ji\".",
+            "As a result of her severe penance, unbroken sadhana and unwavering devotion at the holy feet of Maa Bhagwati, she received a divine saint-son like Swami Sachchidanand Ji.",
+            "The influence of Mata Shri's spiritual values and sadhana was clearly present in Swami Ji's life from the beginning, which led him on the path of dharma, spirituality and God-realization."
           ]
         },
         {
           title: "Education",
           points: [
-            "Primary Education: Unnao district, Uttar Pradesh",
-            "Secondary Education: D.A.V. School, Bareilly, Uttar Pradesh",
-            "Higher Education: Law education — College, Lucknow, Uttar Pradesh"
+            "Primary Education — Unnao district, Uttar Pradesh",
+            "Secondary Education — D.A.V. School, Bareilly, Uttar Pradesh",
+            "Higher Education — Law education — Maharishi University, Lucknow, Uttar Pradesh"
           ]
         },
         {
-          title: "Spiritual and Divine Gurus",
+          title: "Spiritual and Religious Gurus",
           points: [
-            "Swami Ji received the grace and blessings of many great saints and spiritual personalities—",
-            "• Param Pujya Maharishi Mahesh Yogi Ji — Guru of meditation and spirituality (Transcendental Meditation).",
-            "• Param Pujya Avdhoot Shri Kapali Ji Maharaj.",
-            "• Param Pujya Swami Dikshapaan Ji Maharaj.",
-            "• Received diksha and spiritual guidance from Brahmachari Gauri Shankaracharya Ji Maharaj, under whose divine inspiration he served Sanatan Dharma as the Mahamandaleshwar of his ancestral akhada."
+            "Swami Ji received the grace and blessings of many great saints and spiritual luminaries—",
+            "Param Pujya Maharishi Mahesh Yogi Ji — Guru of meditation and spirituality (Transcendental Meditation).",
+            "Param Pujya Avdhoot Shri Kapali Ji Maharaj.",
+            "Param Pujya Swami Chakrapani Ji Maharaj.",
+            "Received diksha and spiritual guidance from Brahmrishi Gauri Shankaracharya Ji Maharaj, under whose divine inspiration he served Sanatan Dharma as Acharya Mahamandaleshwar of Pashupati Akhada."
           ]
         },
         {
-          title: "Inspiration",
+          title: "Sources of Inspiration",
           points: [
             "Swami Vivekananda",
             "Netaji Subhash Chandra Bose"
           ]
         },
         {
-          title: "Life Mission",
+          title: "Purpose of Life",
           points: [
             "To spread the glory and divine form of Lord Shri Chitragupt Ji throughout the world.",
             "To protect, promote and propagate Sanatan Dharma."
           ]
         },
         {
-          title: "Sacred Resolution",
+          title: "Sacred Resolve",
           points: [
             "\"Bharat Shuddhikaran Yatra\""
           ]
@@ -229,68 +231,68 @@ const AboutSwami = () => {
         {
           title: "Main Objective",
           points: [
-            "To completely eradicate every obstacle in the path of building a developed India—whether it is the poisonous ideology of jihadi mentality, foreign infiltration, cultural pollution or inequality in the justice system—and establish a pure, harmonious and Sanatan India."
+            "To completely eradicate every obstacle in the path of building a developed India—whether the poisonous ideology of jihadi mentality, foreign infiltration, cultural pollution or inequality in the justice system—and establish a pure, harmonious and Sanatan India."
           ]
         },
         {
           title: "Key Resolutions of the Yatra",
           points: [
-            "1. Purification of all sacred rivers of India.",
-            "2. Water conservation and environmental protection.",
-            "3. Spreading health, peace and spiritual awakening in society through Transcendental Meditation and Yoga.",
-            "4. Eradication of irreligious and destructive ideas."
+            "Purification of all sacred rivers of India.",
+            "Water conservation and environmental protection.",
+            "Spreading health, peace and spiritual awakening in society through Transcendental Meditation and Yoga.",
+            "Eradication of adharma and destructive forces."
           ]
         },
         {
-          title: "Shri Chitragupt Peeth Achievements and Institutional Contributions",
+          title: "Achievements and Institutional Contributions",
           points: [
-            "Dr. Swami Sachchidanand Chitragupt Ji did not limit his entire life only to personal penance and sadhana, but dedicated it to religious organization, social awakening and revival of Sanatan culture."
+            "Dr. Swami Sachchidanand Chitragupt Ji did not limit his entire life only to personal penance and sadhana, but dedicated it to religious organization, social awakening and the revival of Sanatan culture."
           ]
         },
         {
           title: "1. Shri Chitragupt Peeth, Vrindavan (Mathura)",
           points: [
-            "Under his divine leadership, Shri Chitragupt Peeth was established for worshiping Lord Shri Chitragupt Ji, spreading His glory and propagating the eternal principles of Sanatan Dharma.",
+            "Under his divine leadership, Shri Chitragupt Peeth was established for the worship of Lord Shri Chitragupt Ji, spreading His glory and propagating the eternal principles of Sanatan Dharma.",
             "Regular puja-archana, yajna, meditation, satsang, discourses and katha are organized here.",
-            "The Peeth is also actively involved in various social service activities along with religious awakening.",
+            "The Peeth is also actively engaged in various social service works along with religious awakening.",
             "Swami Ji has always been a strong opponent of the increasing trend of divorce in Sanatan families.",
-            "A special committee formed under the Peeth continuously works to establish dialogue and coordination between couples suffering from family disputes to reunite families."
+            "A special committee formed under the Peeth continuously works to establish dialogue and coordination between couples facing family disputes and to reunite families."
           ]
         },
         {
           title: "2. Shri Chitragupt Akhada",
           points: [
-            "Established with the blessings of Param Pujya Swami Dikshapaan Ji Maharaj, this akhada works under Swami Ji's guidance to protect religion, justice and Sanatan values.",
+            "Established with the blessings of Param Pujya Swami Chakrapani Ji Maharaj, this akhada works under Swami Ji's guidance to protect dharma, justice and Sanatan values.",
             "The main objective of the akhada is to connect youth with their cultural and spiritual heritage and to strengthen national unity and social harmony."
           ]
         },
         {
           title: "3. Religious and Social Campaigns",
           points: [
-            "Regular public awareness campaigns for cleanliness of rivers and environmental protection.",
-            "Organization of Transcendental Meditation and Yoga camps, which are also conducted in jails and reform homes, leading to physical, mental and spiritual health development.",
-            "Development of values of religion, culture and responsibility among youth through essay competitions, lectures and seminars."
+            "Regular public awareness campaigns for river cleanliness and environmental protection.",
+            "Organization of Transcendental Meditation and Yoga camps, which are also conducted in prisons and reform homes, fostering physical, mental and spiritual health.",
+            "Development of values of dharma, culture and duty-consciousness among youth through essay competitions, lectures and seminars."
           ]
         },
         {
           title: "4. Representation on National and Religious Platforms",
           points: [
-            "Swami Ji has inspired people all over the world by effectively representing Sanatan Dharma, the glory of Lord Shri Chitragupt Ji and the ideals of human service on many national and international platforms."
+            "Swami Ji has inspired people worldwide by effectively representing Sanatan Dharma, the glory of Lord Shri Chitragupt Ji and the ideals of human service on many national and international platforms."
           ]
         },
         {
           title: "5. Literature and Spiritual Contribution",
           points: [
             "Through his discourses, writings and devotional compositions, Swami Ji has extensively propagated the divine glory of Lord Shri Chitragupt Ji.",
-            "His literature and spiritual messages have made important contributions in reviving faith, devotion, morality and religious consciousness in society."
+            "His literature and spiritual messages have made an important contribution in reviving faith, devotion, morality and religious consciousness in society."
           ]
         },
         {
           title: "Holistic Vision",
           points: [
-            "The life of Jagadguru Shri Chitraguptacharya Dr. Swami Sachchidanand Chitragupt Ji is an excellent example of a traditional sannyasi, sadhak and social reformer.",
-            "He has proven through his life that religion is not limited only to worship rituals or ceremonies, but is manifested in society through justice, service, compassion, nature conservation and human welfare.",
-            "His inspirational life continues to inspire the entire humanity to live life with religious consciousness, compassion, morality and devotion to God even today."
+            "The life of Jagadguru Shri Chitraguptacharya Dr. Swami Sachchidanand Chitragupt Ji is an outstanding example of an ideal sannyasi, sadhak and social reformer.",
+            "He has proven through his life that religion is not limited only to worship methods or rituals, but is manifested in society through justice, service, compassion, nature conservation and human welfare.",
+            "His inspirational life continues to inspire all of humanity to live with dharma-nishtha, compassion, morality and God-consciousness."
           ]
         }
       ],
@@ -324,6 +326,8 @@ const AboutSwami = () => {
   };
 
   const content = allContent[language];
+  const lifeSections = content.sections.slice(0, 9);
+  const institutionalSections = content.sections.slice(9);
 
   return (
     <div className="w-full bg-[#fffaf7] overflow-hidden">
@@ -511,13 +515,17 @@ const AboutSwami = () => {
                 from-red-600
                 to-orange-500
                 leading-tight
-                mb-6
+                mb-3
               "
             >
               {content.mainTitle}
             </h2>
 
-            {/* INTRO BOX — REFINED NEW UI */}
+            <p className="text-lg md:text-xl font-bold text-orange-700 mb-6">
+              {content.peethLine}
+            </p>
+
+            {/* SINGLE UNIFIED BIOGRAPHY CARD */}
 
             <div
               className="
@@ -526,41 +534,48 @@ const AboutSwami = () => {
                 via-orange-50/30
                 to-amber-50
                 rounded-[2rem]
-                p-7
+                p-6 md:p-7
                 border
                 border-amber-100
                 shadow-[0_20px_60px_-20px_rgba(220,38,38,0.25)]
                 relative
                 overflow-hidden
-                group
               "
             >
-              <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-gradient-to-br from-red-400/20 via-orange-400/15 to-transparent blur-3xl" />
-              <div className="absolute -bottom-20 -left-10 w-44 h-44 rounded-full bg-gradient-to-tr from-amber-400/20 via-yellow-300/10 to-transparent blur-3xl" />
+              <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-gradient-to-br from-red-400/20 via-orange-400/15 to-transparent blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-20 -left-10 w-44 h-44 rounded-full bg-gradient-to-tr from-amber-400/20 via-yellow-300/10 to-transparent blur-3xl pointer-events-none" />
 
-              <p
-                className="
-                  relative
-                  text-gray-800
-                  leading-[1.9]
-                  text-[15px] md:text-base
-                  font-medium
-                "
-              >
+              <p className="relative text-gray-800 leading-[1.9] text-[15px] md:text-base font-medium">
                 {content.intro}
               </p>
 
-              <div className="relative mt-5 flex items-center gap-3 opacity-80">
+              <div className="relative my-6 flex items-center gap-3 opacity-80">
                 <div className="h-px flex-1 bg-gradient-to-r from-transparent via-orange-300 to-transparent" />
                 <span className="text-xl text-orange-500 font-black tracking-widest">॥ ॐ ॥</span>
                 <div className="h-px flex-1 bg-gradient-to-r from-transparent via-orange-300 to-transparent" />
               </div>
 
+              <div className="relative space-y-8">
+                {lifeSections.map((section, index) => (
+                  <div key={index}>
+                    <h3 className="text-lg md:text-xl font-black text-red-700 mb-3 leading-snug">
+                      {section.title}
+                    </h3>
+                    <ul className="space-y-3">
+                      {section.points.map((point, idx) => (
+                        <li
+                          key={idx}
+                          className="flex items-start gap-2.5 text-gray-800 text-[15px] leading-[1.85]"
+                        >
+                          <span className="mt-[9px] inline-block w-2 h-2 rounded-full bg-gradient-to-br from-red-500 to-orange-500 flex-shrink-0" />
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
             </div>
-
-            {/* CONTENT — COMPLETE NEW 3-COL CARD UI WITH NUMBER + VERTICAL ACCENT */}
-
-        
 
             {/* Decorative section-end ॐ divider */}
             <div className="mt-16 flex flex-col items-center gap-3">
@@ -626,8 +641,8 @@ const AboutSwami = () => {
                     <div className="min-w-0 flex-1">
                       <h5 className="text-white font-black text-base md:text-lg leading-tight">
                         {language === "hindi"
-                          ? "स्वामी श्री चित्रगुप्तानंद जी"
-                          : "Swami Shri Chitraguptanand Ji"}
+                          ? "डॉ. स्वामी सच्चिदानन्द चित्रगुप्त"
+                          : "Dr. Swami Sachchidanand Chitragupt"}
                       </h5>
                       <p className="text-orange-200 text-[11px] md:text-xs font-semibold tracking-wide mt-0.5">
                         {language === "hindi"
@@ -717,11 +732,6 @@ const AboutSwami = () => {
                   {language === "hindi" ? "पीठाधीश्वर, वृन्दावन" : "Peethadhishwar, Vrindavan"}
                 </p>
               </div>
-
-           
-
-           
-
 
             </div>
           </div>
@@ -938,7 +948,7 @@ const AboutSwami = () => {
 
           <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-7 relative">
 
-            {content.sections.slice(8).map((section, index) => {
+            {institutionalSections.map((section, index) => {
               const accents = [
                 "from-amber-500 via-orange-500 to-red-500",
                 "from-red-500 via-rose-500 to-amber-500",
@@ -1025,7 +1035,7 @@ const AboutSwami = () => {
                       {section.title}
                     </h3>
 
-                    {/* POINTS LIST with gradient bullets (jo sections hai unke multiple points hain — isliye list format) */}
+                    {/* POINTS LIST */}
                     <ul className="space-y-3 relative">
                       {section.points.map((point, idx) => (
                         <li
