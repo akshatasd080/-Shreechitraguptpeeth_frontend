@@ -693,7 +693,7 @@ const Member = () => {
                 <div>
 
                   <label className="font-bold text-gray-700">
-                    Experience
+                    Reference
                   </label>
 
                   <input
