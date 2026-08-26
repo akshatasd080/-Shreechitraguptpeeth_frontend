@@ -11,8 +11,8 @@ import {
   FaFacebookF,
   FaInstagram,
   FaYoutube,
-  FaTwitter,
 } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 import { Link } from "react-router-dom";
 
@@ -57,9 +57,9 @@ const socialLinks = [
     href: "https://youtube.com/@shreechitraguptpeeth3940?si=6sVJ9vhk7kGRatuV",
   },
   {
-    icon: FaTwitter,
-    label: "Twitter",
-    href: "https://twitter.com",
+    icon: FaXTwitter,
+    label: "X",
+    href: "https://x.com/sanjeev02507712?s=11",
   },
 ];
 
