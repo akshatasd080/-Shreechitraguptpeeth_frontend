@@ -44,17 +44,17 @@ const socialLinks = [
   {
     icon: FaFacebookF,
     label: "Facebook",
-    href: "https://www.facebook.com",
+    href: "https://www.facebook.com/share/19AUfxA5k7/?mibextid=wwXIfr",
   },
   {
     icon: FaInstagram,
     label: "Instagram",
-    href: "https://www.instagram.com",
+    href: "https://www.instagram.com/dr.swamisachidanand_chitragupt?igsi=MTcwYmhrMHhrbWNpMQ==",
   },
   {
     icon: FaYoutube,
     label: "YouTube",
-    href: "https://www.youtube.com",
+    href: "https://youtube.com/@shreechitraguptpeeth3940?si=6sVJ9vhk7kGRatuV",
   },
   {
     icon: FaTwitter,

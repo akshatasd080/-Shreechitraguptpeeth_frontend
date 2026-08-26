@@ -802,8 +802,7 @@ const AboutSwami = () => {
                 "from-orange-500 via-red-500 to-rose-500",
               ];
               const accent = accents[index % accents.length];
-              const hindiLetters = ["ॐ", "श्री", "राम", "सीता", "हरि", "गुरु"];
-              const letter = hindiLetters[index % hindiLetters.length];
+              const letter = String(index + 1);
 
               return (
                 <div
@@ -960,8 +959,7 @@ const AboutSwami = () => {
                 "from-rose-500 via-amber-500 to-red-500",
               ];
               const accent = accents[index % accents.length];
-              const hindiLetters = ["स्वा", "मी", "चि", "त्र", "गुप्त", "श्री", "पीठ", "धर्म"];
-              const letter = hindiLetters[index % hindiLetters.length];
+              const letter = String(index + 1);
 
               return (
                 <div

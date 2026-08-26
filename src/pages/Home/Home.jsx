@@ -1434,11 +1434,11 @@ export default function Home() {
         <div className="mt-4">
           <div className="flex justify-between text-xs font-medium mb-2">
             <span>Raised</span>
-            <span>90%</span>
+            <span>40%</span>
           </div>
 
           <div className="w-full h-1.5 rounded-full bg-gray-200 overflow-hidden">
-            <div className="h-full w-[90%] bg-red-500 rounded-full" />
+            <div className="h-full w-[40%] bg-red-500 rounded-full" />
           </div>
         </div>
 
@@ -1567,7 +1567,7 @@ export default function Home() {
               <div className="grid grid-cols-2 gap-3 sm:gap-4">
                 <div className="rounded-2xl p-4 bg-gradient-to-br from-orange-50 via-white to-red-50 border border-orange-100">
                   <div className="text-[11px] font-black tracking-widest text-orange-700 mb-1">RAISED · जमा हुआ</div>
-                  <div className="text-2xl sm:text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-orange-600 to-red-600">90%</div>
+                  <div className="text-2xl sm:text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-orange-600 to-red-600">40%</div>
                 </div>
                 <div className="rounded-2xl p-4 bg-gradient-to-br from-red-50 via-white to-orange-50 border border-red-100">
                   <div className="text-[11px] font-black tracking-widest text-red-700 mb-1">GOAL · लक्ष्य</div>
@@ -1579,10 +1579,10 @@ export default function Home() {
               <div>
                 <div className="flex justify-between text-sm font-bold mb-2">
                   <span className="text-gray-700">Funding Progress</span>
-                  <span className="text-red-600">90% · Almost There!</span>
+                  <span className="text-red-600">40% · Almost There!</span>
                 </div>
                 <div className="w-full h-3 rounded-full bg-gray-200 overflow-hidden shadow-inner">
-                  <div className="h-full w-[90%] rounded-full bg-gradient-to-r from-red-500 via-red-500 to-orange-500 relative">
+                  <div className="h-full w-[40%] rounded-full bg-gradient-to-r from-red-500 via-red-500 to-orange-500 relative">
                     <div className="absolute inset-0 bg-white/25 animate-pulse" />
                   </div>
                 </div>
