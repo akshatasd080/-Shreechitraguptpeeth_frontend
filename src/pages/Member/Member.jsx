@@ -103,7 +103,8 @@ const Member = () => {
         className="
           relative
           w-full
-          h-[320px]
+          h-[220px]
+          sm:h-[300px]
           md:h-[430px]
           bg-cover
           bg-center
@@ -152,11 +153,14 @@ const Member = () => {
           {/* TITLE */}
           <h1
             className="
-              text-[42px]
+              text-3xl
+              sm:text-4xl
               md:text-[72px]
               font-black
               text-center
               drop-shadow-2xl
+              px-2
+              leading-tight
             "
           >
             Become A Member
@@ -167,14 +171,22 @@ const Member = () => {
             className="
               absolute
               -bottom-8
+              max-w-[calc(100%-1.5rem)]
               bg-white
               rounded-full
               shadow-[0_20px_50px_rgba(0,0,0,0.12)]
-              px-8
-              py-4
+              px-4
+              sm:px-8
+              py-2.5
+              sm:py-4
               flex
               items-center
-              gap-4
+              gap-2
+              sm:gap-4
+              text-xs
+              sm:text-base
+              flex-wrap
+              justify-center
             "
           >
 
@@ -238,7 +250,8 @@ const Member = () => {
             <h2
               className="
                 mt-7
-                text-[40px]
+                text-3xl
+                sm:text-4xl
                 md:text-[65px]
                 font-black
                 text-[#ff3300]
@@ -474,7 +487,8 @@ const Member = () => {
                 <h2
                   className="
                     mt-6
-                    text-[36px]
+                    text-2xl
+                    sm:text-4xl
                     md:text-[55px]
                     font-black
                     text-[#ff3300]

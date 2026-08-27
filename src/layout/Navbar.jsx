@@ -60,9 +60,9 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Lock body scroll when contact modal is open
+  // Lock body scroll when contact modal or mobile menu is open
   useEffect(() => {
-    if (contactOpen) {
+    if (contactOpen || open) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
@@ -70,7 +70,7 @@ export default function Navbar() {
     return () => {
       document.body.style.overflow = "";
     };
-  }, [contactOpen]);
+  }, [contactOpen, open]);
 
   useEffect(() => {
     let cancelled = false;
@@ -441,32 +441,32 @@ export default function Navbar() {
 
   return (
     <header 
-      className={`sticky top-0 z-[999] transition-all duration-300 ${
+      className={`sticky top-0 z-[999] transition-all duration-300 pt-[env(safe-area-inset-top)] ${
         scrolled 
           ? "bg-white/95 backdrop-blur-xl shadow-lg border-b border-gray-100" 
           : "bg-gradient-to-r from-orange-50 via-white to-red-50 border-b border-orange-100/50"
       }`}
     >
 
-      <div className="max-w-[1600px] mx-auto px-4 md:px-6 lg:px-8">
+      <div className="max-w-[1600px] mx-auto px-2.5 sm:px-4 md:px-6 lg:px-8">
 
-        <div className="h-[88px] flex items-center justify-between">
+        <div className="h-16 sm:h-[76px] xl:h-[88px] flex items-center justify-between gap-2 min-w-0">
 
           {/* LOGO */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="relative">
+          <Link to="/" className="flex items-center gap-2 sm:gap-3 group min-w-0 shrink">
+            <div className="relative shrink-0">
               <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-orange-500 rounded-full blur-lg opacity-30 group-hover:opacity-50 transition-opacity"></div>
               <img
                 src="/logo.png"
                 alt="logo"
-                className="relative w-20 h-20 md:w-24 md:h-24 object-contain drop-shadow-lg"
+                className="relative w-11 h-11 sm:w-16 sm:h-16 md:w-20 md:h-20 xl:w-24 xl:h-24 object-contain drop-shadow-lg"
               />
             </div>
-            <div className="hidden sm:block">
-              <h1 className="text-lg md:text-xl font-black bg-gradient-to-r from-red-600 via-orange-600 to-pink-600 bg-clip-text text-transparent leading-tight">
+            <div className="hidden min-[420px]:block min-w-0">
+              <h1 className="text-sm sm:text-lg md:text-xl font-black bg-gradient-to-r from-red-600 via-orange-600 to-pink-600 bg-clip-text text-transparent leading-tight truncate">
                 Shree Chitragupt
               </h1>
-              <p className="text-xs md:text-sm font-semibold text-gray-600 tracking-wider mt-0.5">PEETH</p>
+              <p className="text-[10px] sm:text-xs md:text-sm font-semibold text-gray-600 tracking-wider mt-0.5">PEETH</p>
             </div>
           </Link>
 
@@ -734,20 +734,20 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* MOBILE: Phone + WhatsApp + Donate + Menu */}
-          <div className="flex lg:hidden items-center gap-2">
+          {/* MOBILE / TABLET: Phone + WhatsApp + Donate + Menu */}
+          <div className="flex xl:hidden items-center gap-1 sm:gap-2 shrink-0">
 
             <a
               href="tel:+917065013874"
               aria-label="Call +91 70650 13874"
               title="कॉल करें: +91-7065013874"
-              className="inline-block"
+              className="lg:hidden inline-flex"
             >
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 className="
-                  w-10 h-10
+                  w-9 h-9 sm:w-10 sm:h-10
                   rounded-xl
                   bg-gradient-to-br from-red-500 to-orange-500
                   text-white
@@ -756,7 +756,7 @@ export default function Navbar() {
                   shadow-red-200
                 "
               >
-                <PhoneCall size={16} />
+                <PhoneCall size={15} />
               </motion.button>
             </a>
 
@@ -766,13 +766,13 @@ export default function Navbar() {
               rel="noopener noreferrer"
               aria-label="WhatsApp +91 70650 13874"
               title="WhatsApp करें: +91-7065013874"
-              className="inline-block"
+              className="lg:hidden inline-flex"
             >
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 className="
-                  w-10 h-10
+                  w-9 h-9 sm:w-10 sm:h-10
                   rounded-xl
                   bg-gradient-to-br from-green-500 via-emerald-500 to-green-600
                   text-white
@@ -781,31 +781,31 @@ export default function Navbar() {
                   shadow-green-200
                 "
               >
-                <MessageCircleMore size={16} />
+                <MessageCircleMore size={15} />
               </motion.button>
             </a>
 
-            <Link to="/donate">
+            <Link to="/donate" className="lg:hidden">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="
-                  h-10
-                  px-4
+                  h-9 sm:h-10
+                  px-2.5 sm:px-4
                   rounded-xl
                   bg-gradient-to-r from-red-600 via-orange-500 to-pink-500
                   text-white
-                  text-xs
+                  text-[11px] sm:text-xs
                   font-black
                   flex items-center justify-center
-                  gap-1.5
+                  gap-1 sm:gap-1.5
                   shadow-lg
                   shadow-red-200
                   whitespace-nowrap
                 "
               >
-                <Heart size={14} className="fill-current shrink-0" />
-                DONATE
+                <Heart size={13} className="fill-current shrink-0" />
+                <span className="hidden min-[380px]:inline">DONATE</span>
               </motion.button>
             </Link>
 
@@ -813,8 +813,9 @@ export default function Navbar() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setOpen(!open)}
+              aria-label={open ? "Close menu" : "Open menu"}
               className="
-                w-10 h-10
+                w-9 h-9 sm:w-10 sm:h-10
                 rounded-xl
                 bg-gradient-to-r from-red-500 to-orange-500
                 text-white
@@ -823,7 +824,7 @@ export default function Navbar() {
                 shadow-red-200
               "
             >
-              {open ? <X size={20} /> : <Menu size={20} />}
+              {open ? <X size={18} /> : <Menu size={18} />}
             </motion.button>
           </div>
         </div>
@@ -836,7 +837,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden border-t border-orange-100 bg-white/98 backdrop-blur-xl shadow-2xl max-h-[calc(100vh-88px)] overflow-y-auto"
+            className="xl:hidden border-t border-orange-100 bg-white/98 backdrop-blur-xl shadow-2xl max-h-[calc(100dvh-4rem-env(safe-area-inset-top))] sm:max-h-[calc(100dvh-76px-env(safe-area-inset-top))] overflow-y-auto overscroll-contain"
           >
             <div className="p-5 space-y-3">
 

@@ -504,7 +504,8 @@ const AboutPeeth = () => {
 
               <h2
                 className="
-                  text-[28px]
+                  text-2xl
+                  sm:text-[28px]
                   md:text-[40px]
                   font-bold
                   leading-tight
@@ -626,7 +627,9 @@ const AboutPeeth = () => {
                   alt="Temple"
                   className="
                     w-full
-                    h-[500px]
+                    h-[240px]
+                    sm:h-[360px]
+                    md:h-[500px]
                     object-cover
                   "
                 />
@@ -638,10 +641,14 @@ const AboutPeeth = () => {
               <div
                 className="
                   absolute
-                  -bottom-5
-                  -left-5
-                  w-[90px]
-                  h-[90px]
+                  -bottom-3
+                  left-3
+                  sm:-bottom-5
+                  sm:-left-5
+                  w-[72px]
+                  h-[72px]
+                  sm:w-[90px]
+                  sm:h-[90px]
                   rounded-full
                   bg-white
                   shadow-lg

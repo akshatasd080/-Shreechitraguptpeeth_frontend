@@ -42,7 +42,7 @@ const AboutChitragupt = () => {
             भगवान श्री चित्रगुप्त जी
           </h1>
 
-          <div className="absolute -bottom-6 flex items-center gap-3 rounded-full border border-orange-100 bg-white px-6 py-3 shadow-xl">
+          <div className="absolute -bottom-6 max-w-[calc(100%-1.5rem)] flex items-center gap-2 sm:gap-3 rounded-full border border-orange-100 bg-white px-4 sm:px-6 py-2.5 sm:py-3 shadow-xl text-xs sm:text-sm flex-wrap justify-center">
             <Link
               to="/"
               className="flex items-center gap-2 text-[13px] font-semibold text-gray-700 transition-all hover:text-red-500"

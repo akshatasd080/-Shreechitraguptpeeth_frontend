@@ -123,11 +123,14 @@ const SpiritualContentPage = () => {
 
           <h1
             className="
-              text-3xl
+              text-2xl
+              sm:text-3xl
               md:text-5xl
               font-bold
               text-white
               text-center
+              px-2
+              leading-tight
             "
           >
             {content.title}
@@ -137,15 +140,22 @@ const SpiritualContentPage = () => {
             className="
               absolute
               -bottom-5
+              max-w-[calc(100%-1.5rem)]
               bg-white
               rounded-full
               shadow-lg
-              px-5
+              px-4
+              sm:px-5
               py-2.5
               flex
               items-center
-              gap-3
+              gap-2
+              sm:gap-3
               border
+              text-xs
+              sm:text-[13px]
+              flex-wrap
+              justify-center
             "
           >
             <Link

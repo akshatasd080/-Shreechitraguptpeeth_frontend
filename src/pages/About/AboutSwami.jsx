@@ -620,7 +620,9 @@ const AboutSwami = () => {
                   alt="Swami Ji"
                   className="
                     w-full
-                    h-[480px]
+                    h-[260px]
+                    sm:h-[360px]
+                    md:h-[480px]
                     object-cover
                     transition-transform
                     duration-700

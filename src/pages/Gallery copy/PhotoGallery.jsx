@@ -55,7 +55,8 @@ const PhotoGallery = () => {
         className="
           relative
           w-full
-          h-[300px]
+          h-[220px]
+          sm:h-[300px]
           md:h-[400px]
           bg-cover
           bg-center
@@ -104,11 +105,14 @@ const PhotoGallery = () => {
           {/* TITLE */}
           <h1
             className="
-              text-[42px]
+              text-3xl
+              sm:text-4xl
               md:text-[72px]
               font-black
               text-center
               drop-shadow-2xl
+              px-2
+              leading-tight
             "
           >
             Photo Gallery
@@ -119,14 +123,22 @@ const PhotoGallery = () => {
             className="
               absolute
               -bottom-8
+              max-w-[calc(100%-1.5rem)]
               bg-white
               rounded-full
               shadow-[0_20px_50px_rgba(0,0,0,0.12)]
-              px-8
-              py-4
+              px-4
+              sm:px-8
+              py-2.5
+              sm:py-4
               flex
               items-center
-              gap-4
+              gap-2
+              sm:gap-4
+              text-xs
+              sm:text-base
+              flex-wrap
+              justify-center
             "
           >
 
@@ -184,10 +196,13 @@ const PhotoGallery = () => {
           <h2
             className="
               mt-6
-              text-[38px]
+              text-3xl
+              sm:text-4xl
               md:text-[62px]
               font-black
               text-[#ff3300]
+              leading-tight
+              px-2
             "
           >
             Photo Gallery
@@ -272,7 +287,9 @@ const PhotoGallery = () => {
                   alt={image.title}
                   className="
                     w-full
-                    h-[340px]
+                    h-52
+                    sm:h-[280px]
+                    md:h-[340px]
                     object-cover
                     group-hover:scale-110
                     transition-all

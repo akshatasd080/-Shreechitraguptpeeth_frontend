@@ -88,7 +88,7 @@ export default function NewsImages() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50">
       {/* Hero Header */}
-      <div className="relative bg-gradient-to-r from-red-600 via-orange-500 to-pink-600 py-16 px-4 overflow-hidden">
+      <div className="relative bg-gradient-to-r from-red-600 via-orange-500 to-pink-600 py-10 sm:py-16 px-4 overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-0 left-0 w-72 h-72 bg-white/10 rounded-full -translate-x-1/2 -translate-y-1/2" />
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/5 rounded-full translate-x-1/3 translate-y-1/3" />
@@ -107,7 +107,7 @@ export default function NewsImages() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl font-black text-white mb-3 drop-shadow-lg"
+            className="text-2xl sm:text-4xl md:text-5xl font-black text-white mb-3 drop-shadow-lg"
           >
             News Images
           </motion.h1>

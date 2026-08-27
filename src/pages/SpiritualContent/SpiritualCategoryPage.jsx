@@ -78,11 +78,11 @@ const SpiritualCategoryPage = () => {
           <span className="text-white/80 text-sm font-semibold uppercase tracking-widest mb-2">
             {meta.emoji} {meta.label}
           </span>
-          <h1 className="text-3xl md:text-5xl font-black text-white capitalize">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl font-black text-white capitalize px-2 leading-tight">
             {categoryName}
           </h1>
 
-          <div className="absolute -bottom-5 bg-white rounded-full shadow-lg px-5 py-2.5 flex items-center gap-3 border">
+          <div className="absolute -bottom-5 max-w-[calc(100%-1.5rem)] bg-white rounded-full shadow-lg px-4 sm:px-5 py-2.5 flex items-center gap-2 sm:gap-3 border text-xs sm:text-sm flex-wrap justify-center">
             <Link
               to="/"
               className="flex items-center gap-2 text-gray-600 text-[13px] font-medium hover:text-red-500 transition-all"

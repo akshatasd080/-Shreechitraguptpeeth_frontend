@@ -204,7 +204,8 @@ const Volunteers = () => {
               <h2
                 className="
                   mt-4
-                  text-[28px]
+                  text-2xl
+                  sm:text-[28px]
                   md:text-[40px]
                   font-bold
                   text-[#ff3300]

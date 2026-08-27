@@ -67,11 +67,15 @@ const Establishment = () => {
           {/* TITLE */}
           <h1
             className="
-              text-3xl
+              text-2xl
+              sm:text-3xl
               md:text-4xl
               lg:text-5xl
               font-black
               drop-shadow-lg
+              text-center
+              px-2
+              leading-tight
             "
           >
             श्री चित्रगुप्त पीठ की स्थापना
@@ -82,15 +86,23 @@ const Establishment = () => {
             className="
               absolute
               -bottom-6
+              max-w-[calc(100%-1.5rem)]
               bg-white
               rounded-full
               shadow-xl
-              px-6
-              py-3
+              px-4
+              sm:px-6
+              py-2.5
+              sm:py-3
               flex
               items-center
-              gap-3
+              gap-2
+              sm:gap-3
               border border-orange-100
+              text-xs
+              sm:text-[13px]
+              flex-wrap
+              justify-center
             "
           >
             <Link

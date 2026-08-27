@@ -326,7 +326,7 @@ export default function DonationPage() {
           <h1 className="text-3xl md:text-5xl font-black text-white drop-shadow-lg">
             Donate Now
           </h1>
-          <div className="absolute -bottom-5 bg-white rounded-full shadow-lg px-6 py-2.5 flex items-center gap-3 border">
+          <div className="absolute -bottom-5 max-w-[calc(100%-1.5rem)] bg-white rounded-full shadow-lg px-4 sm:px-6 py-2.5 flex items-center gap-2 sm:gap-3 border text-sm flex-wrap justify-center">
             <Link
               to="/"
               className="flex items-center gap-2 text-gray-600 text-sm font-medium hover:text-red-500"

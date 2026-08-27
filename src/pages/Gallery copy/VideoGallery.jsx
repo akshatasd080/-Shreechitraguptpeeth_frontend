@@ -66,7 +66,8 @@ const VideoGallery = () => {
         className="
           relative
           w-full
-          h-[300px]
+          h-[220px]
+          sm:h-[300px]
           md:h-[400px]
           bg-cover
           bg-center
@@ -115,11 +116,14 @@ const VideoGallery = () => {
           {/* TITLE */}
           <h1
             className="
-              text-[42px]
+              text-3xl
+              sm:text-4xl
               md:text-[72px]
               font-black
               text-center
               drop-shadow-2xl
+              px-2
+              leading-tight
             "
           >
             Video Gallery
@@ -130,14 +134,22 @@ const VideoGallery = () => {
             className="
               absolute
               -bottom-8
+              max-w-[calc(100%-1.5rem)]
               bg-white
               rounded-full
               shadow-[0_20px_50px_rgba(0,0,0,0.12)]
-              px-8
-              py-4
+              px-4
+              sm:px-8
+              py-2.5
+              sm:py-4
               flex
               items-center
-              gap-4
+              gap-2
+              sm:gap-4
+              text-xs
+              sm:text-base
+              flex-wrap
+              justify-center
             "
           >
 
@@ -195,10 +207,13 @@ const VideoGallery = () => {
           <h2
             className="
               mt-6
-              text-[38px]
+              text-3xl
+              sm:text-4xl
               md:text-[62px]
               font-black
               text-[#ff3300]
+              leading-tight
+              px-2
             "
           >
             Divine Video Collection
@@ -267,7 +282,8 @@ const VideoGallery = () => {
                 <iframe
                   className="
                     w-full
-                    h-[260px]
+                    aspect-video
+                    h-auto
                   "
                   src={video.url}
                   title={video.title}

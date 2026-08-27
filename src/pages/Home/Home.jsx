@@ -628,10 +628,10 @@ export default function Home() {
   };
 
   return (
-    <>
+    <div className="w-full max-w-full overflow-x-hidden">
       {/* ================= HERO SECTION ================= */}
       <section className="relative overflow-hidden">
-        <div className="relative min-h-[90vh] md:min-h-[100vh] w-full">
+        <div className="relative min-h-[70vh] sm:min-h-[85vh] md:min-h-[100dvh] w-full">
           {/* SLIDES */}
           {slides.map((slide, index) => (
             <div
@@ -665,10 +665,12 @@ export default function Home() {
                   max-w-[1500px]
                   mx-auto
                   px-4 sm:px-6 lg:px-12
-                  flex items-center
+                  flex items-end sm:items-center
+                  pb-28 sm:pb-24 md:pb-20
+                  pt-8
                 "
               >
-                <div className="max-w-4xl w-full">
+                <div className="max-w-4xl w-full min-w-0">
                   {/* TOP TEXT */}
                   <div className="flex items-center gap-2 mb-3 sm:mb-4">
                     <div className="w-6 h-[1.5px] bg-red-500" />
@@ -706,6 +708,7 @@ export default function Home() {
                       text-white/90
                       leading-relaxed
                       max-w-3xl
+                      line-clamp-5 sm:line-clamp-none
                     "
                   >
                     {slide.subtitle}
@@ -774,7 +777,7 @@ export default function Home() {
                 </div>
               </div>
               {/* SLIDE INDICATORS */}
-              <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 flex gap-2">
+              <div className="absolute bottom-4 sm:bottom-10 left-1/2 -translate-x-1/2 z-30 flex gap-2">
                 {slides.map((_, idx) => (
                   <button
                     key={idx}
@@ -792,9 +795,9 @@ export default function Home() {
           <button
             onClick={prevSlide}
             className="
-              absolute left-4 sm:left-5 bottom-10 sm:bottom-16
+              absolute left-2 sm:left-5 bottom-16 sm:bottom-16
               z-30
-              w-12 sm:w-16 h-12 sm:h-16
+              w-10 h-10 sm:w-16 sm:h-16
               rounded-full
               bg-red-500/90
               hover:bg-red-500
@@ -812,9 +815,9 @@ export default function Home() {
           <button
             onClick={nextSlide}
             className="
-              absolute right-4 sm:right-5 bottom-10 sm:bottom-16
+              absolute right-2 sm:right-5 bottom-16 sm:bottom-16
               z-30
-              w-12 sm:w-16 h-12 sm:h-16
+              w-10 h-10 sm:w-16 sm:h-16
               rounded-full
               bg-red-500/90
               hover:bg-red-500
@@ -831,12 +834,12 @@ export default function Home() {
       </section>
 
       {/* ================= ABOUT SECTION ================= */}
-      <section className="relative h-screen bg-[#fafafa] overflow-hidden flex items-center">
+      <section className="relative py-12 sm:py-16 lg:py-24 bg-[#fafafa] overflow-x-hidden">
 
   {/* Background Pattern */}
   <div className="absolute inset-0 bg-[url('/pattern.png')] bg-cover bg-center opacity-[0.03]" />
 
-  <div className="relative z-10 max-w-[1500px] mx-auto w-full px-6 lg:px-10">
+  <div className="relative z-10 max-w-[1500px] mx-auto w-full px-4 sm:px-6 lg:px-10">
 
     <div className="grid lg:grid-cols-2 gap-12 xl:gap-16 items-center">
 
@@ -846,7 +849,7 @@ export default function Home() {
 
         {/* Small Top Image */}
 
-        <div className="absolute top-2 left-0 lg:left-4 w-36 h-44 rounded-2xl overflow-hidden border-4 border-white shadow-xl z-20">
+        <div className="absolute top-2 left-0 lg:left-4 w-24 h-28 sm:w-36 sm:h-44 rounded-2xl overflow-hidden border-4 border-white shadow-xl z-20 hidden sm:block">
 
           <img
             src="/About/about4.jpg"
@@ -858,7 +861,7 @@ export default function Home() {
 
         {/* Main Image */}
 
-        <div className="relative mt-10 w-full max-w-[470px] h-[540px] rounded-[28px] overflow-hidden shadow-2xl border-[6px] border-white">
+        <div className="relative mt-6 sm:mt-10 w-full max-w-[470px] h-[280px] sm:h-[380px] md:h-[460px] lg:h-[540px] rounded-[20px] sm:rounded-[28px] overflow-hidden shadow-2xl border-[4px] sm:border-[6px] border-white">
 
           <img
             src="/About/about6.jpg"
@@ -868,7 +871,7 @@ export default function Home() {
 
           {/* Floating Image */}
 
-          <div className="absolute bottom-5 right-5 w-32 h-40 rounded-2xl overflow-hidden border-4 border-white shadow-xl">
+          <div className="absolute bottom-4 right-4 sm:bottom-5 sm:right-5 w-24 h-28 sm:w-32 sm:h-40 rounded-2xl overflow-hidden border-4 border-white shadow-xl">
 
             <img
               src="/About/about5.jpg"
@@ -898,13 +901,13 @@ export default function Home() {
 
         </div>
 
-        <h2 className="text-4xl xl:text-5xl font-black text-red-600 leading-tight">
+        <h2 className="text-2xl sm:text-4xl xl:text-5xl font-black text-red-600 leading-tight">
 
           श्री चित्रगुप्त पीठ की स्थापना
 
         </h2>
 
-        <p className="mt-5 text-gray-600 text-[17px] leading-8">
+        <p className="mt-5 text-gray-600 text-[15px] sm:text-[17px] leading-7 sm:leading-8">
 
           समस्त प्राणियों को उनके कर्मों के आधार पर फल देने वाले देवता
           ब्रह्मा लेखनी दाता भगवान श्री चित्रगुप्त की महिमा धार्मिक
@@ -915,7 +918,7 @@ export default function Home() {
 
         {/* Features */}
 
-        <div className="grid grid-cols-2 gap-x-8 gap-y-4 mt-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 mt-8">
 
           {features.map((item, index) => (
 
@@ -950,6 +953,7 @@ export default function Home() {
             mt-8
             px-8
             h-14
+            w-fit
             rounded-full
             bg-gradient-to-r
             from-red-500
@@ -958,7 +962,7 @@ export default function Home() {
             hover:to-red-700
             text-white
             font-semibold
-            flex
+            inline-flex
             items-center
             gap-3
             transition-all
@@ -1142,7 +1146,7 @@ export default function Home() {
         </section>
       )}
 
-<section className="relative min-h-screen bg-[#fafafa] py-16 lg:py-20 overflow-hidden">
+<section className="relative bg-[#fafafa] py-12 sm:py-16 lg:py-20 overflow-x-hidden">
 
   {/* Background */}
   <div
@@ -1171,11 +1175,11 @@ export default function Home() {
         <span className="text-red-500 text-2xl">ॐ</span>
       </div>
 
-      <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-gray-900">
+      <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 px-2">
         Book Your Sacred Pooja
       </h2>
 
-      <p className="mt-5 max-w-3xl mx-auto text-gray-600 text-lg leading-8">
+      <p className="mt-5 max-w-3xl mx-auto text-gray-600 text-base sm:text-lg leading-7 sm:leading-8 px-1">
         Participate in divine poojas and spiritual rituals online with
         blessings from our temple priests.
       </p>
@@ -1211,7 +1215,7 @@ export default function Home() {
             className="
               snap-start
               shrink-0
-              w-[85%]
+              w-[88%]
               sm:w-[calc(50%-10px)]
               xl:w-[calc(25%-15px)]
               bg-white
@@ -1333,7 +1337,7 @@ export default function Home() {
 
     
 
-     <section className="relative min-h-screen bg-[#fafafa] py-16 lg:py-20 overflow-hidden">
+     <section className="relative bg-[#fafafa] py-12 sm:py-16 lg:py-20 overflow-x-hidden">
 
   {/* Background */}
 
@@ -1357,7 +1361,7 @@ export default function Home() {
 
       </div>
 
-      <h2 className="text-4xl lg:text-5xl font-black text-gray-900">
+      <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-gray-900 px-2">
         Support Temple Projects
       </h2>
 
@@ -1700,7 +1704,7 @@ export default function Home() {
 
         </div>
 
-        <h2 className="text-4xl xl:text-5xl font-black text-gray-900 leading-tight">
+        <h2 className="text-2xl sm:text-4xl xl:text-5xl font-black text-gray-900 leading-tight">
 
           Our Volunteers Achievements
 
@@ -1731,7 +1735,7 @@ export default function Home() {
 
         </div>
 
-        <button className="mt-8 h-12 px-8 rounded-full bg-red-500 hover:bg-red-600 text-white font-semibold transition-all">
+        <button className="mt-8 h-12 px-8 rounded-full bg-red-500 hover:bg-red-600 text-white font-semibold transition-all w-full sm:w-auto">
 
           View All Volunteers
 
@@ -1855,8 +1859,8 @@ export default function Home() {
 
 
 
-      <section className="min-h-screen bg-[#f8f8f8] overflow-hidden flex items-center">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10 w-full">
+      <section className="bg-[#f8f8f8] overflow-x-hidden py-12 sm:py-16 lg:py-20">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 w-full">
           {/* TOP HEADING */}
 
           <div className="text-center mb-16">
@@ -1879,7 +1883,8 @@ export default function Home() {
 
             <h2
               className="
-              text-4xl
+              text-2xl
+              sm:text-4xl
               md:text-5xl
               font-black
               text-red-500
@@ -1913,7 +1918,8 @@ export default function Home() {
                     title={video.title}
                     className="
                     w-full
-                    h-[260px]
+                    aspect-video
+                    h-auto
                   "
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
@@ -1955,7 +1961,8 @@ export default function Home() {
                 <div className="p-6">
                   <h3
                     className="
-                    text-2xl
+                    text-lg
+                    sm:text-2xl
                     font-black
                     text-red-500
                   "
@@ -1967,8 +1974,9 @@ export default function Home() {
                     className="
                     mt-4
                     text-gray-700
-                    leading-[2]
-                    text-lg
+                    leading-relaxed
+                    text-sm
+                    sm:text-lg
                     line-clamp-4
                   "
                   >
@@ -1982,7 +1990,7 @@ export default function Home() {
         </div>
       </section>
 
-     <section className="relative min-h-screen bg-[#fafafa] flex items-center py-10 overflow-hidden">
+     <section className="relative bg-[#fafafa] py-12 sm:py-16 lg:py-20 overflow-x-hidden">
 
   {/* Background */}
   <div className="absolute inset-0 bg-[url('/pattern.png')] bg-cover bg-center opacity-[0.03]" />
@@ -2005,7 +2013,7 @@ export default function Home() {
 
       </div>
 
-      <h2 className="text-3xl md:text-4xl xl:text-5xl font-black text-gray-900">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl xl:text-5xl font-black text-gray-900">
         Temple Memories
       </h2>
 
@@ -2048,7 +2056,9 @@ export default function Home() {
               alt={item.title}
               className="
                 w-full
-                h-[320px]
+                h-48
+                sm:h-[260px]
+                md:h-[320px]
                 object-cover
                 group-hover:scale-105
                 transition-transform
@@ -2157,7 +2167,7 @@ export default function Home() {
 
 
 
- <section className="relative py-28 overflow-hidden">
+ <section className="relative py-12 sm:py-20 lg:py-28 overflow-x-hidden">
 
       {/* Rich background */}
       <div className="absolute inset-0 bg-[#fffaf7]" />
@@ -2167,7 +2177,7 @@ export default function Home() {
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ea580c' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         }}
       />
-      <div className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-gradient-to-b from-orange-200/50 via-amber-100/30 to-transparent rounded-full blur-3xl" />
+      <div className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-[min(900px,100%)] h-[300px] sm:h-[500px] bg-gradient-to-b from-orange-200/50 via-amber-100/30 to-transparent rounded-full blur-3xl" />
       <div className="pointer-events-none absolute bottom-0 right-0 w-96 h-96 bg-red-100/40 rounded-full blur-3xl" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
@@ -2179,7 +2189,7 @@ export default function Home() {
             Spiritual Resources
           </div>
 
-          <h2 className="mt-5 text-4xl sm:text-5xl font-black text-gray-900 tracking-tight">
+          <h2 className="mt-5 text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 tracking-tight px-1">
             Divine{" "}
             <span className="relative inline-block">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-red-500 to-amber-500">
@@ -2341,13 +2351,12 @@ export default function Home() {
 
       <section
         className="
-        min-h-screen
         relative
-        overflow-hidden
+        overflow-x-hidden
         bg-gradient-to-r
         from-[#5e1f1f]
         to-[#7c3434]
-        flex items-center
+        py-12 sm:py-16 lg:py-20
       "
       >
         {/* BACKGROUND OVERLAY */}
@@ -2363,7 +2372,7 @@ export default function Home() {
         "
         />
 
-        <div className="max-w-[1500px] mx-auto px-6 lg:px-10 relative z-10 w-full">
+        <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-10 relative z-10 w-full">
           <div className="grid lg:grid-cols-2 gap-10 items-center">
             {/* LEFT MAP */}
 
@@ -2372,10 +2381,11 @@ export default function Home() {
 
               <h2
                 className="
-                text-4xl
+                text-2xl
+                sm:text-4xl
                 font-black
                 text-red-500
-                mb-8
+                mb-6 sm:mb-8
               "
               >
                 Address on map
@@ -2393,12 +2403,10 @@ export default function Home() {
               >
                 <iframe
                   src="https://www.google.com/maps?q=Shree+Chitragupt+Peeth+(Brij+Shanti+Kunj+Ashram),+GGWF+2R6,+Junhaidi,+Uttar+Pradesh+281504&output=embed"
-                  width="100%"
-                  height="520"
                   allowFullScreen=""
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  className="w-full"
+                  className="w-full aspect-video min-h-[220px] sm:min-h-[320px] lg:min-h-[420px]"
                 />
               </div>
             </div>
@@ -2410,10 +2418,11 @@ export default function Home() {
 
               <h2
                 className="
-                text-4xl
+                text-2xl
+                sm:text-4xl
                 font-black
                 text-red-500
-                mb-8
+                mb-6 sm:mb-8
               "
               >
                 Temple Video
@@ -2431,18 +2440,17 @@ export default function Home() {
               "
               >
                 <iframe
-                  width="100%"
-                  height="520"
                   src="https://www.youtube.com/embed/bpy6LDwDhCc"
                   title="Temple Video"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
+                  className="w-full aspect-video min-h-[220px] sm:min-h-[320px] lg:min-h-[420px]"
                 />
               </div>
             </div>
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

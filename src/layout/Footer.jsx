@@ -77,23 +77,23 @@ export default function Footer() {
         <div className="absolute bottom-10 left-0 h-48 w-48 rounded-full bg-amber-200/30 blur-3xl" />
       </div>
 
-      <div className="relative mx-auto max-w-[1450px] px-6 pt-20 lg:px-10">
+      <div className="relative mx-auto max-w-[1450px] px-4 sm:px-6 pt-12 sm:pt-16 lg:pt-20 pb-[env(safe-area-inset-bottom)] lg:px-10">
         {/* Brand strip */}
-        <div className="mb-14 flex flex-col items-start justify-between gap-6 border-b border-red-200/60 pb-10 md:flex-row md:items-center">
-          <Link to="/" className="group flex items-center gap-4">
-            <div className="relative">
+        <div className="mb-10 sm:mb-14 flex flex-col items-stretch sm:items-start justify-between gap-5 sm:gap-6 border-b border-red-200/60 pb-8 sm:pb-10 md:flex-row md:items-center">
+          <Link to="/" className="group flex items-center gap-3 sm:gap-4 min-w-0">
+            <div className="relative shrink-0">
               <div className="absolute inset-0 rounded-full bg-gradient-to-r from-red-500 to-orange-500 opacity-30 blur-lg transition-opacity group-hover:opacity-50" />
               <img
                 src="/logo.png"
                 alt="Shree Chitragupt Peeth"
-                className="relative h-16 w-16 object-contain drop-shadow-md md:h-20 md:w-20"
+                className="relative h-14 w-14 object-contain drop-shadow-md md:h-20 md:w-20"
               />
             </div>
-            <div>
-              <h2 className="bg-gradient-to-r from-red-700 via-orange-600 to-red-600 bg-clip-text text-2xl font-black tracking-tight text-transparent md:text-3xl">
+            <div className="min-w-0">
+              <h2 className="bg-gradient-to-r from-red-700 via-orange-600 to-red-600 bg-clip-text text-xl sm:text-2xl font-black tracking-tight text-transparent md:text-3xl break-words">
                 Shree Chitragupt Peeth
               </h2>
-              <p className="mt-1 text-sm font-semibold text-stone-600">
+              <p className="mt-1 text-xs sm:text-sm font-semibold text-stone-600">
                 Brij Shanti Kunj · Spiritual wisdom & devotion
               </p>
             </div>
@@ -101,14 +101,14 @@ export default function Footer() {
 
           <Link
             to="/donate"
-            className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-red-600 via-orange-500 to-red-500 px-6 py-3.5 text-sm font-black text-white shadow-lg shadow-red-300/50 transition hover:brightness-110"
+            className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-red-600 via-orange-500 to-red-500 px-6 py-3.5 text-sm font-black text-white shadow-lg shadow-red-300/50 transition hover:brightness-110"
           >
             <Heart className="h-4 w-4 fill-current" />
             Donate Now
           </Link>
         </div>
 
-        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-10">
+        <div className="grid gap-8 sm:gap-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-10">
           {/* About + contact */}
           <div className="lg:col-span-1">
             <h3 className="mb-5 text-xl font-black tracking-tight text-red-600">

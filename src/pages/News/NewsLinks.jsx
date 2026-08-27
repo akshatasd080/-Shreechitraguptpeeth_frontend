@@ -133,7 +133,7 @@ export default function NewsLinks() {
             backgroundSize: "32px 32px",
           }}
         />
-        <div className="relative max-w-6xl mx-auto px-6 py-20 text-center">
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-20 text-center">
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
@@ -148,7 +148,7 @@ export default function NewsLinks() {
           <motion.h1
             initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-6xl font-black text-white mb-4"
+            className="text-3xl sm:text-5xl md:text-6xl font-black text-white mb-4"
           >
             News &amp; Updates
           </motion.h1>
@@ -169,7 +169,7 @@ export default function NewsLinks() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35 }}
-            className="flex items-center justify-center gap-6 mt-10"
+            className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 mt-8 sm:mt-10"
           >
             {[
               { label: "Videos", value: String(videoCount), icon: <Play className="w-4 h-4" /> },

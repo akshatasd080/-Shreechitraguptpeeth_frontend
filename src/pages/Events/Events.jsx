@@ -76,10 +76,10 @@ const Events = () => {
       >
         <div className="absolute inset-0 bg-gradient-to-br from-red-900/80 to-orange-900/80" />
         <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-black text-white drop-shadow-lg">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-black text-white drop-shadow-lg px-2">
             Events & Programs
           </h1>
-          <div className="absolute -bottom-5 bg-white rounded-full shadow-lg px-6 py-2.5 flex items-center gap-3 border">
+          <div className="absolute -bottom-5 max-w-[calc(100%-1.5rem)] bg-white rounded-full shadow-lg px-4 sm:px-6 py-2.5 flex items-center gap-2 sm:gap-3 border text-xs sm:text-sm flex-wrap justify-center">
             <Link
               to="/"
               className="flex items-center gap-2 text-gray-600 text-[14px] font-medium hover:text-red-500 transition-all"
@@ -96,10 +96,10 @@ const Events = () => {
       </div>
 
       <div className="max-w-[1400px] mx-auto px-4 lg:px-6 pt-24 pb-20">
-        <div className="flex items-center justify-center gap-4 mb-16">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 mb-10 sm:mb-16 px-1">
           <button
             onClick={() => setActiveTab("upcoming")}
-            className={`px-8 py-3.5 rounded-full font-bold text-lg transition-all duration-300 ${
+            className={`px-5 sm:px-8 py-3 sm:py-3.5 rounded-full font-bold text-sm sm:text-lg transition-all duration-300 ${
               activeTab === "upcoming"
                 ? "bg-gradient-to-r from-red-600 to-orange-500 text-white shadow-xl hover:shadow-2xl"
                 : "bg-white text-gray-700 border-2 border-gray-200 hover:border-red-300 hover:text-red-500"
@@ -109,7 +109,7 @@ const Events = () => {
           </button>
           <button
             onClick={() => setActiveTab("past")}
-            className={`px-8 py-3.5 rounded-full font-bold text-lg transition-all duration-300 ${
+            className={`px-5 sm:px-8 py-3 sm:py-3.5 rounded-full font-bold text-sm sm:text-lg transition-all duration-300 ${
               activeTab === "past"
                 ? "bg-gradient-to-r from-red-600 to-orange-500 text-white shadow-xl hover:shadow-2xl"
                 : "bg-white text-gray-700 border-2 border-gray-200 hover:border-red-300 hover:text-red-500"
