@@ -1741,11 +1741,12 @@ export default function Home() {
 
         </div>
 
-        <button className="mt-8 h-12 px-8 rounded-full bg-red-500 hover:bg-red-600 text-white font-semibold transition-all w-full sm:w-auto">
-
+        <Link
+          to="/volunteers"
+          className="mt-8 h-12 px-8 rounded-full bg-red-500 hover:bg-red-600 text-white font-semibold transition-all w-full sm:w-auto inline-flex items-center justify-center"
+        >
           View All Volunteers
-
-        </button>
+        </Link>
 
       </div>
 
@@ -1894,7 +1895,13 @@ export default function Home() {
               text-red-500
             "
             >
-              Youtube [View All]
+              Youtube{" "}
+              <Link
+                to="/video-gallery"
+                className="hover:underline hover:text-red-600 transition-colors"
+              >
+                [View All]
+              </Link>
             </h2>
           </div>
 
