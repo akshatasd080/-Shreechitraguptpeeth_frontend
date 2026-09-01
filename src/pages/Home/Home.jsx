@@ -386,7 +386,13 @@ export default function Home() {
       image: "/volunteers/volunteer1.jpg",
       name: "जगद्गुरु श्री चित्रगुप्ताचार्य",
       role: "डॉ. स्वामी सच्चिदानन्द चित्रगुप्त पीठाधीश्वर",
-      desc: "श्री चित्रगुप्त पीठ, वृन्दावन  प्रधान संरक्षक भगवान श्री चित्रगुप्त मंत्र लेखन अभियान भारत",
+      desc: (
+        <>
+          श्री चित्रगुप्त पीठ, वृन्दावन
+          <br />
+          प्रधान संरक्षक भगवान श्री चित्रगुप्त मंत्र लेखन अभियान भारत
+        </>
+      ),
       mobile: "(MOB - +91-7065013871)",
     },
 
@@ -1826,9 +1832,7 @@ export default function Home() {
                 </p>
 
                 <p className="mt-3 text-gray-600 leading-7 text-[14px]">
-
                   {item.desc}
-
                 </p>
 
                 {item.mobile && (
