@@ -78,8 +78,8 @@ export default function AdminNewsVideo() {
   const handleVideoChange = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    if (file.size > 80 * 1024 * 1024) {
-      toast.error("Video must be less than 80MB");
+    if (file.size > 200 * 1024 * 1024) {
+      toast.error("Video must be 200MB or smaller");
       e.target.value = "";
       return;
     }
@@ -278,7 +278,7 @@ export default function AdminNewsVideo() {
                 onChange={handleVideoChange}
               />
               <p className="text-xs text-muted-foreground">
-                MP4 / WEBM / MOV — max 80MB
+                MP4 / WEBM / MOV — max 200MB
               </p>
               {videoPreview && (
                 <video

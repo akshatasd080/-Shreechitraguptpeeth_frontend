@@ -3,6 +3,11 @@ import { Home, Play } from "lucide-react";
 import { Link } from "react-router-dom";
 import api from "@/api/axios";
 
+const API_BASE_URL = (
+  import.meta.env.VITE_BASE_URL || "http://localhost:3011/api"
+).replace(/\/+$/, "");
+const VIDEO_BASE_URL = `${API_BASE_URL}/uploads/gallery-videos/`;
+
 const FALLBACK_VIDEOS = [
   {
     title: "श्री चित्रगुप्त पीठ वीडियो",
@@ -41,7 +46,11 @@ const VideoGallery = () => {
             apiVideos.map((video) => ({
               id: video.id,
               title: video.title || "श्री चित्रगुप्त पीठ वीडियो",
-              url: video.youtube_url,
+              sourceType: video.source_type || "link",
+              url:
+                video.source_type === "upload" && video.video_filename
+                  ? `${VIDEO_BASE_URL}${video.video_filename}`
+                  : video.youtube_url,
               description: video.description || "",
             }))
           );
@@ -279,52 +288,60 @@ const VideoGallery = () => {
               {/* VIDEO */}
               <div className="relative overflow-hidden">
 
-                <iframe
-                  className="
-                    w-full
-                    aspect-video
-                    h-auto
-                  "
-                  src={video.url}
-                  title={video.title}
-                  frameBorder="0"
-                  allowFullScreen
-                />
+                {video.sourceType === "upload" ? (
+                  <video
+                    className="w-full aspect-video h-auto bg-black"
+                    src={video.url}
+                    title={video.title}
+                    controls
+                    preload="metadata"
+                  />
+                ) : (
+                  <iframe
+                    className="
+                      w-full
+                      aspect-video
+                      h-auto
+                    "
+                    src={video.url}
+                    title={video.title}
+                    frameBorder="0"
+                    allowFullScreen
+                  />
+                )}
 
                 {/* PLAY BUTTON */}
-                <div
-                  className="
-                    absolute
-                    inset-0
-                    flex
-                    items-center
-                    justify-center
-                    pointer-events-none
-                  "
-                >
-
+                {video.sourceType !== "upload" && (
                   <div
                     className="
-                      w-20
-                      h-20
-                      rounded-full
-                      bg-[#ff3300]
-                      text-white
+                      absolute
+                      inset-0
                       flex
                       items-center
                       justify-center
-                      shadow-[0_20px_60px_rgba(255,80,0,0.4)]
-                      group-hover:scale-110
-                      transition-all
-                      duration-500
+                      pointer-events-none
                     "
                   >
-                    <Play
-                      size={34}
-                      fill="white"
-                    />
+                    <div
+                      className="
+                        w-20
+                        h-20
+                        rounded-full
+                        bg-[#ff3300]
+                        text-white
+                        flex
+                        items-center
+                        justify-center
+                        shadow-[0_20px_60px_rgba(255,80,0,0.4)]
+                        group-hover:scale-110
+                        transition-all
+                        duration-500
+                      "
+                    >
+                      <Play size={34} fill="white" />
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
 
               {/* CONTENT */}
@@ -355,10 +372,11 @@ const VideoGallery = () => {
 
                 {/* BUTTON */}
                 <a
-                  href={video.url.replace(
-                    "/embed/",
-                    "/watch?v="
-                  )}
+                  href={
+                    video.sourceType === "upload"
+                      ? video.url
+                      : video.url.replace("/embed/", "/watch?v=")
+                  }
                   target="_blank"
                   rel="noreferrer"
                   className="

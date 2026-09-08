@@ -58,6 +58,7 @@ import MemberDetails from "./pages/Member/MemberDetails";
 import GallreyImage from "./pages/Gallery/GallreyImage";
 import GalleryVideo from "./pages/Gallery/GalleryVideo";
 import Mantras from "./pages/Mantras/Mantras";
+import VolunteerAdmin from "./pages/Volunteers/VolunteerAdmin";
 
 
 
@@ -178,6 +179,15 @@ export default function App() {
             element={
               <RequirePermission permission="">
                 <Herosection/>
+              </RequirePermission>
+            }
+          />
+
+          <Route
+            path="dashboard/volunteer"
+            element={
+              <RequirePermission permission="">
+                <VolunteerAdmin />
               </RequirePermission>
             }
           />

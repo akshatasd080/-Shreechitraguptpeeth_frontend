@@ -1,8 +1,9 @@
-import React from "react";
-import { Home, Plus, MapPin, Phone } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { Home, Plus, MapPin, Phone, UserRound } from "lucide-react";
 import { Link } from "react-router-dom";
+import api from "@/api/axios";
 
-const volunteers = [
+const staticVolunteers = [
   {
     image: "/volunteers/volunteer1.jpg",
     name: "श्री श्री 1008 श्रीचित्रगुप्त पीठाधीश्वर",
@@ -50,7 +51,42 @@ const volunteers = [
   },
 ];
 
+const API_BASE_URL = (
+  import.meta.env.VITE_BASE_URL || "http://localhost:3011/api"
+).replace(/\/+$/, "");
+const IMAGE_BASE_URL = `${API_BASE_URL}/uploads/volunteers/`;
+
 const Volunteers = () => {
+  const [managedVolunteers, setManagedVolunteers] = useState([]);
+
+  useEffect(() => {
+    let mounted = true;
+
+    const fetchVolunteers = async () => {
+      try {
+        const response = await api.get("/volunteers?active=true");
+        if (mounted) setManagedVolunteers(response.data.volunteers || []);
+      } catch {
+        // Keep the original volunteer cards visible if the API is unavailable.
+      }
+    };
+
+    fetchVolunteers();
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  const backendVolunteers = managedVolunteers.map((volunteer) => ({
+      ...volunteer,
+      image: volunteer.image_filename
+        ? `${IMAGE_BASE_URL}${volunteer.image_filename}`
+        : null,
+    }));
+
+  const volunteers =
+    backendVolunteers.length > 0 ? backendVolunteers : staticVolunteers;
+
   return (
     <div className="w-full bg-[#f8f8f8] overflow-hidden">
 
@@ -288,18 +324,24 @@ const Volunteers = () => {
                       "
                     >
 
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="
-                          w-full
-                          h-full
-                          object-cover
-                          group-hover:scale-105
-                          transition-all
-                          duration-500
-                        "
-                      />
+                      {item.image ? (
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="
+                            w-full
+                            h-full
+                            object-cover
+                            group-hover:scale-105
+                            transition-all
+                            duration-500
+                          "
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center bg-red-50 text-[#ff3300]">
+                          <UserRound size={52} />
+                        </div>
+                      )}
 
                     </div>
                   </div>

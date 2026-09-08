@@ -133,6 +133,14 @@ export default function Sidebar() {
       hideForRoles: ["User", "user"],
     },
     {
+      key : "volunteer",
+      label : "Volunteer",
+      to : "/dashboard/volunteer",
+      icon : <LuUsers className="text-lg" />,
+      perms : [],
+      hideForRoles: ["User", "user"],
+    },
+    {
 key : "pooja",
 label : "Pooja",
 to : "/dashboard/pooja",

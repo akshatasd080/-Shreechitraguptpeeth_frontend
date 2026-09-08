@@ -29,6 +29,7 @@ const HERO_IMAGE_BASE = `${API_BASE_URL}/uploads/hero/`;
 const POOJA_IMAGE_BASE = `${API_BASE_URL}/uploads/pooja/`;
 const THOUGHT_IMAGE_BASE = `${API_BASE_URL}/uploads/thoughts/`;
 const SPIRITUAL_IMAGE_BASE = `${API_BASE_URL}/uploads/spiritual/`;
+const VIDEOS_PER_PAGE = 6;
 
 const TYPE_ORDER = ["mantra", "aarti", "chalisa", "sunRise", "moonRise"];
 
@@ -296,6 +297,17 @@ export default function Home() {
       url: "https://www.youtube.com/embed/01LAsYqmGEw",
     },
   ]);
+  const [videoPage, setVideoPage] = useState(1);
+
+  const totalVideoPages = Math.max(
+    1,
+    Math.ceil(videos.length / VIDEOS_PER_PAGE)
+  );
+  const videoPageStart = (videoPage - 1) * VIDEOS_PER_PAGE;
+  const paginatedVideos = videos.slice(
+    videoPageStart,
+    videoPageStart + VIDEOS_PER_PAGE
+  );
 
   const [poojas, setPoojas] = useState([
     {
@@ -504,13 +516,11 @@ export default function Home() {
     fetchPoojas();
   }, []);
 
-  // Load latest 6 active YouTube videos from backend
+  // Load all active YouTube videos; the gallery displays six per page.
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const res = await api.get(
-          "/youtube-videos?active=true&latest=true&limit=6"
-        );
+        const res = await api.get("/youtube-videos?active=true");
         const apiVideos = res.data?.videos || [];
         if (apiVideos.length > 0) {
           setVideos(
@@ -522,6 +532,7 @@ export default function Home() {
               url: v.youtube_url,
             }))
           );
+          setVideoPage(1);
         }
       } catch (_) {
         // Keep default videos if API is unavailable
@@ -1908,7 +1919,7 @@ export default function Home() {
           {/* VIDEO GRID */}
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {videos.map((video, index) => (
+            {paginatedVideos.map((video, index) => (
               <div
                 key={index}
                 className="
@@ -1997,6 +2008,64 @@ export default function Home() {
                 </div>
               </div>
             ))}
+          </div>
+
+          <div className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-5">
+            <p className="text-sm sm:text-base font-semibold text-gray-700">
+              Showing {videoPageStart + 1}–
+              {Math.min(videoPageStart + VIDEOS_PER_PAGE, videos.length)} of{" "}
+              {videos.length} videos
+            </p>
+
+            {totalVideoPages > 1 && (
+              <div className="flex items-center justify-center gap-2">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setVideoPage((page) => Math.max(1, page - 1))
+                  }
+                  disabled={videoPage === 1}
+                  aria-label="Previous video page"
+                  className="w-10 h-10 rounded-full border border-red-200 text-red-500 flex items-center justify-center hover:bg-red-500 hover:text-white transition disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-red-500"
+                >
+                  <ChevronLeft size={20} />
+                </button>
+
+                {Array.from({ length: totalVideoPages }, (_, index) => {
+                  const page = index + 1;
+                  return (
+                    <button
+                      type="button"
+                      key={page}
+                      onClick={() => setVideoPage(page)}
+                      aria-label={`Video page ${page}`}
+                      aria-current={videoPage === page ? "page" : undefined}
+                      className={`w-10 h-10 rounded-full border font-bold transition ${
+                        videoPage === page
+                          ? "bg-red-500 border-red-500 text-white"
+                          : "bg-white border-red-200 text-red-500 hover:bg-red-50"
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  );
+                })}
+
+                <button
+                  type="button"
+                  onClick={() =>
+                    setVideoPage((page) =>
+                      Math.min(totalVideoPages, page + 1)
+                    )
+                  }
+                  disabled={videoPage === totalVideoPages}
+                  aria-label="Next video page"
+                  className="w-10 h-10 rounded-full border border-red-200 text-red-500 flex items-center justify-center hover:bg-red-500 hover:text-white transition disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-red-500"
+                >
+                  <ChevronRight size={20} />
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </section>

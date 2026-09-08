@@ -33,23 +33,17 @@ function loadRazorpayScript() {
   });
 }
 
-function isValidUpiId(value) {
-  return /^[a-z0-9.\-_]{2,256}@[a-z]{2,64}$/i.test(String(value || "").trim());
-}
-
 export default function DonationPage() {
   const [selectedAmount, setSelectedAmount] = useState(501);
   const [isCustom, setIsCustom] = useState(false);
   const [customAmount, setCustomAmount] = useState("");
   const [loading, setLoading] = useState(false);
-  const [upiWaiting, setUpiWaiting] = useState(null);
-  const [paymentMode, setPaymentMode] = useState("upi"); // upi | all
+  const [paymentMode, setPaymentMode] = useState("upi"); // upi | card
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     mobile: "",
     message: "",
-    upi_id: "",
   });
 
   const activeAmount = isCustom
@@ -76,18 +70,11 @@ export default function DonationPage() {
       }));
       return;
     }
-    if (name === "upi_id") {
-      setFormData((prev) => ({
-        ...prev,
-        upi_id: value.replace(/\s/g, "").toLowerCase(),
-      }));
-      return;
-    }
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const resetForm = () => {
-    setFormData({ name: "", email: "", mobile: "", message: "", upi_id: "" });
+    setFormData({ name: "", email: "", mobile: "", message: "" });
     setSelectedAmount(501);
     setIsCustom(false);
     setCustomAmount("");
@@ -96,56 +83,45 @@ export default function DonationPage() {
 
   const openRazorpayCheckout = (orderPayload) =>
     new Promise((resolve, reject) => {
-      const preferUpi = orderPayload.preferred_method !== "all";
-      const upiId = orderPayload.prefill?.vpa || "";
+      const preferUpi = orderPayload.preferred_method === "upi";
+      const methodBlock = preferUpi
+        ? {
+            upi: {
+              name: "Pay with UPI Apps",
+              instruments: [{ method: "upi" }],
+            },
+          }
+        : {
+            card: {
+              name: "Pay with Credit or Debit Card",
+              instruments: [{ method: "card" }],
+            },
+          };
 
       const options = {
         key: orderPayload.key,
         amount: orderPayload.amount,
         currency: orderPayload.currency || "INR",
         name: "Shri Chitragupta Peeth",
-        description: "Temple Donation via UPI",
+        description: preferUpi
+          ? "Temple Donation via UPI"
+          : "Temple Donation via Card",
         order_id: orderPayload.order_id,
         prefill: {
           name: orderPayload.prefill?.name || "",
           email: orderPayload.prefill?.email || "",
           contact: orderPayload.prefill?.contact || "",
-          ...(preferUpi
-            ? {
-                method: "upi",
-                ...(upiId ? { vpa: upiId } : {}),
-              }
-            : {}),
         },
         theme: { color: "#dc2626" },
-        ...(preferUpi
-          ? {
-              // Open UPI ID (collect) flow directly
-              upi: {
-                flow: "collect",
-                ...(upiId ? { vpa: upiId } : {}),
-              },
-              config: {
-                display: {
-                  blocks: {
-                    upi: {
-                      name: "Pay with UPI ID",
-                      instruments: [
-                        {
-                          method: "upi",
-                          flows: ["collect", "intent"],
-                        },
-                      ],
-                    },
-                  },
-                  sequence: ["block.upi"],
-                  preferences: {
-                    show_default_blocks: true,
-                  },
-                },
-              },
-            }
-          : {}),
+        config: {
+          display: {
+            blocks: methodBlock,
+            sequence: [preferUpi ? "block.upi" : "block.card"],
+            preferences: {
+              show_default_blocks: false,
+            },
+          },
+        },
         handler: (response) => resolve(response),
         modal: {
           ondismiss: () => reject(new Error("Payment cancelled")),
@@ -165,53 +141,6 @@ export default function DonationPage() {
       rzp.open();
     });
 
-  const pollUpiPayment = (donationId, amountInr, upiId) =>
-    new Promise((resolve, reject) => {
-      let attempts = 0;
-      const maxAttempts = 100; // ~5 min at 3s interval
-
-      const poll = async () => {
-        attempts += 1;
-        try {
-          const { data } = await api.get(
-            `/donations/payment-status/${donationId}`
-          );
-
-          if (data.status === "captured" || data.donation?.status === "received") {
-            resolve(data);
-            return;
-          }
-
-          if (data.status === "failed") {
-            reject(new Error("UPI payment failed. Please try again."));
-            return;
-          }
-
-          if (attempts >= maxAttempts) {
-            reject(
-              new Error(
-                "Payment timed out. If you approved in UPI app, please wait or try again."
-              )
-            );
-            return;
-          }
-
-          setUpiWaiting((prev) =>
-            prev
-              ? { ...prev, attempts, status: data.status || "pending" }
-              : { donationId, amountInr, upiId, attempts, status: "pending" }
-          );
-
-          setTimeout(poll, 3000);
-        } catch (err) {
-          reject(err);
-        }
-      };
-
-      setUpiWaiting({ donationId, amountInr, upiId, attempts: 0, status: "pending" });
-      poll();
-    });
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -227,17 +156,6 @@ export default function DonationPage() {
       toast.error("Please enter a valid 10-digit mobile number");
       return;
     }
-    if (paymentMode === "upi") {
-      if (!formData.upi_id.trim()) {
-        toast.error("Please enter your UPI ID (e.g. name@okaxis)");
-        return;
-      }
-      if (!isValidUpiId(formData.upi_id)) {
-        toast.error("Enter a valid UPI ID (example: yourname@okaxis)");
-        return;
-      }
-    }
-
     setLoading(true);
     try {
       const { data: order } = await api.post("/donations/create-order", {
@@ -248,27 +166,7 @@ export default function DonationPage() {
         amount_type: isCustom ? "custom" : "preset",
         message: formData.message.trim() || null,
         preferred_method: paymentMode,
-        upi_id:
-          paymentMode === "upi" ? formData.upi_id.trim() : null,
       });
-
-      // UPI Collect: request sent directly to UPI app
-      if (order.flow === "upi_collect") {
-        toast.success(
-          `Payment request sent to ${order.upi_id}. Open your UPI app and approve ₹${Number(order.amount_inr).toLocaleString("en-IN")}.`
-        );
-
-        await pollUpiPayment(
-          order.donation_id,
-          order.amount_inr,
-          order.upi_id
-        );
-
-        setUpiWaiting(null);
-        toast.success("Payment successful! Thank you for your donation.");
-        resetForm();
-        return;
-      }
 
       const scriptOk = await loadRazorpayScript();
       if (!scriptOk) {
@@ -294,7 +192,6 @@ export default function DonationPage() {
       toast.success("Payment successful! Thank you for your donation.");
       resetForm();
     } catch (err) {
-      setUpiWaiting(null);
       toast.error(
         err?.response?.data?.message ||
           err?.message ||
@@ -353,8 +250,8 @@ export default function DonationPage() {
             Your Contribution Makes a Difference
           </h2>
           <p className="text-gray-600 max-w-xl mx-auto text-sm md:text-base leading-relaxed">
-            Support temple seva with UPI ID / UPI apps, or pay by card &
-            netbanking through Razorpay.
+            Support temple seva with UPI apps or pay securely by credit/debit
+            card through Razorpay.
           </p>
         </motion.div>
 
@@ -552,62 +449,39 @@ export default function DonationPage() {
                 />
                 <span>
                   <span className="block font-bold text-gray-900">
-                    UPI ID / UPI Apps
+                    UPI Apps
                   </span>
                   <span className="text-xs text-gray-500">
-                    GPay, PhonePe, Paytm, BHIM — enter UPI ID
+                    GPay, PhonePe, Paytm, BHIM and other UPI apps
                   </span>
                 </span>
               </button>
               <button
                 type="button"
-                onClick={() => setPaymentMode("all")}
+                onClick={() => setPaymentMode("card")}
                 className={`flex items-start gap-3 rounded-xl border-2 p-4 text-left transition ${
-                  paymentMode === "all"
+                  paymentMode === "card"
                     ? "border-orange-500 bg-orange-50"
                     : "border-gray-200 bg-gray-50 hover:border-orange-300"
                 }`}
               >
                 <CreditCard
                   className={
-                    paymentMode === "all" ? "text-orange-600" : "text-gray-500"
+                    paymentMode === "card" ? "text-orange-600" : "text-gray-500"
                   }
                   size={22}
                 />
                 <span>
                   <span className="block font-bold text-gray-900">
-                    Card / Netbanking
+                    Credit / Debit Card
                   </span>
                   <span className="text-xs text-gray-500">
-                    All Razorpay options including UPI
+                    Secure card payment through Razorpay
                   </span>
                 </span>
               </button>
             </div>
           </div>
-
-          {paymentMode === "upi" && (
-            <div className="relative">
-              <Smartphone
-                size={16}
-                className="absolute left-3.5 top-1/2 -translate-y-1/2 text-red-500"
-              />
-              <input
-                type="text"
-                name="upi_id"
-                required
-                value={formData.upi_id}
-                onChange={handleChange}
-                placeholder="Your UPI ID * e.g. name@okaxis"
-                className="w-full h-11 rounded-xl border border-gray-200 bg-gray-50 pl-10 pr-3 text-sm text-black placeholder:text-gray-400 outline-none focus:bg-white focus:border-red-400 focus:ring-2 focus:ring-red-100"
-              />
-              <p className="mt-1.5 text-xs text-gray-500">
-                Payment request will be sent to this UPI ID on GPay / PhonePe /
-                Paytm. Test Mode:{" "}
-                <span className="font-semibold text-gray-700">success@razorpay</span>
-              </p>
-            </div>
-          )}
 
           <div className="relative">
             <MessageSquare
@@ -638,53 +512,12 @@ export default function DonationPage() {
           </button>
 
           <p className="text-center text-xs text-gray-500">
-            UPI payment via Razorpay. Enable UPI in Dashboard → Account &amp;
-            Settings → Payment Methods (Live Mode).
+            Secure payment via Razorpay. Enable UPI and Cards in Razorpay
+            Dashboard → Account &amp; Settings → Payment Methods.
           </p>
         </motion.form>
       </div>
 
-      {/* UPI waiting — approve in UPI app */}
-      {upiWaiting && (
-        <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 text-center">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-red-50 flex items-center justify-center">
-              <Smartphone className="text-red-600 animate-pulse" size={32} />
-            </div>
-            <h3 className="text-lg font-bold text-gray-900 mb-2">
-              Approve payment in your UPI app
-            </h3>
-            <p className="text-sm text-gray-600 mb-1">
-              A request for{" "}
-              <span className="font-bold text-red-600">
-                ₹{Number(upiWaiting.amountInr).toLocaleString("en-IN")}
-              </span>{" "}
-              was sent to:
-            </p>
-            <p className="text-sm font-semibold text-gray-800 mb-4 break-all">
-              {upiWaiting.upiId}
-            </p>
-            <p className="text-xs text-gray-500 mb-4">
-              Open GPay, PhonePe, Paytm or your bank UPI app → check
-              notifications → approve the payment request.
-            </p>
-            <div className="flex items-center justify-center gap-2 text-xs text-gray-400">
-              <span className="inline-block w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-              Waiting for approval...
-            </div>
-            <button
-              type="button"
-              onClick={() => {
-                setUpiWaiting(null);
-                setLoading(false);
-              }}
-              className="mt-5 text-sm text-gray-500 hover:text-red-600 underline"
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
