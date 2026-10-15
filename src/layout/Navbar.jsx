@@ -139,6 +139,10 @@ export default function Navbar() {
           title: "Video Gallery",
           path: "/video-gallery",
         },
+        {
+          title: "Youtube Videos",
+          path: "/youtube-videos",
+        },
        
         
       ],

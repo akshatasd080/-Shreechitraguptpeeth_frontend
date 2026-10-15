@@ -35,6 +35,7 @@ const quickLinks = [
   { title: "Events", path: "/events" },
   { title: "Photo Gallery", path: "/photo-gallery" },
   { title: "Video Gallery", path: "/video-gallery" },
+  { title: "Youtube Videos", path: "/youtube-videos" },
   { title: "Media Gallery", path: "/media-gallery" },
   { title: "News", path: "/news-images" },
   { title: "Location Map", path: MAPS_URL, external: true },

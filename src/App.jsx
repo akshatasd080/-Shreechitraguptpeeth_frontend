@@ -38,6 +38,7 @@ import Volunteers from "./pages/About/Volunteers";
 import Mission from "./pages/About/Mission";
 import PhotoGallery from "./pages/Gallery copy/PhotoGallery";
 import VideoGallery from "./pages/Gallery copy/VideoGallery";
+import YoutubeGallery from "./pages/YouTubeVideo/YoutubeGallery";
 import Mediagallery from "./pages/Gallery copy/Mediagallery";
 import GalleryImageAdmin from "./pages/Gallery/GallreyImage";
 import Member from "./pages/Member/Member";
@@ -127,6 +128,7 @@ export default function App() {
           <Route path="/volunteers" element={<Volunteers/>} />
           <Route path="/photo-gallery" element={<PhotoGallery/>} />
           <Route path="/video-gallery" element={<VideoGallery/>}/>
+          <Route path="/youtube-videos" element={<YoutubeGallery />} />
           <Route path="/media-gallery" element={<Mediagallery/>}/>
           <Route path="/membership" element={<Member/>}/>
           <Route path="/events" element={<Events/>}/>

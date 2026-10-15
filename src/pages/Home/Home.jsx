@@ -1908,7 +1908,7 @@ export default function Home() {
             >
               Youtube{" "}
               <Link
-                to="/video-gallery"
+                to="/youtube-videos"
                 className="hover:underline hover:text-red-600 transition-colors"
               >
                 [View All]
