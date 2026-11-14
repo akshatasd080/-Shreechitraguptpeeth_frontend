@@ -23,7 +23,6 @@ import ApplyRequest from "./pages/ApplyRequest/ApplyRequest";
 import ReviewsPage from "./pages/Reviews/Reviews";
 import WhatsAppFloat from "./components/ui/WhatsAppFloat";
 import Privacy from "./pages/Policy/Privacy";
-import PrivacyPolicy from "./pages/Policy/PrivacyPolicy";
 import TermsService from "./pages/Policy/TermsService";
 import CookiePolicy from "./pages/Policy/CookiePolicy";
 
@@ -120,7 +119,6 @@ export default function App() {
           <Route index element={<HomePage />} />
           <Route path="product/:slug" element={<ProductDetails />} />
           <Route path="/Privacy" element={<Privacy  />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsService />} />
           <Route path="/cookies" element={<CookiePolicy />} />
           <Route path="/establishment" element={<Establishment />} />
